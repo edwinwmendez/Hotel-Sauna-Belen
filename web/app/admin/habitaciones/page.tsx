@@ -15,9 +15,11 @@ export default function HabitacionesPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Gestión de Habitaciones</h1>
           <p className="text-sm sm:text-base text-gray-600">Administra las habitaciones del hotel</p>
         </div>
-        <Button className="w-full sm:w-auto">
-          <Plus className="h-4 w-4 mr-2" />
-          Nueva Habitación
+        <Button asChild className="w-full sm:w-auto">
+          <Link href="/admin/habitaciones/nuevo">
+            <Plus className="h-4 w-4 mr-2" />
+            Nueva Habitación
+          </Link>
         </Button>
       </div>
 

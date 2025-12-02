@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Plus, Package } from 'lucide-react'
+import { Plus, Package, Edit } from 'lucide-react'
+import Link from 'next/link'
 
 // Mock de categorías
 const MOCK_CATEGORIES = [
@@ -25,9 +26,11 @@ export default function CategoriasPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Categorías de Inventario</h1>
           <p className="text-sm sm:text-base text-gray-600">Organiza tus productos por categorías</p>
         </div>
-        <Button className="w-full sm:w-auto">
-          <Plus className="h-4 w-4 mr-2" />
-          Nueva Categoría
+        <Button asChild className="w-full sm:w-auto">
+          <Link href="/admin/inventario/categorias/nuevo">
+            <Plus className="h-4 w-4 mr-2" />
+            Nueva Categoría
+          </Link>
         </Button>
       </div>
 
@@ -42,9 +45,15 @@ export default function CategoriasPage() {
             </CardHeader>
             <CardContent className="p-4 sm:p-6 pt-0">
               <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">{category.description}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 mb-3 sm:mb-4">
                 {category.productCount} {category.productCount === 1 ? 'producto' : 'productos'}
               </p>
+              <Button asChild variant="outline" className="w-full" size="sm">
+                <Link href={`/admin/inventario/categorias/${category.id}`}>
+                  <Edit className="h-4 w-4 mr-2" />
+                  Ver / Editar
+                </Link>
+              </Button>
             </CardContent>
           </Card>
         ))}
