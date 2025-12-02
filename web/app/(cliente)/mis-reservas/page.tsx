@@ -59,79 +59,79 @@ export default function MisReservasPage() {
   }
 
   return (
-    <div className="py-12">
-      <div className="container">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-navy mb-2">Mis Reservas</h1>
-          <p className="text-gray-600">Gestiona y revisa todas tus reservas</p>
+    <div className="py-6 sm:py-8 md:py-12">
+      <div className="container px-4">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Mis Reservas</h1>
+          <p className="text-sm sm:text-base text-gray-600">Gestiona y revisa todas tus reservas</p>
         </div>
 
         {reservations.length === 0 ? (
           <Card>
-            <CardContent className="py-12 text-center">
-              <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">
+            <CardContent className="py-8 sm:py-12 text-center">
+              <Calendar className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-2">
                 No tienes reservas aún
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
                 Cuando hagas una reserva, aparecerá aquí
               </p>
-              <Button asChild>
+              <Button asChild className="w-full sm:w-auto">
                 <Link href="/reservar">Hacer una Reserva</Link>
               </Button>
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {reservations.map((reservation) => (
               <Card key={reservation.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-xl mb-2">{reservation.room.name}</CardTitle>
-                      <CardDescription className="flex items-center gap-2">
-                        <span className="font-mono text-sm">{reservation.booking_code}</span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(reservation.status)}`}>
+                <CardHeader className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div className="flex-1">
+                      <CardTitle className="text-lg sm:text-xl mb-2">{reservation.room.name}</CardTitle>
+                      <CardDescription className="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span className="font-mono text-xs sm:text-sm">{reservation.booking_code}</span>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(reservation.status)}`}>
                           {RESERVATION_STATUS[reservation.status]}
                         </span>
                       </CardDescription>
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(reservation.status)}`}>
+                    <span className={`hidden sm:inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(reservation.status)}`}>
                       {RESERVATION_STATUS[reservation.status]}
                     </span>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="flex items-start gap-3">
-                      <Calendar className="h-5 w-5 text-gold flex-shrink-0 mt-0.5" />
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm text-gray-600">Check-in</p>
-                        <p className="font-semibold">{formatDate(reservation.check_in)}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Check-in</p>
+                        <p className="text-sm sm:text-base font-semibold">{formatDate(reservation.check_in)}</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <Calendar className="h-5 w-5 text-gold flex-shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm text-gray-600">Check-out</p>
-                        <p className="font-semibold">{formatDate(reservation.check_out)}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Check-out</p>
+                        <p className="text-sm sm:text-base font-semibold">{formatDate(reservation.check_out)}</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <CreditCard className="h-5 w-5 text-gold flex-shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <CreditCard className="h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm text-gray-600">Total</p>
-                        <p className="font-semibold text-lg">{formatCurrency(reservation.total_price)}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Total</p>
+                        <p className="text-base sm:text-lg font-semibold">{formatCurrency(reservation.total_price)}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex gap-2 pt-4 border-t">
-                    <Button asChild variant="outline" size="sm">
+                  <div className="flex flex-col sm:flex-row gap-2 pt-3 sm:pt-4 border-t">
+                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                       <Link href={`/mis-reservas/${reservation.id}`}>Ver Detalles</Link>
                     </Button>
                     {reservation.status === 'confirmed' && (
-                      <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                      <Button variant="outline" size="sm" className="w-full sm:w-auto text-red-600 hover:text-red-700">
                         Solicitar Cancelación
                       </Button>
                     )}

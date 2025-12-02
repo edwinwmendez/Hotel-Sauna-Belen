@@ -92,13 +92,13 @@ export default function MovimientosPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-navy mb-2">Historial de Movimientos</h1>
-          <p className="text-gray-600">Registro completo de entradas, salidas y ajustes</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Historial de Movimientos</h1>
+          <p className="text-sm sm:text-base text-gray-600">Registro completo de entradas, salidas y ajustes</p>
         </div>
-        <Button asChild>
+        <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/inventario/movimientos/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Registrar Movimiento
@@ -108,7 +108,7 @@ export default function MovimientosPage() {
 
       {/* Búsqueda */}
       <Card>
-        <CardContent className="pt-6">
+        <CardContent className="p-4 sm:p-6 pt-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
@@ -123,35 +123,35 @@ export default function MovimientosPage() {
 
       {/* Lista de Movimientos */}
       <Card>
-        <CardHeader>
-          <CardTitle>Movimientos ({filteredMovements.length})</CardTitle>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl">Movimientos ({filteredMovements.length})</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 pt-0">
           {filteredMovements.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500">No se encontraron movimientos</p>
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-sm sm:text-base text-gray-500">No se encontraron movimientos</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {filteredMovements.map((movement) => (
                 <div
                   key={movement.id}
-                  className="flex items-start gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex-shrink-0 mt-1">
                     {getMovementIcon(movement.movement_type)}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <p className="font-semibold text-gray-900">{movement.product_name}</p>
-                        <p className="text-sm text-gray-600">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-0 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm sm:text-base font-semibold text-gray-900">{movement.product_name}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">
                           {getReasonLabel(movement.reason)}
                           {movement.room_name && ` - ${movement.room_name}`}
                         </p>
                       </div>
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${getMovementColor(
+                        className={`px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 w-fit ${getMovementColor(
                           movement.movement_type
                         )}`}
                       >
@@ -162,7 +162,7 @@ export default function MovimientosPage() {
                           : 'Ajuste'}
                       </span>
                     </div>
-                    <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm">
                       <div>
                         <p className="text-gray-600">Cantidad</p>
                         <p className="font-semibold">{movement.quantity}</p>

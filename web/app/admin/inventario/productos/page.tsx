@@ -68,13 +68,13 @@ export default function ProductosPage() {
   const isLowStock = (current: number, min: number) => current <= min
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-navy mb-2">Gestión de Productos</h1>
-          <p className="text-gray-600">Administra el catálogo de productos del inventario</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Gestión de Productos</h1>
+          <p className="text-sm sm:text-base text-gray-600">Administra el catálogo de productos del inventario</p>
         </div>
-        <Button asChild>
+        <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/inventario/productos/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Nuevo Producto
@@ -84,7 +84,7 @@ export default function ProductosPage() {
 
       {/* Búsqueda */}
       <Card>
-        <CardContent className="pt-6">
+        <CardContent className="p-4 sm:p-6 pt-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
@@ -98,42 +98,42 @@ export default function ProductosPage() {
       </Card>
 
       {/* Lista de Productos */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filteredProducts.map((product) => {
           const lowStock = isLowStock(product.current_stock, product.min_stock)
           
           return (
             <Card key={product.id} className={lowStock ? 'border-red-200' : ''}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-lg mb-1">{product.name}</CardTitle>
-                    <p className="text-sm text-gray-600">{product.category}</p>
+              <CardHeader className="p-4 sm:p-6">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-base sm:text-lg mb-1">{product.name}</CardTitle>
+                    <p className="text-xs sm:text-sm text-gray-600">{product.category}</p>
                   </div>
                   {lowStock && (
-                    <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0" />
+                    <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />
                   )}
                 </div>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
+              <CardContent className="p-4 sm:p-6 pt-0 space-y-2 sm:space-y-3">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Stock actual:</span>
                     <span className={`font-semibold ${lowStock ? 'text-red-600' : 'text-green-600'}`}>
                       {product.current_stock} {product.unit}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Stock mínimo:</span>
                     <span className="font-semibold">{product.min_stock} {product.unit}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Costo unitario:</span>
                     <span className="font-semibold">{formatCurrency(product.cost_per_unit || 0)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Proveedor:</span>
-                    <span className="font-semibold">{product.supplier}</span>
+                    <span className="font-semibold truncate ml-2">{product.supplier}</span>
                   </div>
                 </div>
 
@@ -159,9 +159,9 @@ export default function ProductosPage() {
 
       {filteredProducts.length === 0 && (
         <Card>
-          <CardContent className="py-12 text-center">
-            <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">No se encontraron productos</p>
+          <CardContent className="py-8 sm:py-12 text-center">
+            <Package className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+            <p className="text-sm sm:text-base text-gray-500">No se encontraron productos</p>
           </CardContent>
         </Card>
       )}

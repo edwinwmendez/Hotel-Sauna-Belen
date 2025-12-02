@@ -19,29 +19,29 @@ export default function CategoriasPage() {
   const [categories, setCategories] = useState(MOCK_CATEGORIES)
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-navy mb-2">Categorías de Inventario</h1>
-          <p className="text-gray-600">Organiza tus productos por categorías</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Categorías de Inventario</h1>
+          <p className="text-sm sm:text-base text-gray-600">Organiza tus productos por categorías</p>
         </div>
-        <Button>
+        <Button className="w-full sm:w-auto">
           <Plus className="h-4 w-4 mr-2" />
           Nueva Categoría
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {categories.map((category) => (
           <Card key={category.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Package className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 {category.name}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600 mb-4">{category.description}</p>
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">{category.description}</p>
               <p className="text-xs text-gray-500">
                 {category.productCount} {category.productCount === 1 ? 'producto' : 'productos'}
               </p>

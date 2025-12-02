@@ -57,13 +57,13 @@ export default function InventarioDashboard() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-navy mb-2">Dashboard de Inventario</h1>
-          <p className="text-gray-600">Control y gestión de productos y suministros</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Dashboard de Inventario</h1>
+          <p className="text-sm sm:text-base text-gray-600">Control y gestión de productos y suministros</p>
         </div>
-        <Button asChild>
+        <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/inventario/movimientos/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Registrar Movimiento
@@ -72,47 +72,47 @@ export default function InventarioDashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Productos Totales</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Productos Totales</CardTitle>
             <Package className="h-4 w-4 text-gold" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">{stats.totalProducts}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">{stats.totalProducts}</div>
             <p className="text-xs text-gray-500 mt-1">Productos activos</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Stock Bajo</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Stock Bajo</CardTitle>
             <AlertTriangle className="h-4 w-4 text-red-600" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-red-600">{stats.lowStockCount}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-red-600">{stats.lowStockCount}</div>
             <p className="text-xs text-gray-500 mt-1">Requieren atención</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Movimientos Hoy</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Movimientos Hoy</CardTitle>
             <TrendingUp className="h-4 w-4 text-gold" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">{stats.movementsToday}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">{stats.movementsToday}</div>
             <p className="text-xs text-gray-500 mt-1">Entradas y salidas</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Valor Total</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Valor Total</CardTitle>
             <DollarSign className="h-4 w-4 text-gold" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">S/ {stats.totalValue.toLocaleString()}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">S/ {stats.totalValue.toLocaleString()}</div>
             <p className="text-xs text-gray-500 mt-1">Valor del inventario</p>
           </CardContent>
         </Card>
@@ -120,37 +120,37 @@ export default function InventarioDashboard() {
 
       {/* Alertas de Stock Bajo */}
       <Card className="border-red-200">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2 text-red-800">
-              <AlertTriangle className="h-5 w-5" />
+        <CardHeader className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg text-red-800">
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
               Alertas de Stock Bajo
             </CardTitle>
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
               <Link href="/admin/inventario/productos">Ver Todos</Link>
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 pt-0">
           {lowStock.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">
+            <p className="text-center text-sm sm:text-base text-gray-500 py-6 sm:py-8">
               ¡Excelente! No hay productos con stock bajo
             </p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {lowStock.map((product) => (
                 <div
                   key={product.id}
-                  className={`p-4 rounded-lg border ${getAlertColor(product.alert_level)}`}
+                  className={`p-3 sm:p-4 rounded-lg border ${getAlertColor(product.alert_level)}`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold">{product.name}</p>
-                      <p className="text-sm opacity-80">{product.category}</p>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div className="flex-1">
+                      <p className="text-sm sm:text-base font-semibold">{product.name}</p>
+                      <p className="text-xs sm:text-sm opacity-80">{product.category}</p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm opacity-80">Stock actual</p>
-                      <p className="text-2xl font-bold">
+                    <div className="text-left sm:text-right">
+                      <p className="text-xs sm:text-sm opacity-80">Stock actual</p>
+                      <p className="text-xl sm:text-2xl font-bold">
                         {product.current_stock} / {product.min_stock}
                       </p>
                       <p className="text-xs mt-1">
@@ -166,17 +166,17 @@ export default function InventarioDashboard() {
       </Card>
 
       {/* Accesos Rápidos */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <Link href="/admin/inventario/productos">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Package className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Gestión de Productos
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Ver, crear y editar productos del inventario
               </p>
             </CardContent>
@@ -185,14 +185,14 @@ export default function InventarioDashboard() {
 
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <Link href="/admin/inventario/movimientos">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Historial de Movimientos
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Registro completo de entradas y salidas
               </p>
             </CardContent>
@@ -201,14 +201,14 @@ export default function InventarioDashboard() {
 
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <Link href="/admin/inventario/reportes">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <DollarSign className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Reportes
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Análisis y reportes de consumo
               </p>
             </CardContent>

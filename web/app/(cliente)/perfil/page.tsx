@@ -31,22 +31,22 @@ export default function PerfilPage() {
   }
 
   return (
-    <div className="py-12">
-      <div className="container max-w-2xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-navy mb-2">Mi Perfil</h1>
-          <p className="text-gray-600">Gestiona tu información personal</p>
+    <div className="py-6 sm:py-8 md:py-12">
+      <div className="container max-w-2xl px-4">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Mi Perfil</h1>
+          <p className="text-sm sm:text-base text-gray-600">Gestiona tu información personal</p>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Información Personal</CardTitle>
-            <CardDescription>
+          <CardHeader className="p-4 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">Información Personal</CardTitle>
+            <CardDescription className="text-sm sm:text-base">
               Actualiza tu información de contacto y datos personales
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <CardContent className="p-4 sm:p-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-medium text-gray-700">
                   Nombre completo
@@ -88,7 +88,7 @@ export default function PerfilPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <label htmlFor="documentType" className="text-sm font-medium text-gray-700">
                     Tipo de documento
@@ -118,8 +118,8 @@ export default function PerfilPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4">
-                <Button type="submit" disabled={loading}>
+              <div className="flex justify-end pt-3 sm:pt-4">
+                <Button type="submit" disabled={loading} className="w-full sm:w-auto">
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />

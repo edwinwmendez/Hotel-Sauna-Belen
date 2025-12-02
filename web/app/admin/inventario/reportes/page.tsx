@@ -22,37 +22,37 @@ const MOCK_REPORTS = {
 
 export default function ReportesPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-navy mb-2">Reportes de Inventario</h1>
-        <p className="text-gray-600">Análisis y estadísticas de consumo</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Reportes de Inventario</h1>
+        <p className="text-sm sm:text-base text-gray-600">Análisis y estadísticas de consumo</p>
       </div>
 
       {/* Resumen */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5 text-gold" />
+          <CardHeader className="p-4 sm:p-6">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
               Valor Total del Inventario
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">
               S/ {MOCK_REPORTS.totalValue.toLocaleString()}
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-gold" />
+          <CardHeader className="p-4 sm:p-6">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
               Gasto Mensual
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">
               S/ {MOCK_REPORTS.monthlySpend.toLocaleString()}
             </div>
           </CardContent>
@@ -61,22 +61,22 @@ export default function ReportesPage() {
 
       {/* Productos Más Usados */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-gold" />
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
             Productos Más Consumidos (Este Mes)
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="p-4 sm:p-6 pt-0">
+          <div className="space-y-3 sm:space-y-4">
             {MOCK_REPORTS.topProducts.map((product, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                <div>
-                  <p className="font-semibold">{product.name}</p>
-                  <p className="text-sm text-gray-600">{product.category}</p>
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 sm:p-4 border rounded-lg">
+                <div className="flex-1">
+                  <p className="text-sm sm:text-base font-semibold">{product.name}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">{product.category}</p>
                 </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold text-navy">{product.consumption}</p>
+                <div className="text-left sm:text-right">
+                  <p className="text-xl sm:text-2xl font-bold text-navy">{product.consumption}</p>
                   <p className="text-xs text-gray-500">unidades</p>
                 </div>
               </div>
@@ -87,24 +87,24 @@ export default function ReportesPage() {
 
       {/* Consumo Mensual */}
       <Card>
-        <CardHeader>
-          <CardTitle>Consumo Mensual (Últimos 4 Meses)</CardTitle>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-base sm:text-lg">Consumo Mensual (Últimos 4 Meses)</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
+        <CardContent className="p-4 sm:p-6 pt-0">
+          <div className="space-y-2 sm:space-y-3">
             {MOCK_REPORTS.monthlyConsumption.map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <span className="text-gray-700">{item.month}</span>
-                <div className="flex items-center gap-4">
-                  <div className="w-48 bg-gray-200 rounded-full h-4">
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                <span className="text-sm sm:text-base text-gray-700">{item.month}</span>
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <div className="flex-1 sm:w-48 bg-gray-200 rounded-full h-3 sm:h-4">
                     <div
-                      className="bg-gold h-4 rounded-full"
+                      className="bg-gold h-3 sm:h-4 rounded-full"
                       style={{
                         width: `${(item.value / 15000) * 100}%`,
                       }}
                     />
                   </div>
-                  <span className="font-semibold w-20 text-right">
+                  <span className="text-sm sm:text-base font-semibold w-20 sm:w-24 text-right">
                     S/ {item.value.toLocaleString()}
                   </span>
                 </div>

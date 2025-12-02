@@ -40,29 +40,29 @@ export default function NuevoMovimientoPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button asChild variant="ghost" size="sm">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+        <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto">
           <Link href="/admin/inventario/movimientos">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Volver
           </Link>
         </Button>
         <div>
-          <h1 className="text-3xl font-bold text-navy mb-2">Registrar Movimiento</h1>
-          <p className="text-gray-600">Registra una entrada, salida o ajuste de inventario</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Registrar Movimiento</h1>
+          <p className="text-sm sm:text-base text-gray-600">Registra una entrada, salida o ajuste de inventario</p>
         </div>
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Nuevo Movimiento</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl">Nuevo Movimiento</CardTitle>
+          <CardDescription className="text-sm sm:text-base">
             Completa los datos para registrar el movimiento de inventario
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <CardContent className="p-4 sm:p-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div className="space-y-2">
               <label htmlFor="productId" className="text-sm font-medium text-gray-700">
                 Producto *
@@ -147,11 +147,11 @@ export default function NuevoMovimientoPage() {
               />
             </div>
 
-            <div className="flex justify-end gap-4 pt-4">
-              <Button type="button" variant="outline" asChild>
+            <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-3 sm:pt-4">
+              <Button type="button" variant="outline" asChild className="w-full sm:w-auto order-2 sm:order-1">
                 <Link href="/admin/inventario/movimientos">Cancelar</Link>
               </Button>
-              <Button type="submit" disabled={loading}>
+              <Button type="submit" disabled={loading} className="w-full sm:w-auto order-1 sm:order-2">
                 {loading ? (
                   'Guardando...'
                 ) : (

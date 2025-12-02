@@ -54,16 +54,16 @@ export default function RegistroPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-6 sm:py-12 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold text-navy">Crear Cuenta</CardTitle>
-          <CardDescription>
+        <CardHeader className="text-center p-4 sm:p-6">
+          <CardTitle className="text-2xl sm:text-3xl font-bold text-navy">Crear Cuenta</CardTitle>
+          <CardDescription className="text-sm sm:text-base">
             Regístrate para gestionar tus reservas fácilmente
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="p-4 sm:p-6">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium text-gray-700">
                 Nombre completo
@@ -134,7 +134,7 @@ export default function RegistroPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm">
+          <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm">
             <p className="text-gray-600">
               ¿Ya tienes cuenta?{' '}
               <Link href="/login" className="text-navy hover:underline font-medium">

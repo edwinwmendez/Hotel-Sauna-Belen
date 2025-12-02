@@ -46,54 +46,54 @@ export default function AdminDashboard() {
   const [reservations] = useState(MOCK_TODAY_RESERVATIONS)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-navy mb-2">Dashboard</h1>
-        <p className="text-gray-600">Resumen de operaciones del hotel</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Dashboard</h1>
+        <p className="text-sm sm:text-base text-gray-600">Resumen de operaciones del hotel</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Check-ins Hoy</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Check-ins Hoy</CardTitle>
             <Calendar className="h-4 w-4 text-gold" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">{stats.checkInsToday}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">{stats.checkInsToday}</div>
             <p className="text-xs text-gray-500 mt-1">Reservas que llegan hoy</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Check-outs Hoy</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Check-outs Hoy</CardTitle>
             <Users className="h-4 w-4 text-gold" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">{stats.checkOutsToday}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">{stats.checkOutsToday}</div>
             <p className="text-xs text-gray-500 mt-1">Reservas que salen hoy</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Pendientes</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Pendientes</CardTitle>
             <AlertCircle className="h-4 w-4 text-yellow-600" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">{stats.pendingReservations}</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">{stats.pendingReservations}</div>
             <p className="text-xs text-gray-500 mt-1">Reservas por confirmar</p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Ocupación</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2 p-4 sm:p-6">
+            <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">Ocupación</CardTitle>
             <TrendingUp className="h-4 w-4 text-gold" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-navy">{stats.occupancyRate}%</div>
+          <CardContent className="p-4 sm:p-6 pt-0">
+            <div className="text-2xl sm:text-3xl font-bold text-navy">{stats.occupancyRate}%</div>
             <p className="text-xs text-gray-500 mt-1">Tasa de ocupación actual</p>
           </CardContent>
         </Card>
@@ -101,30 +101,30 @@ export default function AdminDashboard() {
 
       {/* Reservas de Hoy */}
       <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
+        <CardHeader className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
             <div>
-              <CardTitle>Reservas de Hoy</CardTitle>
-              <CardDescription>Check-ins y check-outs programados para hoy</CardDescription>
+              <CardTitle className="text-lg sm:text-xl">Reservas de Hoy</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">Check-ins y check-outs programados para hoy</CardDescription>
             </div>
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
               <Link href="/admin/reservas">Ver Todas</Link>
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 pt-0">
           {reservations.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">No hay reservas para hoy</p>
+            <p className="text-center text-sm sm:text-base text-gray-500 py-6 sm:py-8">No hay reservas para hoy</p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {reservations.map((reservation) => (
                 <div
                   key={reservation.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-sm text-gray-600">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                      <span className="font-mono text-xs sm:text-sm text-gray-600">
                         {reservation.booking_code}
                       </span>
                       <span
@@ -137,12 +137,12 @@ export default function AdminDashboard() {
                         {reservation.status === 'confirmed' ? 'Confirmada' : 'Pendiente'}
                       </span>
                     </div>
-                    <p className="font-semibold text-gray-900 mt-1">{reservation.guest_name}</p>
-                    <p className="text-sm text-gray-600">{reservation.room_name}</p>
+                    <p className="font-semibold text-sm sm:text-base text-gray-900 mt-1">{reservation.guest_name}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">{reservation.room_name}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right">
                     {reservation.check_in && (
-                      <div className="text-sm">
+                      <div className="text-xs sm:text-sm">
                         <p className="text-gray-600">Check-in</p>
                         <p className="font-semibold">
                           {new Date(reservation.check_in).toLocaleDateString('es-PE')}
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
                       </div>
                     )}
                     {reservation.check_out && (
-                      <div className="text-sm">
+                      <div className="text-xs sm:text-sm">
                         <p className="text-gray-600">Check-out</p>
                         <p className="font-semibold">
                           {new Date(reservation.check_out).toLocaleDateString('es-PE')}
@@ -166,17 +166,17 @@ export default function AdminDashboard() {
       </Card>
 
       {/* Accesos Rápidos */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <Link href="/admin/reservas">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Gestión de Reservas
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Ver, confirmar y gestionar todas las reservas
               </p>
             </CardContent>
@@ -185,14 +185,14 @@ export default function AdminDashboard() {
 
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <Link href="/admin/calendario">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Calendario de Ocupación
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Vista mensual de ocupación por habitación
               </p>
             </CardContent>
@@ -201,14 +201,14 @@ export default function AdminDashboard() {
 
         <Card className="hover:shadow-lg transition-shadow cursor-pointer">
           <Link href="/admin/inventario">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Package className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Control de Inventario
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Gestiona productos y alertas de stock
               </p>
             </CardContent>

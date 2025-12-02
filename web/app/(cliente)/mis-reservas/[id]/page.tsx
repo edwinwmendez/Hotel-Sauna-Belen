@@ -54,25 +54,25 @@ export default function ReservaDetailPage() {
   }
 
   return (
-    <div className="py-12">
-      <div className="container max-w-4xl">
-        <Button asChild variant="ghost" className="mb-6">
+    <div className="py-6 sm:py-8 md:py-12">
+      <div className="container max-w-4xl px-4">
+        <Button asChild variant="ghost" className="mb-4 sm:mb-6 text-sm sm:text-base">
           <Link href="/mis-reservas">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Volver a mis reservas
           </Link>
         </Button>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Header */}
           <Card>
-            <CardHeader>
+            <CardHeader className="p-4 sm:p-6">
               <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-2xl mb-2">{reservation.room.name}</CardTitle>
-                  <CardDescription className="flex items-center gap-4">
-                    <span className="font-mono">{reservation.booking_code}</span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(reservation.status)}`}>
+                <div className="flex-1">
+                  <CardTitle className="text-xl sm:text-2xl mb-2">{reservation.room.name}</CardTitle>
+                  <CardDescription className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <span className="font-mono text-sm sm:text-base">{reservation.booking_code}</span>
+                    <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(reservation.status)}`}>
                       {RESERVATION_STATUS[reservation.status]}
                     </span>
                   </CardDescription>
@@ -82,49 +82,49 @@ export default function ReservaDetailPage() {
           </Card>
 
           {/* Fechas y Precio */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-gold" />
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                   Fechas de Estadía
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="p-4 sm:p-6 pt-0 space-y-2 sm:space-y-3">
                 <div>
-                  <p className="text-sm text-gray-600">Check-in</p>
-                  <p className="font-semibold">{formatDate(reservation.check_in)}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Check-in</p>
+                  <p className="text-sm sm:text-base font-semibold">{formatDate(reservation.check_in)}</p>
                   <p className="text-xs text-gray-500">Desde las 14:00</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Check-out</p>
-                  <p className="font-semibold">{formatDate(reservation.check_out)}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Check-out</p>
+                  <p className="text-sm sm:text-base font-semibold">{formatDate(reservation.check_out)}</p>
                   <p className="text-xs text-gray-500">Hasta las 12:00</p>
                 </div>
-                <div className="pt-3 border-t">
-                  <p className="text-sm text-gray-600">Duración</p>
-                  <p className="font-semibold">{reservation.nights} {reservation.nights === 1 ? 'noche' : 'noches'}</p>
+                <div className="pt-2 sm:pt-3 border-t">
+                  <p className="text-xs sm:text-sm text-gray-600">Duración</p>
+                  <p className="text-sm sm:text-base font-semibold">{reservation.nights} {reservation.nights === 1 ? 'noche' : 'noches'}</p>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5 text-gold" />
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <CreditCard className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                   Detalles de Pago
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between">
+              <CardContent className="p-4 sm:p-6 pt-0 space-y-2 sm:space-y-3">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-gray-600">
                     {reservation.room.name} ({reservation.nights} {reservation.nights === 1 ? 'noche' : 'noches'})
                   </span>
                   <span className="font-semibold">{formatCurrency(reservation.total_price)}</span>
                 </div>
-                <div className="pt-3 border-t flex justify-between items-center">
-                  <span className="font-semibold text-lg">Total</span>
-                  <span className="font-bold text-xl text-navy">{formatCurrency(reservation.total_price)}</span>
+                <div className="pt-2 sm:pt-3 border-t flex justify-between items-center">
+                  <span className="font-semibold text-base sm:text-lg">Total</span>
+                  <span className="font-bold text-lg sm:text-xl text-navy">{formatCurrency(reservation.total_price)}</span>
                 </div>
                 <p className="text-xs text-gray-500 mt-2">
                   El pago se realiza al momento del check-in
@@ -135,39 +135,39 @@ export default function ReservaDetailPage() {
 
           {/* Datos del Huésped */}
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-gold" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                 Datos del Huésped
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center gap-3">
-                <Users className="h-5 w-5 text-gray-400" />
+            <CardContent className="p-4 sm:p-6 pt-0 space-y-2 sm:space-y-3">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-gray-600">Nombre completo</p>
-                  <p className="font-semibold">{reservation.guest.full_name}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Nombre completo</p>
+                  <p className="text-sm sm:text-base font-semibold">{reservation.guest.full_name}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-gray-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-gray-600">Email</p>
-                  <p className="font-semibold">{reservation.guest.email}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Email</p>
+                  <p className="text-sm sm:text-base font-semibold break-all">{reservation.guest.email}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-gray-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-gray-600">Teléfono</p>
-                  <p className="font-semibold">{reservation.guest.phone}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Teléfono</p>
+                  <p className="text-sm sm:text-base font-semibold">{reservation.guest.phone}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <FileText className="h-5 w-5 text-gray-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-gray-600">Documento</p>
-                  <p className="font-semibold">
+                  <p className="text-xs sm:text-sm text-gray-600">Documento</p>
+                  <p className="text-sm sm:text-base font-semibold">
                     {reservation.guest.document_type} - {reservation.guest.document_number}
                   </p>
                 </div>
@@ -178,15 +178,15 @@ export default function ReservaDetailPage() {
           {/* Acciones */}
           {reservation.status === 'confirmed' && (
             <Card className="border-yellow-200 bg-yellow-50">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+              <CardContent className="p-4 sm:p-6 pt-6">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <h3 className="font-semibold text-yellow-800 mb-2">¿Necesitas cancelar?</h3>
-                    <p className="text-sm text-yellow-700 mb-4">
+                    <h3 className="text-sm sm:text-base font-semibold text-yellow-800 mb-2">¿Necesitas cancelar?</h3>
+                    <p className="text-xs sm:text-sm text-yellow-700 mb-3 sm:mb-4">
                       Puedes solicitar la cancelación de tu reserva. La cancelación es gratuita hasta 48 horas antes del check-in.
                     </p>
-                    <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto text-red-600 hover:text-red-700">
                       Solicitar Cancelación
                     </Button>
                   </div>

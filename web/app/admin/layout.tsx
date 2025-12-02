@@ -57,22 +57,24 @@ export default function AdminLayout({
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b sticky top-0 z-40">
-        <div className="flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-4">
+        <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Button
               variant="ghost"
               size="icon"
               className="md:hidden"
               onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-label="Toggle menu"
             >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
-            <Link href="/admin" className="text-xl font-bold text-navy">
-              Hotel Sauna Belén - Admin
+            <Link href="/admin" className="text-lg sm:text-xl font-bold text-navy">
+              <span className="hidden sm:inline">Hotel Sauna Belén - Admin</span>
+              <span className="sm:hidden">Admin</span>
             </Link>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600 hidden md:block">{user.email}</span>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <span className="text-xs sm:text-sm text-gray-600 hidden md:block truncate max-w-[200px]">{user.email}</span>
             <Button
               variant="ghost"
               size="sm"
@@ -80,9 +82,10 @@ export default function AdminLayout({
                 await signOut()
                 router.push('/')
               }}
+              className="text-xs sm:text-sm"
             >
-              <LogOut className="h-4 w-4 mr-2" />
-              Salir
+              <LogOut className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Salir</span>
             </Button>
           </div>
         </div>
@@ -96,10 +99,10 @@ export default function AdminLayout({
             w-64 bg-white border-r
             transform transition-transform duration-200 ease-in-out
             ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-            pt-16 md:pt-0
+            pt-14 sm:pt-16 md:pt-0
           `}
         >
-          <nav className="p-4 space-y-2">
+          <nav className="p-3 sm:p-4 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
@@ -110,14 +113,14 @@ export default function AdminLayout({
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
                   className={`
-                    flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                    flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base
                     ${isActive
                       ? 'bg-navy text-white'
                       : 'text-gray-700 hover:bg-gray-100'
                     }
                   `}
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span className="font-medium">{item.label}</span>
                 </Link>
               )
@@ -134,7 +137,7 @@ export default function AdminLayout({
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-3 sm:p-4 md:p-6 w-full overflow-x-hidden">{children}</main>
       </div>
     </div>
   )
