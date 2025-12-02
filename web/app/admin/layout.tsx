@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useAuth } from '@/components/providers/client-provider'
 import Link from 'next/link'
@@ -12,17 +12,61 @@ import {
   Package, 
   LogOut,
   Menu,
-  X
+  X,
+  ChevronDown,
+  ChevronRight,
+  List,
+  ShoppingCart,
+  TrendingUp,
+  FolderTree,
+  BarChart
 } from 'lucide-react'
-import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/reservas', label: 'Reservas', icon: Calendar },
-  { href: '/admin/calendario', label: 'Calendario', icon: Calendar },
-  { href: '/admin/habitaciones', label: 'Habitaciones', icon: Bed },
-  { href: '/admin/inventario', label: 'Inventario', icon: Package },
+type NavItem = {
+  href: string
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  subItems?: Array<{
+    href: string
+    label: string
+    icon: React.ComponentType<{ className?: string }>
+  }>
+}
+
+const navItems: NavItem[] = [
+  { 
+    href: '/admin', 
+    label: 'Dashboard', 
+    icon: LayoutDashboard 
+  },
+  { 
+    href: '/admin/reservas', 
+    label: 'Reservas', 
+    icon: Calendar,
+    subItems: [
+      { href: '/admin/reservas', label: 'Lista de Reservas', icon: List },
+      { href: '/admin/calendario', label: 'Calendario', icon: Calendar },
+    ]
+  },
+  { 
+    href: '/admin/habitaciones', 
+    label: 'Habitaciones', 
+    icon: Bed 
+  },
+  { 
+    href: '/admin/inventario', 
+    label: 'Inventario', 
+    icon: Package,
+    subItems: [
+      { href: '/admin/inventario', label: 'Dashboard', icon: LayoutDashboard },
+      { href: '/admin/inventario/productos', label: 'Productos', icon: ShoppingCart },
+      { href: '/admin/inventario/movimientos', label: 'Movimientos', icon: TrendingUp },
+      { href: '/admin/inventario/categorias', label: 'Categorías', icon: FolderTree },
+      { href: '/admin/inventario/reportes', label: 'Reportes', icon: BarChart },
+    ]
+  },
 ]
 
 export default function AdminLayout({
@@ -34,12 +78,36 @@ export default function AdminLayout({
   const router = useRouter()
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  
+  // Determinar qué módulos deben estar expandidos basado en la ruta actual
+  const getExpandedModules = () => {
+    const expanded: Record<string, boolean> = {}
+    navItems.forEach((item) => {
+      if (item.subItems) {
+        // Expandir si la ruta actual coincide con el módulo o sus subitems
+        const isModuleActive = pathname === item.href || pathname.startsWith(item.href + '/')
+        expanded[item.href] = isModuleActive
+      }
+    })
+    return expanded
+  }
+  
+  const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>(getExpandedModules)
 
   useEffect(() => {
     if (!loading && (!user || user.role !== 'admin')) {
       router.push('/login?redirect=' + encodeURIComponent(pathname))
     }
+    // Actualizar módulos expandidos cuando cambia la ruta
+    setExpandedModules(getExpandedModules())
   }, [user, loading, router, pathname])
+
+  const toggleModule = (href: string) => {
+    setExpandedModules((prev) => ({
+      ...prev,
+      [href]: !prev[href],
+    }))
+  }
 
   if (loading) {
     return (
@@ -102,27 +170,78 @@ export default function AdminLayout({
             pt-14 sm:pt-16 md:pt-0
           `}
         >
-          <nav className="p-3 sm:p-4 space-y-2">
+          <nav className="p-3 sm:p-4 space-y-1">
             {navItems.map((item) => {
               const Icon = item.icon
-              const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+              const hasSubItems = item.subItems && item.subItems.length > 0
+              const isModuleActive = pathname === item.href || (hasSubItems && pathname.startsWith(item.href + '/'))
+              const isExpanded = expandedModules[item.href] ?? false
               
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setSidebarOpen(false)}
-                  className={`
-                    flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base
-                    ${isActive
-                      ? 'bg-navy text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
-                    }
-                  `}
-                >
-                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  <span className="font-medium">{item.label}</span>
-                </Link>
+                <div key={item.href}>
+                  {hasSubItems ? (
+                    <>
+                      <button
+                        onClick={() => toggleModule(item.href)}
+                        className={cn(
+                          'w-full flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base',
+                          isModuleActive
+                            ? 'bg-navy text-white'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        )}
+                      >
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="font-medium">{item.label}</span>
+                        </div>
+                        {isExpanded ? (
+                          <ChevronDown className="h-4 w-4 flex-shrink-0" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4 flex-shrink-0" />
+                        )}
+                      </button>
+                      {isExpanded && (
+                        <div className="ml-4 sm:ml-6 mt-1 space-y-1 border-l-2 border-gray-200 pl-3 sm:pl-4">
+                          {item.subItems?.map((subItem) => {
+                            const SubIcon = subItem.icon
+                            const isSubActive = pathname === subItem.href
+                            
+                            return (
+                              <Link
+                                key={subItem.href}
+                                href={subItem.href}
+                                onClick={() => setSidebarOpen(false)}
+                                className={cn(
+                                  'flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 rounded-lg transition-colors text-xs sm:text-sm',
+                                  isSubActive
+                                    ? 'bg-gold text-navy font-medium'
+                                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                                )}
+                              >
+                                <SubIcon className="h-3 w-3 sm:h-4 sm:w-4" />
+                                <span>{subItem.label}</span>
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setSidebarOpen(false)}
+                      className={cn(
+                        'flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base',
+                        isModuleActive
+                          ? 'bg-navy text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      )}
+                    >
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                  )}
+                </div>
               )
             })}
           </nav>
