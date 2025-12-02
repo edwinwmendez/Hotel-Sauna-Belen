@@ -41,7 +41,7 @@ Plataforma web integral que incluye:
 | Ubicación | Calle Huánuco 120, Moquegua, Perú |
 | Categoría | Hotel 3 estrellas |
 | Diferenciador | Sauna privado en cada habitación |
-| Teléfono | 943-924-822 |
+| Teléfono | 948-924-822 |
 | Email | reservas@hotelsaunabelen.com |
 
 ### 2.2 Propuesta de Valor (de entrevista)

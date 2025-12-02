@@ -1238,7 +1238,7 @@ export function HotelSchema() {
       addressRegion: 'Moquegua',
       addressCountry: 'PE',
     },
-    telephone: '+51943924822',
+    telephone: '+51948924822',
     email: 'reservas@hotelsaunabelen.com',
     starRating: {
       '@type': 'Rating',

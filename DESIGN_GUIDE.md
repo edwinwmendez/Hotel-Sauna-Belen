@@ -352,7 +352,7 @@ Menu hamburguesa abre drawer lateral
 │  Hotel Sauna Belén          Navegación        Contacto              │
 │  Tu oasis de relajación     • Inicio          📍 Calle Huánuco 120  │
 │  en Moquegua                • Habitaciones       Moquegua, Perú     │
-│                             • Sauna           📞 943-924-822        │
+│                             • Sauna           📞 948-924-822        │
 │  [Facebook] [Instagram]     • Contacto        ✉️ reservas@...       │
 │                             • Reservar                              │
 │                                                                     │
@@ -631,7 +631,7 @@ PASO 4: Confirmación
 │   ─────────────────────────────────────────                        │
 │                                                                     │
 │   ¿Preguntas? Contáctanos:                                        │
-│   📞 943-924-822  |  💬 WhatsApp                                  │
+│   📞 948-924-822  |  💬 WhatsApp                                  │
 │                                                                     │
 │        [Crear cuenta]     [Volver al inicio]                       │
 │                                                                     │

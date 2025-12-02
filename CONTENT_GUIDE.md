@@ -329,10 +329,10 @@ Calle Huánuco 120
 Moquegua, Perú
 
 📞 Teléfono
-943-924-822
+948-924-822
 
 💬 WhatsApp
-943-924-822
+948-924-822
 (Click para iniciar conversación)
 
 ✉️ Email
@@ -493,7 +493,7 @@ Recuerda:
 • Check-out: [fecha] hasta las 12:00
 • Presenta tu documento de identidad al llegar
 
-¿Preguntas? Contáctanos al 943-924-822
+¿Preguntas? Contáctanos al 948-924-822
 ```
 
 ---
@@ -529,7 +529,7 @@ para reservarte un espacio.
 ```
 Puedes reservar directamente desde nuestra página web las 24 horas 
 del día. También puedes llamarnos o escribirnos por WhatsApp al 
-943-924-822.
+948-924-822.
 ```
 
 **¿Necesito pagar por adelantado?**
@@ -681,7 +681,7 @@ Hotel Sauna Belén
 9. CONTACTO
 Para consultas sobre estos términos:
 Email: reservas@hotelsaunabelen.com
-Teléfono: 943-924-822
+Teléfono: 948-924-822
 ```
 
 ---
@@ -826,7 +826,7 @@ para tu salud y bienestar. Único en Moquegua. Reserva ahora.
 ```
 Title: Contacto | Hotel Sauna Belén Moquegua
 Description: Contáctanos para reservas y consultas. Calle Huánuco 120, 
-Moquegua. Teléfono y WhatsApp: 943-924-822. Atención 24/7.
+Moquegua. Teléfono y WhatsApp: 948-924-822. Atención 24/7.
 ```
 
 ### Reservar
