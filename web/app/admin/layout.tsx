@@ -84,8 +84,11 @@ export default function AdminLayout({
     const expanded: Record<string, boolean> = {}
     navItems.forEach((item) => {
       if (item.subItems) {
-        // Expandir si la ruta actual coincide con el módulo o sus subitems
-        const isModuleActive = pathname === item.href || pathname.startsWith(item.href + '/')
+        // Expandir si la ruta actual coincide con el módulo, sus subitems, o rutas relacionadas
+        const isModuleActive = 
+          pathname === item.href || 
+          pathname.startsWith(item.href + '/') ||
+          item.subItems.some(subItem => pathname === subItem.href || pathname.startsWith(subItem.href + '/'))
         expanded[item.href] = isModuleActive
       }
     })
@@ -174,7 +177,12 @@ export default function AdminLayout({
             {navItems.map((item) => {
               const Icon = item.icon
               const hasSubItems = item.subItems && item.subItems.length > 0
-              const isModuleActive = pathname === item.href || (hasSubItems && pathname.startsWith(item.href + '/'))
+              const isModuleActive = 
+                pathname === item.href || 
+                (hasSubItems && item.subItems && (
+                  pathname.startsWith(item.href + '/') ||
+                  item.subItems.some(subItem => pathname === subItem.href || pathname.startsWith(subItem.href + '/'))
+                ))
               const isExpanded = expandedModules[item.href] ?? false
               
               return (
