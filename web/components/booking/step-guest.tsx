@@ -53,13 +53,13 @@ export function StepGuest({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-navy mb-2">¿Quién se hospeda?</h2>
-        <p className="text-gray-600">Ingresa los datos del huésped principal</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-2">¿Quién se hospeda?</h2>
+        <p className="text-sm sm:text-base text-gray-600">Ingresa los datos del huésped principal</p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         <div className="space-y-2">
           <label htmlFor="fullName" className="text-sm font-medium text-gray-700">
             Nombre completo *
@@ -75,7 +75,7 @@ export function StepGuest({
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div className="space-y-2">
             <label htmlFor="email" className="text-sm font-medium text-gray-700">
               Correo electrónico *
@@ -88,7 +88,7 @@ export function StepGuest({
               className={errors.email ? 'border-red-500' : ''}
             />
             {errors.email && (
-              <p className="text-sm text-red-600">{errors.email.message}</p>
+              <p className="text-xs sm:text-sm text-red-600">{errors.email.message}</p>
             )}
           </div>
 
@@ -104,12 +104,12 @@ export function StepGuest({
               className={errors.phone ? 'border-red-500' : ''}
             />
             {errors.phone && (
-              <p className="text-sm text-red-600">{errors.phone.message}</p>
+              <p className="text-xs sm:text-sm text-red-600">{errors.phone.message}</p>
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div className="space-y-2">
             <label htmlFor="documentType" className="text-sm font-medium text-gray-700">
               Tipo de documento
@@ -156,11 +156,11 @@ export function StepGuest({
         </div>
       </div>
 
-      <div className="flex justify-between">
-        <Button type="button" onClick={onBack} variant="outline">
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
+        <Button type="button" onClick={onBack} variant="outline" className="w-full sm:w-auto order-2 sm:order-1">
           ← Atrás
         </Button>
-        <Button type="submit">Continuar →</Button>
+        <Button type="submit" className="w-full sm:w-auto order-1 sm:order-2">Continuar →</Button>
       </div>
     </form>
   )

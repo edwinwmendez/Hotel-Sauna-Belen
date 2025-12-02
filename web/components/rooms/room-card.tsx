@@ -18,7 +18,7 @@ export function RoomCard({ room }: RoomCardProps) {
 
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-      <div className="relative h-64 w-full">
+      <div className="relative h-48 sm:h-56 md:h-64 w-full">
         <Image
           src={firstImage}
           alt={room.name}
@@ -26,17 +26,17 @@ export function RoomCard({ room }: RoomCardProps) {
           className="object-cover"
         />
       </div>
-      <CardHeader>
-        <CardTitle className="text-2xl">{room.name}</CardTitle>
-        <CardDescription className="text-base line-clamp-2">
+      <CardHeader className="p-4 sm:p-6">
+        <CardTitle className="text-xl sm:text-2xl">{room.name}</CardTitle>
+        <CardDescription className="text-sm sm:text-base line-clamp-2">
           {room.description}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
+      <CardContent className="p-4 sm:p-6 pt-0">
+        <div className="space-y-3 sm:space-y-4">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold text-gold">{formatCurrency(room.price_per_night)}</span>
-            <span className="text-gray-600">/ noche</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gold">{formatCurrency(room.price_per_night)}</span>
+            <span className="text-sm sm:text-base text-gray-600">/ noche</span>
           </div>
           
           {amenities.length > 0 && (
@@ -56,11 +56,11 @@ export function RoomCard({ room }: RoomCardProps) {
           )}
         </div>
       </CardContent>
-      <CardFooter className="flex gap-2">
-        <Button asChild variant="outline" className="flex-1">
+      <CardFooter className="p-4 sm:p-6 pt-0 flex flex-col sm:flex-row gap-2">
+        <Button asChild variant="outline" className="w-full sm:flex-1">
           <Link href={`/habitaciones/${room.slug}`}>Ver detalles</Link>
         </Button>
-        <Button asChild variant="default" className="flex-1">
+        <Button asChild variant="default" className="w-full sm:flex-1">
           <Link href={`/reservar?room=${room.slug}`}>Reservar</Link>
         </Button>
       </CardFooter>

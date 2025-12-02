@@ -69,16 +69,16 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-navy mb-2">Confirma tu reserva</h2>
-        <p className="text-gray-600">Revisa los detalles antes de confirmar</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Confirma tu reserva</h2>
+        <p className="text-sm sm:text-base text-gray-600">Revisa los detalles antes de confirmar</p>
       </div>
 
       <Card>
-        <CardHeader>
-          <div className="flex gap-4">
-            <div className="relative h-24 w-32 flex-shrink-0 rounded-lg overflow-hidden">
+        <CardHeader className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="relative h-32 sm:h-24 w-full sm:w-32 flex-shrink-0 rounded-lg overflow-hidden">
               <Image
                 src={firstImage}
                 alt={room.name}
@@ -87,17 +87,17 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
               />
             </div>
             <div className="flex-1">
-              <CardTitle>{room.name}</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-lg sm:text-xl">{room.name}</CardTitle>
+              <CardDescription className="text-sm sm:text-base">
                 {formatDate(checkIn)} → {formatDate(checkOut)} ({nights} {nights === 1 ? 'noche' : 'noches'})
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="p-4 sm:p-6 pt-0 space-y-3 sm:space-y-4">
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Datos del huésped</h3>
-            <div className="text-sm text-gray-600 space-y-1">
+            <h3 className="font-semibold text-sm sm:text-base text-gray-700 mb-2">Datos del huésped</h3>
+            <div className="text-xs sm:text-sm text-gray-600 space-y-1">
               <p><strong>Nombre:</strong> {guest.fullName}</p>
               <p><strong>Email:</strong> {guest.email}</p>
               <p><strong>Teléfono:</strong> {guest.phone}</p>
@@ -105,14 +105,14 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
             </div>
           </div>
 
-          <div className="border-t pt-4">
-            <div className="flex justify-between items-center mb-2">
+          <div className="border-t pt-3 sm:pt-4">
+            <div className="flex justify-between items-center mb-2 text-sm sm:text-base">
               <span className="text-gray-700">
                 Habitación ({nights} {nights === 1 ? 'noche' : 'noches'})
               </span>
               <span className="font-semibold">{formatCurrency(totalPrice)}</span>
             </div>
-            <div className="flex justify-between items-center text-lg font-bold text-navy border-t pt-2 mt-2">
+            <div className="flex justify-between items-center text-base sm:text-lg font-bold text-navy border-t pt-2 mt-2">
               <span>TOTAL</span>
               <span>{formatCurrency(totalPrice)}</span>
             </div>
@@ -126,9 +126,9 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
           id="terms"
           checked={acceptedTerms}
           onChange={(e) => setAcceptedTerms(e.target.checked)}
-          className="h-4 w-4 rounded border-gray-300 text-navy focus:ring-navy mt-1"
+          className="h-4 w-4 rounded border-gray-300 text-navy focus:ring-navy mt-1 flex-shrink-0"
         />
-        <label htmlFor="terms" className="text-sm text-gray-700">
+        <label htmlFor="terms" className="text-xs sm:text-sm text-gray-700">
           He leído y acepto los{' '}
           <a href="/terminos" target="_blank" className="text-navy hover:underline">
             términos y condiciones
@@ -141,16 +141,16 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm sm:text-base">
           {error}
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button onClick={onBack} variant="outline" disabled={loading}>
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
+        <Button onClick={onBack} variant="outline" disabled={loading} className="w-full sm:w-auto order-2 sm:order-1">
           ← Atrás
         </Button>
-        <Button onClick={handleSubmit} disabled={loading || !acceptedTerms} size="lg">
+        <Button onClick={handleSubmit} disabled={loading || !acceptedTerms} size="lg" className="w-full sm:w-auto order-1 sm:order-2">
           {loading ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />

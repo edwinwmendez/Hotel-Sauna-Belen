@@ -2,7 +2,7 @@ export const HOTEL_INFO = {
   name: 'Hotel Sauna Belén',
   slogan: 'Tu oasis de relajación en Moquegua',
   address: 'Calle Huánuco 120, Moquegua, Perú',
-  phone: '943-924-822',
+  phone: '948-924-822',
   email: 'reservas@hotelsaunabelen.com',
   category: 'Hotel 3 estrellas',
 } as const

@@ -74,11 +74,11 @@ export default function ReservarPage() {
   }, [selectedRoomId, selectedRoom])
 
   return (
-    <div className="py-12 bg-gray-50 min-h-screen">
-      <div className="container max-w-4xl">
+    <div className="py-6 sm:py-8 md:py-12 bg-gray-50 min-h-screen">
+      <div className="container max-w-4xl px-4">
         <ProgressBar currentStep={currentStep} totalSteps={STEPS.length} steps={STEPS} />
 
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8">
           {currentStep === 1 && (
             <StepDates
               checkIn={checkIn}

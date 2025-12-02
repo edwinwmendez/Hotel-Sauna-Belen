@@ -31,9 +31,9 @@ export function RoomGallery({ images, roomName }: RoomGalleryProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {/* Imagen principal */}
-      <div className="relative h-96 md:h-[500px] w-full rounded-lg overflow-hidden">
+      <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] w-full rounded-lg overflow-hidden">
         <Image
           src={images[currentIndex]}
           alt={`${roomName} - Imagen ${currentIndex + 1}`}
@@ -47,18 +47,18 @@ export function RoomGallery({ images, roomName }: RoomGalleryProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white h-8 w-8 sm:h-10 sm:w-10"
               onClick={goToPrevious}
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white h-8 w-8 sm:h-10 sm:w-10"
               onClick={goToNext}
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
             </Button>
           </>
         )}
@@ -66,13 +66,13 @@ export function RoomGallery({ images, roomName }: RoomGalleryProps) {
 
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
+        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2">
           {images.map((image, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                'relative h-20 md:h-24 rounded-md overflow-hidden border-2 transition-all',
+                'relative h-16 sm:h-20 md:h-24 rounded-md overflow-hidden border-2 transition-all',
                 currentIndex === index
                   ? 'border-gold ring-2 ring-gold/50'
                   : 'border-transparent hover:border-gray-300'

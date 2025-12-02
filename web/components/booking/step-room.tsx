@@ -75,16 +75,16 @@ export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNe
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-navy mb-2">Elige tu habitación</h2>
-        <p className="text-gray-600">
+        <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Elige tu habitación</h2>
+        <p className="text-sm sm:text-base text-gray-600">
           Habitaciones disponibles del {new Date(checkIn).toLocaleDateString('es-PE')} al{' '}
           {new Date(checkOut).toLocaleDateString('es-PE')} ({nights} {nights === 1 ? 'noche' : 'noches'})
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {rooms.map((room) => {
           const totalPrice = room.price_per_night * nights
           const isSelected = selectedRoomId === room.id
@@ -98,37 +98,37 @@ export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNe
               }`}
               onClick={() => onRoomSelect(room.id)}
             >
-              <div className="flex flex-col md:flex-row">
-                <div className="relative h-48 md:h-auto md:w-64 flex-shrink-0">
+              <div className="flex flex-col sm:flex-row">
+                <div className="relative h-48 sm:h-auto sm:w-48 md:w-64 flex-shrink-0">
                   <Image
                     src={firstImage}
                     alt={room.name}
                     fill
-                    className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
+                    className="object-cover rounded-t-lg sm:rounded-l-lg sm:rounded-t-none"
                   />
                 </div>
                 <div className="flex-1">
-                  <CardHeader>
-                    <CardTitle>{room.name}</CardTitle>
-                    <CardDescription className="line-clamp-2">{room.description}</CardDescription>
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-lg sm:text-xl">{room.name}</CardTitle>
+                    <CardDescription className="text-sm sm:text-base line-clamp-2">{room.description}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <span className="text-2xl font-bold text-gold">
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <div className="flex items-baseline gap-2 mb-3 sm:mb-4">
+                      <span className="text-xl sm:text-2xl font-bold text-gold">
                         {formatCurrency(room.price_per_night)}
                       </span>
-                      <span className="text-gray-600">/ noche</span>
+                      <span className="text-sm sm:text-base text-gray-600">/ noche</span>
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-xs sm:text-sm text-gray-600">
                       <p>
                         <strong>Total ({nights} {nights === 1 ? 'noche' : 'noches'}):</strong>{' '}
-                        <span className="text-lg font-semibold text-navy">
+                        <span className="text-base sm:text-lg font-semibold text-navy">
                           {formatCurrency(totalPrice)}
                         </span>
                       </p>
                     </div>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="p-4 sm:p-6 pt-0">
                     <Button
                       variant={isSelected ? 'default' : 'outline'}
                       className="w-full"
@@ -147,11 +147,11 @@ export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNe
         })}
       </div>
 
-      <div className="flex justify-between">
-        <Button onClick={onBack} variant="outline">
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
+        <Button onClick={onBack} variant="outline" className="w-full sm:w-auto order-2 sm:order-1">
           ← Atrás
         </Button>
-        <Button onClick={onNext} disabled={!selectedRoomId}>
+        <Button onClick={onNext} disabled={!selectedRoomId} className="w-full sm:w-auto order-1 sm:order-2">
           Continuar →
         </Button>
       </div>

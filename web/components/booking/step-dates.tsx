@@ -70,13 +70,13 @@ export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDate
   const nights = localCheckIn && localCheckOut ? calculateNights(localCheckIn, localCheckOut) : 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-navy mb-2">¿Cuándo nos visitas?</h2>
-        <p className="text-gray-600">Selecciona tus fechas de llegada y salida</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-2">¿Cuándo nos visitas?</h2>
+        <p className="text-sm sm:text-base text-gray-600">Selecciona tus fechas de llegada y salida</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div className="space-y-2">
           <label htmlFor="checkIn" className="text-sm font-medium text-gray-700">
             Check-in (llegada) *
@@ -118,21 +118,21 @@ export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDate
       </div>
 
       {nights > 0 && (
-        <div className="bg-cream p-4 rounded-lg">
-          <p className="text-lg font-semibold text-navy">
+        <div className="bg-cream p-3 sm:p-4 rounded-lg">
+          <p className="text-base sm:text-lg font-semibold text-navy">
             {nights} {nights === 1 ? 'noche' : 'noches'} seleccionada{nights > 1 ? 's' : ''}
           </p>
         </div>
       )}
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm sm:text-base">
           {error}
         </div>
       )}
 
       <div className="flex justify-end">
-        <Button onClick={handleContinue} disabled={!localCheckIn || !localCheckOut || !!error}>
+        <Button onClick={handleContinue} disabled={!localCheckIn || !localCheckOut || !!error} className="w-full sm:w-auto">
           Continuar →
         </Button>
       </div>

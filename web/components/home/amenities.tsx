@@ -36,30 +36,30 @@ const amenities = [
 
 export function AmenitiesSection() {
   return (
-    <section className="py-20 bg-white">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-navy mb-4 font-serif">
+    <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <div className="container px-4">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-3 md:mb-4 font-serif px-4">
             Todo lo que necesitas para una estadía perfecta
           </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-3xl mx-auto px-4">
             Servicios y comodidades pensados para tu máximo confort
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {amenities.map((amenity, index) => {
             const Icon = amenity.icon
             return (
               <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-gold" />
+                <CardHeader className="p-4 sm:p-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gold/20 flex items-center justify-center mb-3 sm:mb-4">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-gold" />
                   </div>
-                  <CardTitle className="text-xl">{amenity.title}</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">{amenity.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <CardDescription className="text-sm sm:text-base">
                     {amenity.description}
                   </CardDescription>
                 </CardContent>

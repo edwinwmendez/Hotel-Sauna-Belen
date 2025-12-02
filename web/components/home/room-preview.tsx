@@ -31,21 +31,21 @@ const previewRooms = [
 
 export function RoomPreview() {
   return (
-    <section className="py-20 bg-white">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-navy mb-4 font-serif">
+    <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <div className="container px-4">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-3 md:mb-4 font-serif px-4">
             Nuestras Habitaciones
           </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-3xl mx-auto px-4">
             Espacios diseñados para tu descanso, todos con sauna privado incluido.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-10 md:mb-12">
           {previewRooms.map((room) => (
             <Card key={room.slug} className="overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="relative h-64 w-full">
+              <div className="relative h-48 sm:h-56 md:h-64 w-full">
                 <Image
                   src={room.image}
                   alt={ROOM_TYPES[room.type]}
@@ -53,21 +53,21 @@ export function RoomPreview() {
                   className="object-cover"
                 />
               </div>
-              <CardHeader>
-                <CardTitle className="text-2xl">{ROOM_TYPES[room.type]}</CardTitle>
-                <CardDescription className="text-base">{room.description}</CardDescription>
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="text-xl sm:text-2xl">{ROOM_TYPES[room.type]}</CardTitle>
+                <CardDescription className="text-sm sm:text-base">{room.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6 pt-0">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-gold">{formatCurrency(room.price)}</span>
-                  <span className="text-gray-600">/ noche</span>
+                  <span className="text-2xl sm:text-3xl font-bold text-gold">{formatCurrency(room.price)}</span>
+                  <span className="text-sm sm:text-base text-gray-600">/ noche</span>
                 </div>
               </CardContent>
-              <CardFooter className="flex gap-2">
-                <Button asChild variant="outline" className="flex-1">
+              <CardFooter className="p-4 sm:p-6 pt-0 flex flex-col sm:flex-row gap-2">
+                <Button asChild variant="outline" className="w-full sm:flex-1">
                   <Link href={`/habitaciones/${room.slug}`}>Ver detalles</Link>
                 </Button>
-                <Button asChild variant="default" className="flex-1">
+                <Button asChild variant="default" className="w-full sm:flex-1">
                   <Link href={`/reservar?room=${room.slug}`}>Reservar</Link>
                 </Button>
               </CardFooter>
@@ -75,8 +75,8 @@ export function RoomPreview() {
           ))}
         </div>
 
-        <div className="text-center">
-          <Button asChild size="lg" variant="outline">
+        <div className="text-center px-4">
+          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
             <Link href="/habitaciones">Ver todas las habitaciones</Link>
           </Button>
         </div>
