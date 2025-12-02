@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/components/providers/client-provider'
 import { Button } from '@/components/ui/button'
 import { Menu, User, LogOut } from 'lucide-react'
 

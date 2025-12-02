@@ -53,7 +53,7 @@ const MOCK_RESERVATIONS = [
 ]
 
 export default function ReservasPage() {
-  const [reservations, setReservations] = useState(MOCK_RESERVATIONS)
+  const [reservations] = useState(MOCK_RESERVATIONS)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
 

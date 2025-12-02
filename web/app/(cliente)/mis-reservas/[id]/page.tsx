@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { RESERVATION_STATUS } from '@/lib/constants'
-import { ArrowLeft, Calendar, MapPin, Users, CreditCard, Mail, Phone, FileText } from 'lucide-react'
+import { ArrowLeft, Calendar, Users, CreditCard, Mail, Phone, FileText, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 
 // Mock de reserva detallada
@@ -36,8 +36,7 @@ const getMockReservation = (id: string) => ({
 
 export default function ReservaDetailPage() {
   const params = useParams()
-  const router = useRouter()
-  const [reservation, setReservation] = useState(getMockReservation(params.id as string))
+  const [reservation] = useState(getMockReservation(params.id as string))
 
   const getStatusColor = (status: string) => {
     switch (status) {

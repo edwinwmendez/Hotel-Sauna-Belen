@@ -7,7 +7,7 @@ import { formatCurrency, calculateNights } from '@/lib/utils'
 import { checkAvailability } from '@/lib/actions/availability'
 import { Database } from '@/lib/supabase/types'
 import Image from 'next/image'
-import { Loader2, Check } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 
 type Room = Database['public']['Tables']['rooms']['Row']
 

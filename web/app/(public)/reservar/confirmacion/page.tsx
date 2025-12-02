@@ -1,9 +1,10 @@
 import { Suspense } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { CheckCircle, Copy, Home, Mail } from 'lucide-react'
+import { CheckCircle, Home, Mail } from 'lucide-react'
 import { HOTEL_INFO } from '@/lib/constants'
+import { CopyButton } from '@/components/booking/copy-button'
 
 interface PageProps {
   searchParams: Promise<{ code?: string }>
@@ -30,16 +31,7 @@ async function ConfirmationContent({ code }: { code: string }) {
           <CardContent>
             <div className="flex items-center justify-between bg-cream p-4 rounded-lg">
               <code className="text-2xl font-bold text-navy">{code}</code>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(code)
-                }}
-              >
-                <Copy className="h-4 w-4 mr-2" />
-                Copiar
-              </Button>
+              <CopyButton text={code} />
             </div>
             <p className="text-sm text-gray-600 mt-4">
               Guarda este código, lo necesitarás al momento del check-in.

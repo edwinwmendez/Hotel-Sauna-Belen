@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { format, addDays } from 'date-fns'
-import { es } from 'date-fns/locale'
 import { Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -58,7 +57,6 @@ export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDate
     }
 
     const checkInDate = new Date(localCheckIn)
-    const checkOutDate = new Date(localCheckOut)
     
     if (checkInDate < new Date(today)) {
       setError('No puedes seleccionar fechas pasadas')

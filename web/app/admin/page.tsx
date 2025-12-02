@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Calendar, Users, CheckCircle, AlertCircle, TrendingUp } from 'lucide-react'
+import { Calendar, Users, AlertCircle, TrendingUp, Package } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
@@ -42,8 +42,8 @@ const MOCK_TODAY_RESERVATIONS = [
 ]
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState(MOCK_STATS)
-  const [reservations, setReservations] = useState(MOCK_TODAY_RESERVATIONS)
+  const [stats] = useState(MOCK_STATS)
+  const [reservations] = useState(MOCK_TODAY_RESERVATIONS)
 
   return (
     <div className="space-y-6">

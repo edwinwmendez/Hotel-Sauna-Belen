@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, createContext, useContext } from 'react'
+import { useState, useEffect, createContext, useContext, type ReactNode } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { MOCK_USER, MOCK_ADMIN } from '@/lib/supabase/mock'
 
@@ -21,7 +21,11 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+interface AuthProviderProps {
+  children: ReactNode
+}
+
+export function AuthProvider({ children }: AuthProviderProps): React.ReactElement {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -76,8 +80,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('mock_user')
   }
 
+  const value: AuthContextType = { user, loading, signIn, signOut, signUp }
+
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signOut, signUp }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   )
@@ -90,4 +96,3 @@ export function useAuth() {
   }
   return context
 }
-

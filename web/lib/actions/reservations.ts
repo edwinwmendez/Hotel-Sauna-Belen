@@ -10,10 +10,6 @@ export async function createReservation(formData: FormData) {
 
   // Si no hay Supabase, simular creación exitosa
   if (!supabase) {
-    const roomId = formData.get('roomId') as string
-    const checkIn = formData.get('checkIn') as string
-    const checkOut = formData.get('checkOut') as string
-    
     // Generar código mock
     const date = new Date().toISOString().split('T')[0].replace(/-/g, '')
     const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0')

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Toaster } from 'sonner'
-import { AuthProvider } from '@/hooks/use-auth'
+import { ClientProvider } from '@/components/providers/client-provider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,10 +38,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${inter.variable} font-sans antialiased`}>
-        <AuthProvider>
+        <ClientProvider>
           {children}
-          <Toaster position="top-right" richColors />
-        </AuthProvider>
+        </ClientProvider>
       </body>
     </html>
   )

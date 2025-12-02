@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { ProgressBar } from '@/components/booking/progress-bar'
 import { StepDates } from '@/components/booking/step-dates'
 import { StepRoom } from '@/components/booking/step-room'
@@ -16,8 +15,8 @@ type Room = Database['public']['Tables']['rooms']['Row']
 const STEPS = ['Fechas', 'Habitación', 'Datos', 'Confirmación']
 
 export default function ReservarPage() {
-  const searchParams = useSearchParams()
-  const roomSlug = searchParams.get('room')
+  // const searchParams = useSearchParams()
+  // const roomSlug = searchParams.get('room') // Para uso futuro
 
   const [currentStep, setCurrentStep] = useState(1)
   const [checkIn, setCheckIn] = useState<string | null>(null)

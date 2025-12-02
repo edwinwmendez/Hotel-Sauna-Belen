@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { RESERVATION_STATUS } from '@/lib/constants'
-import { Calendar, MapPin, Users, CreditCard, AlertCircle } from 'lucide-react'
+import { Calendar, CreditCard } from 'lucide-react'
 import Link from 'next/link'
 
 // Mock de reservas
@@ -41,7 +41,7 @@ const MOCK_RESERVATIONS = [
 ]
 
 export default function MisReservasPage() {
-  const [reservations, setReservations] = useState(MOCK_RESERVATIONS)
+  const [reservations] = useState(MOCK_RESERVATIONS)
 
   const getStatusColor = (status: string) => {
     switch (status) {

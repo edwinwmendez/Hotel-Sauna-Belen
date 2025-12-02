@@ -62,7 +62,7 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
       if (result.success && result.bookingCode) {
         router.push(`/reservar/confirmacion?code=${result.bookingCode}`)
       }
-    } catch (err) {
+    } catch {
       setError('Error al procesar la reserva. Por favor, intenta de nuevo.')
       setLoading(false)
     }

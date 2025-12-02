@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 interface ProgressBarProps {
   currentStep: number
-  totalSteps: number
+  totalSteps?: number
   steps: string[]
 }
 

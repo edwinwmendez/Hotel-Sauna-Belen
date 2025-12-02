@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -45,7 +44,7 @@ export function StepGuest({
     },
   })
 
-  const createAccount = watch('createAccount')
+  // const createAccount = watch('createAccount') // Usado en el formulario
 
   const onSubmit = (data: BookingFormData['guest'] & { createAccount: boolean }) => {
     const { createAccount, ...guest } = data
