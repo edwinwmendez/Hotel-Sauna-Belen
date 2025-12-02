@@ -67,7 +67,7 @@
 ```
 hotel-sauna-belen/
 ├── app/                          # App Router (Next.js 16)
-│   ├── (public)/                 # Rutas públicas (sin auth)
+│   ├── (public)/                 # Rutas públicas
 │   │   ├── page.tsx              # Home
 │   │   ├── habitaciones/
 │   │   │   ├── page.tsx          # Lista de habitaciones
@@ -78,36 +78,38 @@ hotel-sauna-belen/
 │   │   ├── contacto/
 │   │   │   └── page.tsx          # Contacto
 │   │   └── reservar/
-│   │       └── page.tsx          # Flujo de reserva
+│   │       ├── page.tsx          # Flujo de reserva
+│   │       └── confirmacion/
+│   │           └── page.tsx      # Confirmación
 │   │
 │   ├── (auth)/                   # Rutas de autenticación
 │   │   ├── login/
-│   │   │   └── page.tsx          # Login cliente/admin
+│   │   │   └── page.tsx
 │   │   ├── registro/
-│   │   │   └── page.tsx          # Registro de cliente
+│   │   │   └── page.tsx
 │   │   └── recuperar/
-│   │       └── page.tsx          # Recuperar contraseña
+│   │       └── page.tsx
 │   │
-│   ├── (cliente)/                # Portal del cliente (protegido)
-│   │   ├── layout.tsx            # Layout con verificación de auth
+│   ├── (cliente)/                # Portal del cliente
+│   │   ├── layout.tsx
 │   │   ├── mis-reservas/
-│   │   │   ├── page.tsx          # Lista de reservas del cliente
+│   │   │   ├── page.tsx
 │   │   │   └── [id]/
-│   │   │       └── page.tsx      # Detalle de reserva
+│   │   │       └── page.tsx
 │   │   └── perfil/
-│   │       └── page.tsx          # Perfil del cliente
+│   │       └── page.tsx
 │   │
-│   ├── admin/                    # Panel administrativo (protegido)
-│   │   ├── layout.tsx            # Layout admin con sidebar
+│   ├── admin/                    # Panel administrativo
+│   │   ├── layout.tsx
 │   │   ├── page.tsx              # Dashboard
 │   │   ├── reservas/
-│   │   │   ├── page.tsx          # Lista de reservas
+│   │   │   ├── page.tsx
 │   │   │   └── [id]/
-│   │   │       └── page.tsx      # Detalle/edición de reserva
+│   │   │       └── page.tsx
 │   │   ├── calendario/
-│   │   │   └── page.tsx          # Calendario de ocupación
+│   │   │   └── page.tsx
 │   │   ├── habitaciones/
-│   │   │   └── page.tsx          # Gestión de habitaciones
+│   │   │   └── page.tsx
 │   │   └── inventario/           # NUEVO: Módulo de inventarios
 │   │       ├── page.tsx          # Dashboard inventario
 │   │       ├── productos/
@@ -125,68 +127,32 @@ hotel-sauna-belen/
 │   │       └── reportes/
 │   │           └── page.tsx
 │   │
-│   ├── api/                      # API Routes
-│   │   ├── reservas/
-│   │   │   └── route.ts          # CRUD reservas
-│   │   └── webhooks/
-│   │       └── route.ts          # Webhooks externos
-│   │
 │   ├── layout.tsx                # Root layout
-│   ├── globals.css               # Estilos globales
-│   └── not-found.tsx             # Página 404
+│   ├── globals.css               # Tailwind v4 CSS
+│   └── not-found.tsx
 │
-├── components/                   # Componentes React
+├── components/
 │   ├── ui/                       # shadcn/ui components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── calendar.tsx
-│   │   ├── dialog.tsx
-│   │   ├── form.tsx
-│   │   ├── input.tsx
-│   │   ├── select.tsx
-│   │   └── ...
-│   │
-│   ├── layout/                   # Componentes de layout
+│   ├── layout/
 │   │   ├── header.tsx
 │   │   ├── footer.tsx
 │   │   ├── mobile-nav.tsx
 │   │   └── admin-sidebar.tsx
-│   │
-│   ├── home/                     # Componentes del home
-│   │   ├── hero.tsx
-│   │   ├── room-preview.tsx
-│   │   ├── sauna-section.tsx
-│   │   └── testimonials.tsx
-│   │
-│   ├── rooms/                    # Componentes de habitaciones
-│   │   ├── room-card.tsx
-│   │   ├── room-gallery.tsx
-│   │   └── amenity-list.tsx
-│   │
-│   ├── booking/                  # Componentes de reserva
-│   │   ├── date-picker.tsx
-│   │   ├── room-selector.tsx
-│   │   ├── guest-form.tsx
-│   │   ├── booking-summary.tsx
-│   │   └── confirmation.tsx
-│   │
-│   └── admin/                    # Componentes admin
-│       ├── stats-card.tsx
-│       ├── reservations-table.tsx
-│       ├── occupancy-calendar.tsx
-│       └── reservation-detail.tsx
-│   │
-│   └── inventory/                # NUEVO: Componentes inventario
+│   ├── home/
+│   ├── rooms/
+│   ├── booking/
+│   ├── admin/
+│   └── inventory/                # NUEVO
 │       ├── product-card.tsx
 │       ├── stock-alert.tsx
 │       ├── movement-form.tsx
 │       ├── inventory-table.tsx
 │       └── stock-chart.tsx
 │
-├── lib/                          # Utilidades y configuración
+├── lib/
 │   ├── supabase/
-│   │   ├── client.ts             # Cliente browser
-│   │   ├── server.ts             # Cliente server
+│   │   ├── client.ts
+│   │   ├── server.ts
 │   │   └── types.ts
 │   ├── actions/
 │   │   ├── reservations.ts
@@ -199,36 +165,31 @@ hotel-sauna-belen/
 │   ├── validations/
 │   │   ├── booking.ts
 │   │   └── inventory.ts          # NUEVO
-│   ├── utils.ts                  # Utilidades generales
-│   └── constants.ts              # Constantes del proyecto
+│   ├── utils.ts
+│   └── constants.ts
 │
-├── hooks/                        # Custom hooks
+├── hooks/
 │   ├── use-auth.ts
 │   ├── use-booking.ts
 │   └── use-inventory.ts          # NUEVO
 │
-├── types/                        # TypeScript types
-│   ├── database.ts               # Types generados de Supabase
+├── types/
+│   ├── database.ts
 │   ├── booking.ts
 │   └── inventory.ts              # NUEVO
 │
-├── public/                       # Assets estáticos
-│   ├── images/
-│   │   ├── logo.svg
-│   │   ├── hero.jpg
-│   │   └── rooms/
-│   └── favicon.ico
+├── public/
+│   └── images/
 │
-├── supabase/                     # Configuración Supabase
-│   ├── migrations/               # Migraciones SQL
+├── supabase/
+│   ├── migrations/
 │   │   ├── 001_initial_schema.sql
 │   │   └── 002_inventory.sql     # NUEVO
-│   └── seed.sql                  # Datos iniciales
+│   └── seed.sql
 │
 ├── proxy.ts                      # Auth proxy (reemplaza middleware)
 ├── postcss.config.mjs            # Tailwind v4
 ├── next.config.ts
-├── .env.local                    # Variables de entorno
 └── package.json
 ```
 
@@ -449,10 +410,9 @@ body {
 │  │ id (PK)          │      │      │ id (PK)          │   │
 │  │ name             │──────┼─────>│ product_id (FK)  │   │
 │  │ description      │      │      │ movement_type    │   │
-│  │ icon             │      │      │ quantity         │   │
-│  └──────────────────┘      │      │ room_id (FK)     │───┘
-│           │                │      │ reservation_id  │
-│           │                │      │ created_by      │
+│  └──────────────────┘      │      │ quantity         │   │
+│           │                │      │ room_id (FK)     │───┘
+│           │                │      │ created_by       │
 │           ▼                │      └──────────────────┘
 │  ┌──────────────────┐      │
 │  │ inventory_       │      │
@@ -467,23 +427,16 @@ body {
 │  └──────────────────┘
 │
 └───────────────────────────────────────────────────────────┘
-                              │
-                        ┌─────────────────┐
-                        │  auth.users     │
-                        ├─────────────────┤
-                        │ id (PK)         │
-                        │ email           │
-                        │ role            │
-                        │ ...             │
-                        └─────────────────┘
 ```
 
 ### 4.2 Esquemas SQL
 
 ```sql
 -- ============================================
--- TABLA: rooms (Habitaciones)
+-- MIGRACIÓN 001: Schema inicial
 -- ============================================
+
+-- TABLA: rooms (Habitaciones)
 CREATE TABLE public.rooms (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -499,9 +452,7 @@ CREATE TABLE public.rooms (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ============================================
 -- TABLA: guests (Huéspedes)
--- ============================================
 CREATE TABLE public.guests (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
@@ -514,9 +465,7 @@ CREATE TABLE public.guests (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ============================================
 -- TABLA: reservations (Reservas)
--- ============================================
 CREATE TABLE public.reservations (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     booking_code VARCHAR(20) UNIQUE NOT NULL,
@@ -531,13 +480,10 @@ CREATE TABLE public.reservations (
     notes TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW(),
-    
     CONSTRAINT valid_dates CHECK (check_out > check_in)
 );
 
--- ============================================
--- ÍNDICES
--- ============================================
+-- Índices para reservas
 CREATE INDEX idx_reservations_dates ON public.reservations(check_in, check_out);
 CREATE INDEX idx_reservations_room ON public.reservations(room_id);
 CREATE INDEX idx_reservations_status ON public.reservations(status);
@@ -545,11 +491,7 @@ CREATE INDEX idx_reservations_booking_code ON public.reservations(booking_code);
 CREATE INDEX idx_guests_email ON public.guests(email);
 CREATE INDEX idx_guests_user ON public.guests(user_id);
 
--- ============================================
--- FUNCIONES
--- ============================================
-
--- Generar código de reserva único
+-- Función: Generar código de reserva
 CREATE OR REPLACE FUNCTION generate_booking_code()
 RETURNS TEXT AS $$
 DECLARE
@@ -567,7 +509,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Trigger para auto-generar booking_code
+-- Trigger: Auto-generar booking_code
 CREATE OR REPLACE FUNCTION set_booking_code()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -604,9 +546,7 @@ CREATE TRIGGER trigger_reservations_updated_at
     BEFORE UPDATE ON public.reservations
     FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
--- ============================================
--- VERIFICAR DISPONIBILIDAD
--- ============================================
+-- Función: Verificar disponibilidad
 CREATE OR REPLACE FUNCTION check_room_availability(
     p_room_id UUID,
     p_check_in DATE,
@@ -771,10 +711,6 @@ ORDER BY c.name;
 ### 4.3 Row Level Security (RLS)
 
 ```sql
--- ============================================
--- ROW LEVEL SECURITY
--- ============================================
-
 -- Habilitar RLS
 ALTER TABLE public.rooms ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.guests ENABLE ROW LEVEL SECURITY;
@@ -784,57 +720,59 @@ ALTER TABLE public.inventory_products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inventory_movements ENABLE ROW LEVEL SECURITY;
 
 -- ROOMS: Lectura pública, escritura solo admin
-CREATE POLICY "Rooms are viewable by everyone"
+CREATE POLICY "Rooms viewable by everyone"
     ON public.rooms FOR SELECT USING (is_active = true);
 
-CREATE POLICY "Rooms are editable by admin"
-    ON public.rooms FOR ALL
-    USING (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Rooms editable by admin"
+    ON public.rooms FOR ALL TO authenticated
+    USING ((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
--- GUESTS: Solo el propio usuario o admin
-CREATE POLICY "Users can view own guest profile"
+-- GUESTS: Usuario ve su perfil, admin ve todos
+CREATE POLICY "Users view own guest profile"
     ON public.guests FOR SELECT
-    USING (auth.uid() = user_id OR auth.jwt() ->> 'role' = 'admin');
+    USING (auth.uid() = user_id OR (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
-CREATE POLICY "Users can insert guest data"
-    ON public.guests FOR INSERT
-    WITH CHECK (true);
+CREATE POLICY "Anyone can insert guest"
+    ON public.guests FOR INSERT WITH CHECK (true);
 
 CREATE POLICY "Users can update own guest profile"
     ON public.guests FOR UPDATE
-    USING (auth.uid() = user_id OR auth.jwt() ->> 'role' = 'admin');
+    USING (auth.uid() = user_id OR (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
--- RESERVATIONS: Usuarios ven las suyas, admin ve todas
-CREATE POLICY "Users can view own reservations"
+-- RESERVATIONS: Usuario ve las suyas, admin ve todas
+CREATE POLICY "Users view own reservations"
     ON public.reservations FOR SELECT
     USING (
         guest_id IN (SELECT id FROM public.guests WHERE user_id = auth.uid())
-        OR auth.jwt() ->> 'role' = 'admin'
+        OR (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
     );
 
-CREATE POLICY "Anyone can create reservations"
-    ON public.reservations FOR INSERT
-    WITH CHECK (true);
+CREATE POLICY "Anyone can create reservation"
+    ON public.reservations FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Admin manages reservations"
+    ON public.reservations FOR UPDATE TO authenticated
+    USING ((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
 CREATE POLICY "Users can update own reservations"
     ON public.reservations FOR UPDATE
     USING (
         guest_id IN (SELECT id FROM public.guests WHERE user_id = auth.uid())
-        OR auth.jwt() ->> 'role' = 'admin'
+        OR (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
     );
 
 -- Admin full access bypass
 CREATE POLICY "Admin full access rooms"
     ON public.rooms FOR ALL TO authenticated
-    USING (auth.jwt() ->> 'role' = 'admin');
+    USING ((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
 CREATE POLICY "Admin full access guests"
     ON public.guests FOR ALL TO authenticated
-    USING (auth.jwt() ->> 'role' = 'admin');
+    USING ((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
 CREATE POLICY "Admin full access reservations"
     ON public.reservations FOR ALL TO authenticated
-    USING (auth.jwt() ->> 'role' = 'admin');
+    USING ((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
 -- INVENTORY: Solo admin
 CREATE POLICY "Admin views inventory categories"
@@ -894,9 +832,130 @@ END;
 $$;
 ```
 
+**Nota:** Esta función debe configurarse en Supabase Dashboard como un hook de autenticación. Ve a Authentication > Hooks y agrega esta función como un hook de tipo "access_token".
+
 ---
 
 ## 5. Autenticación y Autorización
+
+### 5.1 Configuración Supabase Auth
+
+```typescript
+// lib/supabase/client.ts
+import { createBrowserClient } from '@supabase/ssr'
+
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!  // Actualizado: PUBLISHABLE_KEY en lugar de ANON_KEY
+  )
+}
+
+// lib/supabase/server.ts
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+
+export async function createClient() {
+  const cookieStore = await cookies()
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,  // Actualizado: PUBLISHABLE_KEY
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            )
+          } catch {
+            // Ignorar errores en Server Components
+          }
+        },
+      },
+    }
+  )
+}
+```
+
+### 5.2 Proxy de Autenticación (Next.js 16)
+
+**Nota:** En Next.js 16, `proxy.ts` reemplaza `middleware.ts` para el manejo de autenticación.
+
+```typescript
+// proxy.ts (reemplaza middleware.ts en Next.js 16)
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+
+export async function updateSession(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({
+    request,
+  })
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,  // Actualizado: PUBLISHABLE_KEY
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => 
+            request.cookies.set(name, value)
+          )
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
+
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Proteger rutas admin
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      url.searchParams.set('redirect', '/admin')
+      return NextResponse.redirect(url)
+    }
+    
+    const role = user.user_metadata?.role
+    if (role !== 'admin') {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  }
+
+  // Proteger rutas cliente
+  if (request.nextUrl.pathname.startsWith('/mis-reservas')) {
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      url.searchParams.set('redirect', '/mis-reservas')
+      return NextResponse.redirect(url)
+    }
+  }
+
+  return supabaseResponse
+}
+
+export const config = {
+  matcher: ['/admin/:path*', '/mis-reservas/:path*'],
+}
+```
+
+---
+
+## 6. APIs y Endpoints
 
 ### 6.1 Server Actions (Recomendado en Next.js 16)
 
@@ -1057,125 +1116,6 @@ export async function GET(request: NextRequest) {
 
 ---
 
-## 6. APIs y Endpoints
-
-### 5.1 Configuración Supabase Auth
-
-```typescript
-// lib/supabase/client.ts
-import { createBrowserClient } from '@supabase/ssr'
-
-export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!  // Actualizado: PUBLISHABLE_KEY en lugar de ANON_KEY
-  )
-}
-
-// lib/supabase/server.ts
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-
-export async function createClient() {
-  const cookieStore = await cookies()
-
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,  // Actualizado: PUBLISHABLE_KEY
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          } catch {
-            // Ignorar errores en Server Components
-          }
-        },
-      },
-    }
-  )
-}
-```
-
-### 5.2 Proxy de Autenticación (Next.js 16)
-
-**Nota:** En Next.js 16, `proxy.ts` reemplaza `middleware.ts` para el manejo de autenticación.
-
-```typescript
-// proxy.ts (reemplaza middleware.ts en Next.js 16)
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
-
-export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  })
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,  // Actualizado: PUBLISHABLE_KEY
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => 
-            request.cookies.set(name, value)
-          )
-          supabaseResponse = NextResponse.next({
-            request,
-          })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
-        },
-      },
-    }
-  )
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  // Proteger rutas admin
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    if (!user) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      url.searchParams.set('redirect', '/admin')
-      return NextResponse.redirect(url)
-    }
-    
-    const role = user.user_metadata?.role
-    if (role !== 'admin') {
-      return NextResponse.redirect(new URL('/', request.url))
-    }
-  }
-
-  // Proteger rutas cliente
-  if (request.nextUrl.pathname.startsWith('/mis-reservas')) {
-    if (!user) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      url.searchParams.set('redirect', '/mis-reservas')
-      return NextResponse.redirect(url)
-    }
-  }
-
-  return supabaseResponse
-}
-
-export const config = {
-  matcher: ['/admin/:path*', '/mis-reservas/:path*'],
-}
-```
-
----
-
 ## 7. SEO y Performance
 
 ### 7.1 Metadata (Next.js 16)
@@ -1273,7 +1213,7 @@ export function HotelSchema() {
 
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 # App
@@ -1297,7 +1237,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
   "regions": ["gru1"],
   "env": {
     "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key"
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY": "@supabase-publishable-key"
   }
 }
 ```
@@ -1451,7 +1391,9 @@ INSERT INTO public.inventory_products (category_id, name, unit, current_stock, m
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "eslint": "^9.16.0",
-    "eslint-config-next": "^16.0.6"
+    "eslint-config-next": "^16.0.6",
+    "prettier": "^3.x",
+    "prettier-plugin-tailwindcss": "^0.6.x"
   }
 }
 ```

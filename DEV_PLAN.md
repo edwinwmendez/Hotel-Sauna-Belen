@@ -16,8 +16,8 @@
 Día 1 (Actual)     → Documentación completa + Setup inicial
 Día 2              → Frontend público (Home, Habitaciones, Sauna)
 Día 3              → Sistema de reservas completo
-Día 4              → Panel administrativo
-Día 5              → Portal cliente + Auth
+Día 4              → Panel administrativo + Portal cliente + Auth
+Día 5              → Módulo de inventarios completo
 Día 6              → Testing, ajustes, deploy final
 ```
 
@@ -54,12 +54,27 @@ Día 6              → Testing, ajustes, deploy final
 
 **Comandos iniciales:**
 ```bash
-npx create-next-app@latest hotel-sauna-belen --typescript --tailwind --eslint --app --src-dir=false
+# Crear proyecto Next.js 16
+npx create-next-app@latest hotel-sauna-belen --typescript --eslint --app
+
 cd hotel-sauna-belen
+
+# Instalar Tailwind CSS v4
+npm install tailwindcss @tailwindcss/postcss
+
+# Instalar shadcn/ui (versión actualizada)
 npx shadcn@latest init
-npx shadcn@latest add button card input label form calendar dialog select
-npm install @supabase/supabase-js @supabase/ssr date-fns lucide-react
+
+# Agregar componentes shadcn
+npx shadcn@latest add button card input label calendar dialog select form
+
+# Instalar Supabase
+npm install @supabase/supabase-js @supabase/ssr
+
+# Instalar utilidades
+npm install date-fns lucide-react sonner
 npm install zod react-hook-form @hookform/resolvers
+npm install clsx tailwind-merge class-variance-authority
 ```
 
 ---
@@ -201,9 +216,50 @@ npm install zod react-hook-form @hookform/resolvers
 
 ---
 
-### FASE 5: Finalización y Deploy (2-3 horas)
+### FASE 5: Módulo de Inventarios (6-8 horas)
 
-#### 5.1 Testing y QA
+#### 5.1 Dashboard de Inventario
+
+| Tarea | Archivo | Tiempo |
+|-------|---------|--------|
+| Stats cards inventario | `components/inventory/inventory-stats.tsx` | 30 min |
+| Alertas de stock bajo | `components/inventory/stock-alert.tsx` | 45 min |
+| Dashboard page | `app/admin/inventario/page.tsx` | 45 min |
+| Queries inventario | `lib/queries/inventory.ts` | 30 min |
+
+#### 5.2 Gestión de Productos
+
+| Tarea | Archivo | Tiempo |
+|-------|---------|--------|
+| Lista de productos | `app/admin/inventario/productos/page.tsx` | 60 min |
+| Formulario producto | `components/inventory/product-form.tsx` | 45 min |
+| Crear producto | `app/admin/inventario/productos/nuevo/page.tsx` | 30 min |
+| Editar producto | `app/admin/inventario/productos/[id]/page.tsx` | 45 min |
+| Product card | `components/inventory/product-card.tsx` | 30 min |
+
+#### 5.3 Gestión de Movimientos
+
+| Tarea | Archivo | Tiempo |
+|-------|---------|--------|
+| Formulario movimiento | `components/inventory/movement-form.tsx` | 60 min |
+| Registrar entrada/salida | `app/admin/inventario/movimientos/nuevo/page.tsx` | 45 min |
+| Historial movimientos | `app/admin/inventario/movimientos/page.tsx` | 60 min |
+| Inventory table | `components/inventory/inventory-table.tsx` | 45 min |
+| Actions inventario | `lib/actions/inventory.ts` | 45 min |
+
+#### 5.4 Categorías y Reportes
+
+| Tarea | Archivo | Tiempo |
+|-------|---------|--------|
+| Gestión categorías | `app/admin/inventario/categorias/page.tsx` | 45 min |
+| Reportes básicos | `app/admin/inventario/reportes/page.tsx` | 60 min |
+| Validaciones | `lib/validations/inventory.ts` | 30 min |
+
+---
+
+### FASE 6: Finalización y Deploy (2-3 horas)
+
+#### 6.1 Testing y QA
 
 | Tarea | Descripción | Tiempo |
 |-------|-------------|--------|
@@ -213,7 +269,7 @@ npm install zod react-hook-form @hookform/resolvers
 | Test responsive | Mobile, tablet, desktop | 30 min |
 | Fix bugs críticos | Según hallazgos | 60 min |
 
-#### 5.2 Datos Seed
+#### 6.2 Datos Seed
 
 | Tarea | Archivo | Tiempo |
 |-------|---------|--------|
@@ -222,7 +278,7 @@ npm install zod react-hook-form @hookform/resolvers
 | Insertar reservas ejemplo | `supabase/seed.sql` | 10 min |
 | Verificar datos | Query manual | 10 min |
 
-#### 5.3 Deploy
+#### 6.3 Deploy
 
 | Tarea | Descripción | Tiempo |
 |-------|-------------|--------|
@@ -259,17 +315,23 @@ npm install zod react-hook-form @hookform/resolvers
 13. [ ] Cambiar estado de reserva
 14. [ ] Página del sauna
 15. [ ] Página de contacto
+16. [ ] Dashboard de inventario
+17. [ ] Gestión de productos (CRUD)
+18. [ ] Registro de movimientos (entrada/salida)
+19. [ ] Alertas de stock bajo
 ```
 
 ### 🟢 DESEABLE (Nice to have)
 
 ```
-16. [ ] Perfil de cliente editable
-17. [ ] Gestión de habitaciones (CRUD)
-18. [ ] Email real con Resend
-19. [ ] Animaciones y microinteracciones
-20. [ ] SEO completo (Schema.org)
-21. [ ] Analytics (Google Analytics)
+20. [ ] Perfil de cliente editable
+21. [ ] Gestión de habitaciones (CRUD)
+22. [ ] Email real con Resend
+23. [ ] Animaciones y microinteracciones
+24. [ ] SEO completo (Schema.org)
+25. [ ] Analytics (Google Analytics)
+26. [ ] Historial completo de movimientos inventario
+27. [ ] Reportes avanzados de consumo
 ```
 
 ---
@@ -305,7 +367,7 @@ SETUP
   │           │                        │
   │           ├─→ LOGIN/REGISTRO       │
   │           │                        │
-  │           ├─→ MIDDLEWARE ──────────┤
+  │           ├─→ PROXY (Auth) ────────┤
   │           │                        │
   │           ├─→ PORTAL CLIENTE ◄─────┤
   │           │                        │
@@ -315,7 +377,17 @@ SETUP
   │                 │
   │                 ├─→ GESTIÓN RESERVAS
   │                 │
-  │                 └─→ CALENDARIO
+  │                 ├─→ CALENDARIO
+  │                 │
+  │                 └─→ MÓDULO INVENTARIOS
+  │                       │
+  │                       ├─→ DASHBOARD INVENTARIO
+  │                       │
+  │                       ├─→ GESTIÓN PRODUCTOS
+  │                       │
+  │                       ├─→ MOVIMIENTOS
+  │                       │
+  │                       └─→ REPORTES
   │
   └─→ DEPLOY
 ```
@@ -333,8 +405,9 @@ SETUP
 | Sistema reservas | 5-6 horas | _____ |
 | Panel admin | 4-5 horas | _____ |
 | Auth + Cliente | 3-4 horas | _____ |
+| Módulo Inventarios | 6-8 horas | _____ |
 | Testing + Deploy | 2-3 horas | _____ |
-| **TOTAL** | **20-26 horas** | _____ |
+| **TOTAL** | **28-34 horas** | _____ |
 
 *Completar durante desarrollo
 
@@ -351,17 +424,40 @@ SETUP
 | Occupancy Calendar | Alta | 2.5h |
 | Auth Flow | Media | 2h |
 
-### 5.3 Distribución Intensiva (1 día)
+### 5.3 Distribución Intensiva (2-3 días)
 
-Si el objetivo es completar en 1 día intensivo (~12-14 horas):
+**TIEMPO TOTAL ESTIMADO: 28-34 horas**
 
+**Distribución sugerida (2-3 días intensivos):**
+
+```
+DÍA 1 (10-12 horas):
+├── Setup proyecto con stack actualizado (2h)
+├── Frontend público completo (5h)
+└── Sistema de reservas (5h)
+
+DÍA 2 (10-12 horas):
+├── Panel admin - Dashboard y reservas (4h)
+├── Calendario de ocupación (2h)
+├── Auth + Portal cliente (3h)
+└── Testing básico (2h)
+
+DÍA 3 (8-10 horas):
+├── Módulo de inventarios completo (6h)
+├── Testing e2e (1h)
+├── Deploy y ajustes finales (2h)
+└── Documentación para entrega (1h)
+```
+
+**Distribución alternativa (horas específicas):**
 ```
 Hora 0-2:    Setup completo
 Hora 2-5:    Frontend público (Home, Habitaciones)
 Hora 5-8:    Sistema de reservas
 Hora 8-10:   Panel admin (Dashboard + Lista)
 Hora 10-12:  Auth + Portal cliente básico
-Hora 12-14:  Testing + Deploy + Ajustes
+Hora 12-18:  Módulo de inventarios completo
+Hora 18-20:  Testing + Deploy + Ajustes
 ```
 
 **Nota:** Esta distribución asume desarrollo continuo con experiencia en el stack.
@@ -466,6 +562,41 @@ Hora 12-14:  Testing + Deploy + Ajustes
     [ ] Lista de reservas propias
     [ ] Ver detalle de cada reserva
     [ ] Solicitar cancelación (según políticas)
+```
+
+### ✅ Módulo de Inventarios
+
+```
+[ ] Dashboard de Inventario
+    [ ] Stats: productos totales, stock bajo, movimientos hoy, valor total
+    [ ] Alertas de stock bajo destacadas
+    [ ] Movimientos recientes
+    [ ] Acceso rápido a acciones
+
+[ ] Gestión de Productos
+    [ ] Lista de productos con filtros
+    [ ] Crear nuevo producto
+    [ ] Editar producto existente
+    [ ] Ver detalle de producto
+    [ ] Desactivar/activar producto
+
+[ ] Gestión de Categorías
+    [ ] Lista de categorías
+    [ ] Crear/editar categoría
+    [ ] Asignar icono a categoría
+
+[ ] Movimientos de Inventario
+    [ ] Registrar entrada (compra)
+    [ ] Registrar salida (consumo)
+    [ ] Registrar ajuste de inventario
+    [ ] Historial completo de movimientos
+    [ ] Filtros por producto, fecha, tipo
+
+[ ] Alertas y Reportes
+    [ ] Alertas visuales de stock bajo
+    [ ] Reporte de consumo mensual
+    [ ] Productos más usados
+    [ ] Valor total del inventario
 ```
 
 ### ✅ Técnico

@@ -1,65 +1,120 @@
 # Product Requirements Document (PRD)
-## Hotel Sauna Belén - Plataforma Web de Reservas
+## Hotel Sauna Belén - Plataforma Web de Reservas e Inventarios
 
-**Versión:** 1.0  
+**Versión:** 2.0  
 **Fecha:** Diciembre 2025  
 **Autor:** Edwin Mendez - CTO  
 **Cliente:** Hotel Sauna Belén  
+**Representante:** Alessandra Jimena Vera Salazar (Administradora)
 
 ---
 
 ## 1. Resumen Ejecutivo
 
 ### 1.1 Descripción del Proyecto
-Desarrollo de una plataforma web moderna para Hotel Sauna Belén, un hotel 3 estrellas ubicado en Moquegua, Perú. La plataforma permitirá a los clientes realizar reservas online 24/7 y al hotel gestionar su ocupación de manera eficiente.
+Desarrollo de una plataforma web moderna para Hotel Sauna Belén, un hotel 3 estrellas ubicado en Moquegua, Perú. La plataforma permitirá a los clientes realizar reservas online 24/7, al hotel gestionar su ocupación de manera eficiente, y controlar el inventario de suministros.
 
-### 1.2 Problema a Resolver
+### 1.2 Problemas a Resolver
 - **Baja visibilidad digital:** El hotel no aparece en búsquedas de Google
-- **Sistema de reservas obsoleto:** Solo acepta reservas telefónicas, perdiendo clientes potenciales
+- **Sistema de reservas obsoleto:** Solo acepta reservas telefónicas y gestión en Excel
+- **Control de inventarios deficiente:** Falta de seguimiento de suministros y amenidades
+- **Registro de huéspedes manual:** Proceso ineficiente y propenso a errores
 - **Diferenciador desaprovechado:** El servicio de sauna privado no se comunica efectivamente
 
 ### 1.3 Solución Propuesta
-Plataforma web con sistema de reservas online que incluye:
-- Catálogo visual de habitaciones
-- Reservas 24/7 con calendario de disponibilidad
-- Panel administrativo para gestión de reservas
+Plataforma web integral que incluye:
+- Catálogo visual de habitaciones con reservas online 24/7
+- Panel administrativo para gestión de reservas y calendario
+- **Sistema de control de inventarios** para suministros del hotel
 - Portal de cliente para seguimiento de reservas
+- Registro digital de huéspedes
 
 ---
 
-## 2. Objetivos de Negocio
+## 2. Información del Negocio
+
+### 2.1 Datos de la Empresa
+
+| Campo | Información |
+|-------|-------------|
+| Nombre | Hotel Sauna Belén |
+| Ubicación | Calle Huánuco 120, Moquegua, Perú |
+| Categoría | Hotel 3 estrellas |
+| Diferenciador | Sauna privado en cada habitación |
+| Teléfono | 943-924-822 |
+| Email | reservas@hotelsaunabelen.com |
+
+### 2.2 Propuesta de Valor (de entrevista)
+- Espacio cómodo, accesible, diseño simple y funcional
+- Tres pilares: **Excelente servicio, limpieza continua, tarifas justas**
+- Prácticas sostenibles: reducción de plásticos, ahorro de agua/energía, productos de limpieza locales, materiales reciclables
+- **Planes futuros:** Duchas solares, mejor clasificación de residuos
+
+### 2.3 Canales de Marketing Actuales
+- Facebook e Instagram
+- Afiches físicos
+- Google **Maps**
+- Boca a boca (recomendaciones)
+
+### 2.4 Herramientas Actuales
+- Excel para control de reservas
+
+### 2.5 Problemas Identificados (Prioritarios)
+1. **Control de inventarios** - Necesita mejora urgente
+2. **Registro de huéspedes** - Proceso manual ineficiente
+3. **Escasez de personal** - En temporadas altas causa retrasos
+
+### 2.6 Habitaciones y Precios
+
+| Tipo | Precio/Noche | Capacidad |
+|------|--------------|-----------|
+| Suite King con Sauna | S/ 250 | 2 personas |
+| Habitación Matrimonial | S/ 180 | 2 personas |
+| Habitación Simple | S/ 120 | 1 persona |
+
+### 2.7 Servicios Incluidos
+- Sauna privado en cada habitación
+- WiFi de alta velocidad
+- Estacionamiento gratuito
+- TV Smart con Netflix
+- Agua caliente 24 horas
+- Atención personalizada 24/7
+
+---
+
+## 3. Objetivos de Negocio
 
 | Objetivo | Métrica | Meta |
 |----------|---------|------|
 | Aumentar reservas online | % de reservas digitales | 40% en 6 meses |
 | Reducir carga operativa | Llamadas de reserva | -50% |
+| Control de inventarios | Alertas de stock bajo | 100% automatizado |
 | Mejorar visibilidad | Posición en Google | Top 5 "hotel Moquegua" |
-| Promocionar diferenciador | Menciones de sauna | 80% de visitantes |
+| Reducir pérdidas | Productos vencidos/desperdiciados | -30% |
 
 ---
 
-## 3. Usuarios Objetivo
+## 4. Usuarios Objetivo
 
-### 3.1 Persona 1: Cliente - "María Turista"
-
+### 4.1 Persona 1: Cliente - "María Turista"
 - **Edad:** 28-45 años
 - **Perfil:** Profesional que viaja por trabajo o turismo
 - **Necesidades:** Reservar rápido, ver fotos, confirmar disponibilidad
 - **Frustraciones:** Llamar para reservar, incertidumbre de disponibilidad
 - **Dispositivo:** 70% móvil, 30% desktop
 
-### 3.2 Persona 2: Administrador - "Carlos Recepcionista"
+### 4.2 Persona 2: Administrador - "Alessandra"
 - **Edad:** 25-50 años
-- **Perfil:** Personal del hotel encargado de reservas
-- **Necesidades:** Ver calendario de ocupación, gestionar reservas, contactar clientes
-- **Frustraciones:** Gestión manual en cuadernos, doble booking
+- **Perfil:** Personal del hotel encargado de operaciones
+- **Necesidades:** Ver calendario, gestionar reservas, controlar inventario
+- **Frustraciones:** Gestión manual en Excel, falta de alertas de stock
 - **Dispositivo:** 80% desktop, 20% tablet
 
 ---
 
-## 4. Funcionalidades Core (MVP)
+## 5. Funcionalidades Core (MVP)
 
-### 4.1 Módulo Público (Sin autenticación)
+### 5.1 Módulo Público (Sin autenticación)
 
 | ID | Funcionalidad | Prioridad | Descripción |
 |----|---------------|-----------|-------------|
@@ -70,18 +125,18 @@ Plataforma web con sistema de reservas online que incluye:
 | F05 | Página de Contacto | Media | Formulario, mapa, datos de contacto |
 | F06 | Buscador de Disponibilidad | Alta | Widget para verificar fechas disponibles |
 
-### 4.2 Módulo de Reservas (Requiere datos de cliente)
+### 5.2 Módulo de Reservas
 
 | ID | Funcionalidad | Prioridad | Descripción |
 |----|---------------|-----------|-------------|
 | F07 | Flujo de Reserva | Alta | Wizard: fechas → habitación → datos → confirmación |
 | F08 | Calendario de Disponibilidad | Alta | Visualización de fechas disponibles/ocupadas |
 | F09 | Cálculo de Precio | Alta | Precio total según noches y tipo de habitación |
-| F10 | Confirmación de Reserva | Alta | Resumen + envío de confirmación (email/WhatsApp) |
+| F10 | Confirmación de Reserva | Alta | Resumen + envío de confirmación |
 | F11 | Registro de Cliente | Alta | Crear cuenta para gestionar reservas |
 | F12 | Login de Cliente | Alta | Acceso a portal de cliente |
 
-### 4.3 Módulo Portal Cliente (Autenticado)
+### 5.3 Módulo Portal Cliente (Autenticado)
 
 | ID | Funcionalidad | Prioridad | Descripción |
 |----|---------------|-----------|-------------|
@@ -90,7 +145,7 @@ Plataforma web con sistema de reservas online que incluye:
 | F15 | Cancelar Reserva | Media | Solicitar cancelación según políticas |
 | F16 | Historial de Reservas | Baja | Lista de todas las reservas realizadas |
 
-### 4.4 Módulo Administrativo (Solo staff)
+### 5.4 Módulo Administrativo
 
 | ID | Funcionalidad | Prioridad | Descripción |
 |----|---------------|-----------|-------------|
@@ -100,11 +155,37 @@ Plataforma web con sistema de reservas online que incluye:
 | F20 | Gestión de Reserva | Alta | Ver, confirmar, cancelar reservas |
 | F21 | Gestión de Habitaciones | Media | CRUD de habitaciones y precios |
 
+### 5.5 Módulo de Inventarios (NUEVO)
+
+| ID | Funcionalidad | Prioridad | Descripción |
+|----|---------------|-----------|-------------|
+| INV01 | Catálogo de Productos | Alta | Lista de todos los productos con categoría y stock |
+| INV02 | Dashboard de Inventario | Alta | Vista general con alertas de stock bajo |
+| INV03 | Alertas de Stock Bajo | Alta | Notificación cuando un producto está bajo el mínimo |
+| INV04 | Registro de Entradas | Alta | Registrar llegada de productos (compras) |
+| INV05 | Registro de Salidas | Alta | Registrar consumo por habitación o área |
+| INV06 | Gestión de Categorías | Media | CRUD de categorías de productos |
+| INV07 | Historial de Movimientos | Media | Log de todas las entradas y salidas |
+| INV08 | Reportes de Consumo | Baja | Consumo mensual, productos más usados |
+
+#### Categorías de Inventario
+
+| Categoría | Ejemplos | Frecuencia |
+|-----------|----------|------------|
+| Amenidades | Jabones, shampoo, cepillos dentales | Diaria/Por huésped |
+| Blancos | Sábanas, toallas, almohadas | Semanal |
+| Limpieza | Detergentes, desinfectantes | Semanal |
+| Minibar | Agua, gaseosas, snacks, bebidas | Por consumo |
+| Papelería | Papel higiénico, pañuelos | Diaria |
+| Sauna | Esencias, toallas especiales | Semanal |
+| Mantenimiento | Focos, pilas, repuestos menores | Según necesidad |
+| Mantenimiento | Focos, pilas, repuestos | Según necesidad |
+
 ---
 
-## 5. User Stories
+## 6. User Stories
 
-### 5.1 Como Cliente
+### 6.1 Como Cliente
 
 ```
 US01: Como cliente, quiero ver las habitaciones disponibles con fotos y precios 
@@ -129,28 +210,34 @@ US07: Como cliente, quiero conocer los beneficios del sauna
       para decidir si este hotel es mejor que otros.
 ```
 
-### 5.2 Como Administrador
+### 6.2 Como Administrador
 
 ```
-US08: Como administrador, quiero ver todas las reservas del día 
+US07: Como administrador, quiero ver todas las reservas del día 
       para preparar las habitaciones correspondientes.
       
-US09: Como administrador, quiero ver un calendario de ocupación 
+US08: Como administrador, quiero ver un calendario de ocupación 
       para saber qué habitaciones están disponibles en cada fecha.
       
-US10: Como administrador, quiero confirmar o rechazar reservas 
+US09: Como administrador, quiero confirmar o rechazar reservas 
       para gestionar la disponibilidad real del hotel.
       
-US11: Como administrador, quiero ver los datos de contacto del cliente 
-      para comunicarme si hay algún problema con su reserva.
+US10: Como administrador, quiero ver alertas de stock bajo 
+      para reponer productos antes de que se agoten.
       
-US12: Como administrador, quiero actualizar precios de habitaciones 
-      para ajustar según temporada o demanda.
+US11: Como administrador, quiero registrar entradas de inventario 
+      para mantener actualizado el stock después de compras.
+      
+US12: Como administrador, quiero registrar consumo por habitación 
+      para saber qué productos se usan más y cuándo reponer.
+      
+US13: Como administrador, quiero ver reportes de consumo mensual 
+      para planificar compras y controlar costos.
 ```
 
 ---
 
-## 6. Casos de Uso Detallados
+## 7. Casos de Uso Detallados
 
 ### CU01: Realizar Reserva Online
 
@@ -192,7 +279,7 @@ US12: Como administrador, quiero actualizar precios de habitaciones
 
 ---
 
-## 7. Criterios de Aceptación
+## 8. Criterios de Aceptación
 
 ### CA01: Búsqueda de Disponibilidad
 - [ ] El buscador muestra calendario para seleccionar fechas
@@ -210,15 +297,17 @@ US12: Como administrador, quiero actualizar precios de habitaciones
 - [ ] Precio total = precio/noche × número de noches
 - [ ] Genera código único de reserva (formato: HSB-YYYYMMDD-XXXX)
 
-### CA03: Confirmación de Reserva
-- [ ] Muestra página de éxito con código de reserva
-- [ ] Envía email de confirmación (o simula en MVP)
-- [ ] Email incluye: código, fechas, habitación, precio, datos del hotel
-- [ ] Ofrece opción de crear cuenta o continuar como invitado
+### CA03: Control de Inventarios
+- [ ] Dashboard muestra productos con stock bajo destacados
+- [ ] Alerta visual cuando stock <= stock mínimo
+- [ ] Registro de entrada actualiza stock automáticamente
+- [ ] Registro de salida descuenta del stock
+- [ ] Historial muestra todos los movimientos con fecha y usuario
+- [ ] No permite salidas que dejen stock negativo
 
 ### CA04: Panel Administrativo
 - [ ] Solo accesible con credenciales de admin
-- [ ] Dashboard muestra: reservas hoy, check-ins, check-outs, ocupación
+- [ ] Dashboard muestra: reservas hoy, check-ins, check-outs, ocupación, alertas inventario
 - [ ] Lista de reservas permite filtrar por: estado, fecha, habitación
 - [ ] Calendario muestra ocupación visual por habitación
 - [ ] Permite cambiar estado de reserva
@@ -272,8 +361,6 @@ US12: Como administrador, quiero actualizar precios de habitaciones
 
 ## 9. Fuera de Alcance (MVP)
 
-Las siguientes funcionalidades NO se incluyen en esta versión:
-
 - ❌ Pagos online reales (solo simulación)
 - ❌ Sistema de reviews/calificaciones
 - ❌ Multi-idioma (solo español)
@@ -282,6 +369,8 @@ Las siguientes funcionalidades NO se incluyen en esta versión:
 - ❌ Chat en vivo
 - ❌ Notificaciones push
 - ❌ App móvil nativa
+- ❌ Gestión de proveedores (solo productos)
+- ❌ Órdenes de compra automáticas
 
 ---
 
@@ -294,6 +383,8 @@ Las siguientes funcionalidades NO se incluyen en esta versión:
 | Tiempo en sitio | N/A | 2+ min | Google Analytics |
 | Bounce rate | N/A | < 50% | Google Analytics |
 | Satisfacción admin | N/A | 4/5+ | Feedback directo |
+| Alertas de stock atendidas | N/A | 95%+ | Sistema de inventario |
+| Productos sin ruptura | N/A | 98%+ | Días sin faltantes |
 
 ---
 
@@ -311,14 +402,15 @@ Las siguientes funcionalidades NO se incluyen en esta versión:
 
 | Fase | Duración | Entregable |
 |------|----------|------------|
-| Documentación | Día 1 | PRD, Tech Spec, Design Guide |
-| Setup + Base | Día 1-2 | Proyecto, DB, Auth |
-| Frontend Público | Día 2-3 | Home, Habitaciones, Sauna |
-| Sistema Reservas | Día 3-4 | Flujo completo de reserva |
-| Panel Admin | Día 4-5 | Dashboard, gestión reservas |
-| Portal Cliente | Día 5 | Login, mis reservas |
+| Documentación | Día 1 | PRD, Tech Spec, Design Guide, Dev Plan |
+| Setup + Base | Día 1 | Proyecto Next.js 16, Supabase, Auth |
+| Frontend Público | Día 2 | Home, Habitaciones, Sauna, Contacto |
+| Sistema Reservas | Día 2-3 | Flujo completo de reserva |
+| Panel Admin | Día 3-4 | Dashboard, gestión reservas, calendario |
+| Portal Cliente | Día 4 | Login, mis reservas |
+| **Inventarios** | Día 4-5 | Dashboard, productos, movimientos, alertas |
 | Testing + Deploy | Día 6 | QA, producción, demo |
 
 ---
 
-*Documento generado para evaluación académica - Hotel Sauna Belén*
+*Documento PRD v2.0 - Hotel Sauna Belén - Diciembre 2025*
