@@ -26,7 +26,11 @@ function ReservarPageContent() {
   const urlChildren = searchParams.get('children')
   const urlInfants = searchParams.get('infants')
 
-  const [currentStep, setCurrentStep] = useState(1)
+  // Determinar el paso inicial: si vienen parámetros completos del Hero, saltar al paso 2
+  const hasCompleteSearchParams = urlCheckIn && urlCheckOut && urlAdults
+  const initialStep = hasCompleteSearchParams ? 2 : 1
+
+  const [currentStep, setCurrentStep] = useState(initialStep)
   const [checkIn, setCheckIn] = useState<string | null>(urlCheckIn)
   const [checkOut, setCheckOut] = useState<string | null>(urlCheckOut)
   const [guests, setGuests] = useState<BookingFormData['guests']>({
@@ -83,13 +87,21 @@ function ReservarPageContent() {
     }
   }
 
-  // Cargar datos completos de la habitación cuando se selecciona
+  // Si vienen parámetros del Hero, asegurar que las fechas y huéspedes estén sincronizados
   useEffect(() => {
-    if (selectedRoomId && !selectedRoom) {
-      // Necesitamos una función para obtener room por ID
-      // Por ahora, si tenemos el slug, ya lo tenemos cargado
+    if (urlCheckIn && urlCheckOut) {
+      setCheckIn(urlCheckIn)
+      setCheckOut(urlCheckOut)
     }
-  }, [selectedRoomId, selectedRoom])
+    if (urlAdults) {
+      setGuests({
+        adults: parseInt(urlAdults) || 1,
+        youths: urlYouths ? parseInt(urlYouths) : 0,
+        children: urlChildren ? parseInt(urlChildren) : 0,
+        infants: urlInfants ? parseInt(urlInfants) : 0,
+      })
+    }
+  }, [urlCheckIn, urlCheckOut, urlAdults, urlYouths, urlChildren, urlInfants])
 
   return (
     <div className="py-6 sm:py-8 md:py-12 bg-gray-50 min-h-screen">

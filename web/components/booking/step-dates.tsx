@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { format, addDays } from 'date-fns'
 import { Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -22,6 +22,13 @@ export function StepDates({ checkIn, checkOut, guests, onDatesChange, onGuestsCh
   const [localCheckOut, setLocalCheckOut] = useState(checkOut || '')
   const [localGuests, setLocalGuests] = useState(guests || { adults: 1, youths: 0, children: 0, infants: 0 })
   const [error, setError] = useState('')
+
+  // Sincronizar cuando cambian las props (viene desde URL)
+  useEffect(() => {
+    if (checkIn) setLocalCheckIn(checkIn)
+    if (checkOut) setLocalCheckOut(checkOut)
+    if (guests) setLocalGuests(guests)
+  }, [checkIn, checkOut, guests])
 
   const today = format(new Date(), 'yyyy-MM-dd')
   const minCheckOut = localCheckIn ? format(addDays(new Date(localCheckIn), 1), 'yyyy-MM-dd') : today
