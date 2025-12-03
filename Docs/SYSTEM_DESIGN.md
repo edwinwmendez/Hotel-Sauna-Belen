@@ -1,8 +1,9 @@
 # System Design
 ## Hotel Sauna Belén - Arquitectura y Diseño del Sistema
 
-**Versión:** 1.0  
+**Versión:** 1.1  
 **Fecha:** Diciembre 2025  
+**Última actualización:** Diciembre 2025  
 **Autor:** Edwin Mendez - CTO  
 **Stack:** Next.js 16 + React 19 + Supabase + Tailwind CSS v4
 
@@ -1286,5 +1287,117 @@ const securityHeaders = [
 
 ---
 
-*System Design para Hotel Sauna Belén - Versión 1.0*
+## 12. Mejoras de Arquitectura Implementadas (Diciembre 2025)
+
+### 12.1 Extensión del Modelo de Datos
+
+**Nuevas Columnas en `rooms`:**
+- `max_adults`: Capacidad máxima de adultos (13+ años)
+- `max_youths`: Capacidad máxima de jóvenes (8-12 años)
+- `max_children`: Capacidad máxima de niños (3-7 años)
+- `max_infants`: Capacidad máxima de bebés (0-2 años)
+
+**Nuevas Columnas en `reservations`:**
+- `adults`: Número de adultos en la reserva
+- `youths`: Número de jóvenes en la reserva
+- `children`: Número de niños en la reserva
+- `infants`: Número de bebés en la reserva
+
+**Impacto en la Arquitectura:**
+- Función `check_room_availability()` extendida para validar capacidad por tipo de huésped
+- Validaciones a nivel de base de datos con constraints
+- Migración SQL `003_add_room_capacity_by_type.sql` para actualizar esquema
+
+### 12.2 Mejoras en la Capa de Validación
+
+**Nuevo Schema Zod:**
+- `BookingSchema` extendido con objeto `guests` para desglose detallado
+- Validaciones anidadas para cada tipo de huésped
+- Validación de total de huéspedes (1-6 excluyendo bebés)
+
+**Nuevas Utilidades:**
+- `lib/utils/room-capacity.ts`: Funciones para validar y mostrar capacidad
+- `canRoomAccommodateGuests()`: Valida si una habitación puede acomodar un desglose específico
+- `getRoomCapacityDisplay()`: Formatea la capacidad para mostrar al usuario
+- `getRoomCapacityDetails()`: Obtiene detalles estructurados de capacidad
+
+### 12.3 Mejoras en Componentes UI
+
+**Nuevos Componentes:**
+- `components/home/booking-widget.tsx`: Widget de búsqueda integrado en Hero
+- `components/home/guests-selector.tsx`: Selector de huéspedes por tipo de edad
+- `components/booking/copy-button.tsx`: Botón de copiar código de reserva (Client Component)
+
+**Componentes Mejorados:**
+- `components/ui/button.tsx`: Corrección del prop `asChild` con `@radix-ui/react-slot`
+- `components/layout/header.tsx`: Lógica condicional para ocultar controles duplicados
+- `components/layout/footer.tsx`: Sección Legal y créditos
+
+### 12.4 Mejoras en Flujos de Usuario
+
+**Flujo de Reserva Optimizado:**
+- Salto automático al Paso 2 cuando se viene desde Hero con parámetros
+- Prellenado de datos desde URL parameters
+- Validación de capacidad en tiempo real durante selección de habitación
+
+**Flujo de Autenticación:**
+- Redirección mejorada después del login (dashboard del cliente por defecto)
+- Soporte para mock authentication cuando Supabase no está configurado
+- `lib/supabase/mock.ts`: Cliente mock completo para desarrollo local
+
+### 12.5 Mejoras en Responsividad
+
+**Estrategia Implementada:**
+- Mobile-first approach en todos los componentes
+- Tablas convertidas a cards en móvil
+- Grids adaptativos con breakpoints consistentes
+- Navegación móvil optimizada (menús hamburguesa, scroll horizontal)
+
+**Breakpoints Estándar:**
+- `sm:` 640px (móvil grande)
+- `md:` 768px (tablet)
+- `lg:` 1024px (desktop)
+- `xl:` 1280px (desktop grande)
+
+### 12.6 Mejoras en la Arquitectura de Páginas
+
+**Nuevas Rutas:**
+- `/mi-cuenta`: Dashboard del cliente
+- `/terminos`: Términos y Condiciones
+- `/politica-cancelacion`: Política de Cancelación
+- `/admin/reservas/[id]`: Detalle de reserva
+- `/admin/reservas/[id]/editar`: Edición de reserva
+- `/admin/habitaciones/[id]`: Detalle de habitación
+- `/admin/habitaciones/[id]/editar`: Edición de habitación
+- `/admin/habitaciones/nuevo`: Creación de habitación
+- `/admin/inventario/productos/[id]`: Detalle de producto
+- `/admin/inventario/productos/[id]/editar`: Edición de producto
+- `/admin/inventario/productos/nuevo`: Creación de producto
+- `/admin/inventario/categorias/[id]`: Detalle de categoría
+- `/admin/inventario/categorias/[id]/editar`: Edición de categoría
+- `/admin/inventario/categorias/nuevo`: Creación de categoría
+
+**Layouts Mejorados:**
+- `app/(cliente)/layout.tsx`: Navegación mejorada con sub-navegación
+- `app/admin/layout.tsx`: Sidebar con módulos expandibles y estado activo mejorado
+
+### 12.7 Mejoras en Performance
+
+**Optimizaciones Implementadas:**
+- Lazy loading de componentes pesados
+- Imágenes con fallback a gradiente
+- Validación en tiempo real sin bloqueo de UI
+- Carga condicional de datos según necesidad
+
+### 12.8 Mejoras en Mantenibilidad
+
+**Código Organizado:**
+- Utilidades separadas por funcionalidad (`lib/utils/room-capacity.ts`)
+- Componentes reutilizables bien documentados
+- Migraciones SQL versionadas y documentadas
+- Mock data para desarrollo sin dependencias externas
+
+---
+
+*System Design para Hotel Sauna Belén - Versión 1.1*
 

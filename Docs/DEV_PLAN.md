@@ -1,10 +1,12 @@
 # Plan de Desarrollo
 ## Hotel Sauna Belén - Roadmap de Implementación
 
-**Versión:** 1.0  
+**Versión:** 1.1  
 **Fecha inicio:** Diciembre 2025  
+**Última actualización:** Diciembre 2025  
 **Duración estimada:** 6 días (objetivo: 1 día intensivo)  
 **Metodología:** Desarrollo iterativo con entregables incrementales  
+**Estado:** MVP completado + mejoras implementadas  
 
 ---
 
@@ -655,4 +657,121 @@ Hora 18-20:  Testing + Deploy + Ajustes
 
 ---
 
-*Plan de desarrollo para Hotel Sauna Belén - Versión 1.0*
+## 9. Mejoras Implementadas (Diciembre 2025)
+
+### 9.1 Sistema de Desglose de Huéspedes ✅
+
+**Tareas Completadas:**
+- [x] Migración SQL para agregar columnas de capacidad por tipo de huésped
+- [x] Migración SQL para agregar columnas de desglose en reservas
+- [x] Actualización de función `check_room_availability()` para validar capacidad
+- [x] Schema Zod actualizado con validación de desglose de huéspedes
+- [x] Componente `GuestsSelector` para selección de huéspedes por tipo
+- [x] Utilidades para validar y mostrar capacidad (`lib/utils/room-capacity.ts`)
+- [x] Integración en formularios de reserva y habitaciones
+- [x] Visualización de capacidad detallada en cards y páginas de detalle
+
+**Archivos Creados/Modificados:**
+- `supabase/migrations/003_add_room_capacity_by_type.sql`
+- `lib/utils/room-capacity.ts`
+- `components/home/guests-selector.tsx`
+- `lib/validations/booking.ts` (actualizado)
+- Múltiples componentes de reserva y habitaciones (actualizados)
+
+### 9.2 Mejoras en el Flujo de Reserva ✅
+
+**Tareas Completadas:**
+- [x] Widget de búsqueda integrado en Hero
+- [x] Redirección automática a `/reservar` con parámetros prellenados
+- [x] Salto automático al Paso 2 cuando se viene desde Hero
+- [x] Validación de capacidad en tiempo real durante selección de habitación
+- [x] Resumen completo con desglose de huéspedes
+
+**Archivos Creados/Modificados:**
+- `components/home/booking-widget.tsx`
+- `components/home/hero.tsx` (rediseñado)
+- `app/(public)/reservar/page.tsx` (mejorado)
+
+### 9.3 Rediseño del Portal del Cliente ✅
+
+**Tareas Completadas:**
+- [x] Nueva página de dashboard del cliente (`/mi-cuenta`)
+- [x] Navegación mejorada con sub-navegación clara
+- [x] Un solo punto de logout (eliminación de duplicación)
+- [x] Redirección mejorada después del login
+- [x] Estado activo visual en navegación
+- [x] Diseño completamente responsive
+
+**Archivos Creados/Modificados:**
+- `app/(cliente)/mi-cuenta/page.tsx` (nuevo)
+- `app/(cliente)/layout.tsx` (mejorado)
+- `app/(auth)/login/page.tsx` (mejorado)
+- `components/layout/header.tsx` (mejorado)
+
+### 9.4 Mejoras en el Panel de Administración ✅
+
+**Tareas Completadas:**
+- [x] Dashboards rediseñados con botones de acceso rápido diferenciados
+- [x] Calendario con vista semanal
+- [x] Navegación mejorada en calendario (anterior/siguiente, "Hoy")
+- [x] CRUD completo para Reservas, Habitaciones, Productos y Categorías
+- [x] Páginas de detalle, edición y creación para todos los módulos
+- [x] Sidebar con módulos expandibles y estado activo mejorado
+
+**Archivos Creados/Modificados:**
+- `app/admin/page.tsx` (mejorado)
+- `app/admin/inventario/page.tsx` (mejorado)
+- `app/admin/calendario/page.tsx` (mejorado)
+- Múltiples páginas de CRUD creadas
+
+### 9.5 Mejoras de Diseño y Responsividad ✅
+
+**Tareas Completadas:**
+- [x] Hero section rediseñado con imagen de fondo y widget integrado
+- [x] Páginas legales implementadas (Términos y Condiciones, Política de Cancelación)
+- [x] Footer mejorado con sección Legal y créditos
+- [x] Responsividad completa en todas las páginas
+- [x] Tablas convertidas a cards en móvil
+- [x] Grids adaptativos en todos los componentes
+- [x] Navegación móvil optimizada
+
+**Archivos Creados/Modificados:**
+- `app/(public)/terminos/page.tsx` (nuevo)
+- `app/(public)/politica-cancelacion/page.tsx` (nuevo)
+- `components/layout/footer.tsx` (mejorado)
+- Múltiples páginas: mejoras de responsividad aplicadas
+
+### 9.6 Mejoras Técnicas ✅
+
+**Tareas Completadas:**
+- [x] Corrección del componente `Button` para manejar `asChild` correctamente
+- [x] Soporte para mock authentication cuando Supabase no está configurado
+- [x] Mejoras en manejo de errores de imágenes con fallbacks
+- [x] Componentes Client/Server correctamente separados
+
+**Archivos Creados/Modificados:**
+- `components/ui/button.tsx` (corregido)
+- `lib/supabase/mock.ts` (mejorado)
+- `components/home/hero.tsx` (convertido a Client Component)
+
+### 9.7 Estado del Proyecto
+
+**MVP Completado:**
+- ✅ Frontend público completo y responsive
+- ✅ Sistema de reservas completo con desglose de huéspedes
+- ✅ Panel administrativo completo con CRUD
+- ✅ Portal del cliente mejorado
+- ✅ Módulo de inventarios completo
+- ✅ Autenticación funcional (con soporte mock)
+- ✅ Responsividad completa
+- ✅ Páginas legales implementadas
+
+**Próximos Pasos:**
+- Integración con Supabase real (cuando esté configurado)
+- Testing exhaustivo
+- Optimizaciones de performance
+- Deploy a producción
+
+---
+
+*Plan de desarrollo para Hotel Sauna Belén - Versión 1.1*

@@ -1,8 +1,9 @@
 # Especificación Técnica
 ## Hotel Sauna Belén - Arquitectura y Diseño Técnico
 
-**Versión:** 2.0  
+**Versión:** 2.1  
 **Fecha:** Diciembre 2025  
+**Última actualización:** Diciembre 2025  
 **Stack:** Next.js 16 + React 19 + Supabase + Tailwind CSS v4  
 
 ---
@@ -492,6 +493,11 @@ CREATE TABLE public.rooms (
     description TEXT,
     price_per_night DECIMAL(10,2) NOT NULL,
     capacity INTEGER NOT NULL DEFAULT 2,
+    -- Capacidad detallada por tipo de huésped (NULL = sin límite específico)
+    max_adults INTEGER NULL,      -- Máximo de adultos (13+ años)
+    max_youths INTEGER NULL,       -- Máximo de jóvenes (8-12 años)
+    max_children INTEGER NULL,    -- Máximo de niños (3-7 años)
+    max_infants INTEGER NULL,     -- Máximo de bebés (0-2 años)
     amenities JSONB DEFAULT '[]'::jsonb,
     images TEXT[] DEFAULT '{}',
     is_active BOOLEAN DEFAULT true,
@@ -526,13 +532,19 @@ CREATE TABLE public.reservations (
     check_out DATE NOT NULL,
     nights INTEGER GENERATED ALWAYS AS (check_out - check_in) STORED,
     total_price DECIMAL(10,2) NOT NULL,
+    -- Desglose detallado de huéspedes
+    adults INTEGER NOT NULL DEFAULT 1,      -- Adultos (13+ años)
+    youths INTEGER NOT NULL DEFAULT 0,       -- Jóvenes (8-12 años)
+    children INTEGER NOT NULL DEFAULT 0,    -- Niños (3-7 años)
+    infants INTEGER NOT NULL DEFAULT 0,     -- Bebés (0-2 años)
     status VARCHAR(20) DEFAULT 'pending' 
         CHECK (status IN ('pending', 'confirmed', 'cancelled', 'completed', 'no_show')),
     notes TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW(),
     
-    CONSTRAINT valid_dates CHECK (check_out > check_in)
+    CONSTRAINT valid_dates CHECK (check_out > check_in),
+    CONSTRAINT valid_guests CHECK (adults >= 1 AND (adults + youths + children) >= 1)
 );
 
 -- ============================================
@@ -607,25 +619,73 @@ CREATE TRIGGER trigger_reservations_updated_at
 -- ============================================
 -- VERIFICAR DISPONIBILIDAD
 -- ============================================
+-- Función mejorada que valida disponibilidad de fechas Y capacidad por tipo de huésped
 CREATE OR REPLACE FUNCTION check_room_availability(
     p_room_id UUID,
     p_check_in DATE,
     p_check_out DATE,
+    p_adults INTEGER DEFAULT 1,
+    p_youths INTEGER DEFAULT 0,
+    p_children INTEGER DEFAULT 0,
+    p_infants INTEGER DEFAULT 0,
     p_exclude_reservation_id UUID DEFAULT NULL
 )
 RETURNS BOOLEAN AS $$
+DECLARE
+    is_booked BOOLEAN;
+    room_capacity INTEGER;
+    room_max_adults INTEGER;
+    room_max_youths INTEGER;
+    room_max_children INTEGER;
+    room_max_infants INTEGER;
+    total_guests_excluding_infants INTEGER := p_adults + p_youths + p_children;
 BEGIN
-    RETURN NOT EXISTS (
+    -- Verificar si la habitación está reservada en las fechas dadas
+    SELECT EXISTS (
         SELECT 1 FROM public.reservations
         WHERE room_id = p_room_id
-        AND status NOT IN ('cancelled')
+        AND status IN ('pending', 'confirmed')
         AND (p_exclude_reservation_id IS NULL OR id != p_exclude_reservation_id)
         AND (
-            (check_in <= p_check_in AND check_out > p_check_in) OR
-            (check_in < p_check_out AND check_out >= p_check_out) OR
-            (check_in >= p_check_in AND check_out <= p_check_out)
+            (check_in < p_check_out AND check_out > p_check_in)
         )
-    );
+    ) INTO is_booked;
+
+    IF is_booked THEN
+        RETURN FALSE;
+    END IF;
+
+    -- Obtener la capacidad de la habitación
+    SELECT capacity, max_adults, max_youths, max_children, max_infants
+    INTO room_capacity, room_max_adults, room_max_youths, room_max_children, room_max_infants
+    FROM public.rooms
+    WHERE id = p_room_id;
+
+    -- Validar que haya al menos 1 adulto
+    IF p_adults < 1 THEN
+        RETURN FALSE;
+    END IF;
+
+    -- Validar capacidad total (excluyendo bebés)
+    IF room_capacity IS NOT NULL AND total_guests_excluding_infants > room_capacity THEN
+        RETURN FALSE;
+    END IF;
+
+    -- Validar capacidades específicas por tipo de huésped si están definidas
+    IF room_max_adults IS NOT NULL AND p_adults > room_max_adults THEN
+        RETURN FALSE;
+    END IF;
+    IF room_max_youths IS NOT NULL AND p_youths > room_max_youths THEN
+        RETURN FALSE;
+    END IF;
+    IF room_max_children IS NOT NULL AND p_children > room_max_children THEN
+        RETURN FALSE;
+    END IF;
+    IF room_max_infants IS NOT NULL AND p_infants > room_max_infants THEN
+        RETURN FALSE;
+    END IF;
+
+    RETURN TRUE;
 END;
 $$ LANGUAGE plpgsql;
 ```
@@ -912,6 +972,19 @@ const BookingSchema = z.object({
   roomId: z.string().uuid(),
   checkIn: z.string().date(),
   checkOut: z.string().date(),
+  // Desglose detallado de huéspedes
+  guests: z.object({
+    adults: z.number().min(1, 'Debe haber al menos 1 adulto').max(6, 'Máximo 6 adultos'),
+    youths: z.number().min(0).max(6, 'Máximo 6 jóvenes'),
+    children: z.number().min(0).max(6, 'Máximo 6 niños'),
+    infants: z.number().min(0).max(6, 'Máximo 6 bebés'),
+  }).refine(data => {
+    const totalGuests = data.adults + data.youths + data.children;
+    return totalGuests >= 1 && totalGuests <= 6;
+  }, {
+    message: 'El número total de adultos, jóvenes y niños debe ser entre 1 y 6.',
+    path: ['adults']
+  }),
   guest: z.object({
     fullName: z.string().min(2).max(200),
     email: z.string().email(),
@@ -919,6 +992,7 @@ const BookingSchema = z.object({
     documentType: z.enum(['DNI', 'CE', 'PASAPORTE']),
     documentNumber: z.string().min(8).max(20),
   }),
+  createAccount: z.boolean().optional(),
 })
 
 export async function createReservation(formData: FormData) {
@@ -938,12 +1012,16 @@ export async function createReservation(formData: FormData) {
     },
   })
   
-  // Verificar disponibilidad
+  // Verificar disponibilidad (incluyendo validación de capacidad por tipo de huésped)
   const { data: isAvailable } = await supabase
     .rpc('check_room_availability', {
       p_room_id: validatedData.roomId,
       p_check_in: validatedData.checkIn,
       p_check_out: validatedData.checkOut,
+      p_adults: validatedData.guests.adults,
+      p_youths: validatedData.guests.youths,
+      p_children: validatedData.guests.children,
+      p_infants: validatedData.guests.infants,
     })
   
   if (!isAvailable) {
@@ -977,7 +1055,7 @@ export async function createReservation(formData: FormData) {
   )
   const totalPrice = room.price_per_night * nights
   
-  // Crear reserva
+  // Crear reserva (incluyendo desglose de huéspedes)
   const { data: reservation, error } = await supabase
     .from('reservations')
     .insert({
@@ -986,6 +1064,10 @@ export async function createReservation(formData: FormData) {
       check_in: validatedData.checkIn,
       check_out: validatedData.checkOut,
       total_price: totalPrice,
+      adults: validatedData.guests.adults,
+      youths: validatedData.guests.youths,
+      children: validatedData.guests.children,
+      infants: validatedData.guests.infants,
     })
     .select()
     .single()
@@ -1366,14 +1448,18 @@ INSERT INTO public.guests (full_name, email, phone, document_type, document_numb
 ('Ana Torres', 'ana.torres@email.com', '998877665', 'DNI', '11223344');
 
 -- Las reservas se crearán con los IDs generados
--- Ejemplo de reserva futura
-INSERT INTO public.reservations (room_id, guest_id, check_in, check_out, total_price, status)
+-- Ejemplo de reserva futura (incluyendo desglose de huéspedes)
+INSERT INTO public.reservations (room_id, guest_id, check_in, check_out, total_price, adults, youths, children, infants, status)
 SELECT 
   r.id,
   g.id,
   CURRENT_DATE + 7,
   CURRENT_DATE + 9,
   r.price_per_night * 2,
+  2,  -- 2 adultos
+  0,  -- 0 jóvenes
+  0,  -- 0 niños
+  0,  -- 0 bebés
   'confirmed'
 FROM public.rooms r, public.guests g
 WHERE r.slug = 'suite-king-sauna' AND g.email = 'maria.garcia@email.com';
@@ -1458,4 +1544,158 @@ INSERT INTO public.inventory_products (category_id, name, unit, current_stock, m
 
 ---
 
-*Especificación técnica para Hotel Sauna Belén - Versión 2.0*
+## 11. Mejoras Implementadas (Diciembre 2025)
+
+### 11.1 Sistema de Desglose de Huéspedes
+
+**Descripción:** Implementación de un sistema detallado de clasificación de huéspedes por edad para mejorar la gestión de capacidad de habitaciones y la experiencia de reserva.
+
+**Cambios en Base de Datos:**
+- **Tabla `rooms`:** Agregadas columnas `max_adults`, `max_youths`, `max_children`, `max_infants` para definir capacidad específica por tipo de huésped
+- **Tabla `reservations`:** Agregadas columnas `adults`, `youths`, `children`, `infants` para registrar el desglose de huéspedes en cada reserva
+- **Función `check_room_availability()`:** Actualizada para validar capacidad por tipo de huésped además de disponibilidad de fechas
+
+**Clasificación de Huéspedes:**
+- **Adultos:** 13+ años (mínimo 1 requerido)
+- **Jóvenes:** 8-12 años
+- **Niños:** 3-7 años
+- **Bebés:** 0-2 años (no cuentan para capacidad total)
+
+**Validaciones:**
+- Mínimo 1 adulto por reserva
+- Máximo 6 personas (adultos + jóvenes + niños)
+- Validación de capacidad específica por habitación
+- Los bebés no cuentan para la capacidad total pero tienen límite máximo
+
+**Archivos Modificados:**
+- `lib/validations/booking.ts`: Schema Zod actualizado con desglose de huéspedes
+- `lib/utils/room-capacity.ts`: Nuevas funciones `canRoomAccommodateGuests()`, `getRoomCapacityDisplay()`, `getRoomCapacityDetails()`
+- `components/home/guests-selector.tsx`: Nuevo componente para selección de huéspedes por tipo
+- `components/booking/step-dates.tsx`: Integración del selector de huéspedes
+- `supabase/migrations/003_add_room_capacity_by_type.sql`: Migración SQL para nuevas columnas
+
+### 11.2 Mejoras en el Flujo de Reserva
+
+**Widget de Búsqueda en Hero:**
+- Widget integrado en la sección Hero de la página de inicio
+- Búsqueda rápida con fechas y desglose de huéspedes
+- Redirección automática a `/reservar` con parámetros prellenados
+- Salto automático al Paso 2 (selección de habitación) cuando se viene desde el Hero
+
+**Mejoras en el Wizard de Reserva:**
+- Paso 1: Selección de fechas y huéspedes (con desglose detallado)
+- Paso 2: Selección de habitación (filtrada por capacidad y disponibilidad)
+- Paso 3: Datos del huésped principal
+- Paso 4: Resumen completo con desglose de huéspedes
+
+**Archivos Modificados:**
+- `components/home/hero.tsx`: Rediseño con widget de búsqueda integrado
+- `components/home/booking-widget.tsx`: Nuevo componente de búsqueda rápida
+- `app/(public)/reservar/page.tsx`: Lógica para leer parámetros de URL y saltar pasos
+
+### 11.3 Rediseño del Portal del Cliente
+
+**Dashboard del Cliente (`/mi-cuenta`):**
+- Nueva página de inicio para clientes autenticados
+- Cards interactivos para acceso rápido a "Mis Reservas" y "Mi Perfil"
+- Acciones rápidas: Nueva Reserva, Ver Habitaciones
+- Bienvenida personalizada con nombre del usuario
+
+**Navegación Mejorada:**
+- Barra de navegación clara con pestañas: Mi Cuenta, Mis Reservas, Mi Perfil
+- Estado activo visual (fondo azul cuando está seleccionado)
+- Responsive: labels completos en desktop, abreviados en móvil
+- Scroll horizontal en móvil para mejor UX
+- Un solo botón de logout visible (centralizado en el layout del cliente)
+
+**Mejoras en el Header:**
+- Botón 'Mi Cuenta' ahora lleva a `/mi-cuenta` (dashboard)
+- Ocultar botón de logout del Header cuando está en portal del cliente
+- Evitar duplicación de controles
+
+**Redirección Después del Login:**
+- Si no hay redirect específico, ir a `/mi-cuenta` (dashboard)
+- Si hay redirect, respetarlo
+- Admin sigue yendo a `/admin`
+
+**Archivos Modificados:**
+- `app/(cliente)/mi-cuenta/page.tsx`: Nueva página de dashboard
+- `app/(cliente)/layout.tsx`: Navegación mejorada con sub-navegación
+- `app/(auth)/login/page.tsx`: Redirección mejorada
+- `components/layout/header.tsx`: Lógica condicional para ocultar controles duplicados
+
+### 11.4 Mejoras en el Panel de Administración
+
+**Dashboards Mejorados:**
+- Botones de "Accesos Rápidos" rediseñados para diferenciarse claramente de los cards de estadísticas
+- Diseño de botones con variant="outline", flechas indicadoras, y efectos hover marcados
+- Título de sección "Accesos Rápidos" para mejor organización visual
+- Iconos en contenedores con colores que cambian al hover
+- Transiciones suaves y feedback visual claro
+
+**Calendario de Ocupación:**
+- Vista semanal implementada además de mensual
+- Navegación mejorada (anterior/siguiente mes/semana, botón "Hoy")
+- Columna de habitaciones sticky para mejor navegación horizontal
+- Vista responsive: cards en móvil, tabla en desktop
+- Scroll horizontal optimizado
+
+**CRUD Completo:**
+- Páginas de detalle, edición y creación para Reservas, Habitaciones, Productos y Categorías
+- Formularios completos con validación
+- Integración del desglose de huéspedes en formularios de habitaciones y reservas
+
+**Archivos Modificados:**
+- `app/admin/page.tsx`: Dashboard principal con botones mejorados
+- `app/admin/inventario/page.tsx`: Dashboard de inventario con botones mejorados
+- `app/admin/calendario/page.tsx`: Vista semanal y mejoras de navegación
+- Múltiples páginas de CRUD creadas en `app/admin/reservas/[id]`, `app/admin/habitaciones/[id]`, etc.
+
+### 11.5 Mejoras de Diseño y Responsividad
+
+**Hero Section Rediseñado:**
+- Imagen de fondo con fallback a gradiente
+- Widget de búsqueda integrado
+- Elementos de confianza (calificación, badges)
+- Texto más conciso y directo
+- Diseño responsive optimizado para móviles
+
+**Páginas Legales:**
+- Página de "Términos y Condiciones" (`/terminos`)
+- Página de "Política de Cancelación" (`/politica-cancelacion`)
+- Enlaces en el footer bajo sección "Legal"
+
+**Footer Mejorado:**
+- Sección "Legal" con enlaces a términos y políticas
+- Crédito de desarrollo: "Desarrollado por Edwin W. Mendez Echevarria"
+
+**Responsividad Completa:**
+- Todas las páginas públicas y administrativas son completamente responsive
+- Tablas convertidas a cards en móvil
+- Grids adaptativos (1 columna móvil, 2-3 columnas desktop)
+- Textos y espaciados adaptativos
+- Navegación móvil optimizada
+
+**Archivos Modificados:**
+- `components/home/hero.tsx`: Rediseño completo
+- `components/layout/footer.tsx`: Sección Legal y créditos
+- `app/(public)/terminos/page.tsx`: Nueva página
+- `app/(public)/politica-cancelacion/page.tsx`: Nueva página
+- Múltiples páginas: Mejoras de responsividad aplicadas sistemáticamente
+
+### 11.6 Mejoras Técnicas
+
+**Componentes UI:**
+- Corrección del componente `Button` para manejar correctamente el prop `asChild` con `@radix-ui/react-slot`
+- Mejoras en manejo de errores de imágenes con fallbacks
+
+**Autenticación:**
+- Soporte para mock authentication cuando Supabase no está configurado
+- `lib/supabase/mock.ts`: Cliente mock completo para desarrollo local
+
+**Migraciones SQL:**
+- `003_add_room_capacity_by_type.sql`: Migración para nuevas columnas de capacidad y desglose de huéspedes
+
+---
+
+*Especificación técnica para Hotel Sauna Belén - Versión 2.1*

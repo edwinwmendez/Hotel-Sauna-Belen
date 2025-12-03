@@ -1,8 +1,9 @@
 # Guía de Contenido
 ## Hotel Sauna Belén - Estrategia y Textos del Sitio
 
-**Versión:** 1.0  
+**Versión:** 1.1  
 **Fecha:** Diciembre 2025  
+**Última actualización:** Diciembre 2025  
 **Tono de voz:** Cálido, profesional, acogedor  
 
 ---
@@ -838,4 +839,118 @@ Hotel Sauna Belén. Proceso simple, confirmación inmediata.
 
 ---
 
-*Guía de contenido para Hotel Sauna Belén - Versión 1.0*
+## 8. Mejoras de Contenido Implementadas (Diciembre 2025)
+
+### 8.1 Contenido sobre Desglose de Huéspedes
+
+**Textos para el Widget de Búsqueda:**
+- "Adultos (13+ años)" - Etiqueta para selector de adultos
+- "Jóvenes (8-12 años)" - Etiqueta para selector de jóvenes
+- "Niños (3-7 años)" - Etiqueta para selector de niños
+- "Bebés (0-2 años)" - Etiqueta para selector de bebés
+- "Máx. 6 personas (adultos, jóvenes, niños)" - Texto informativo
+- "Debe haber al menos 1 adulto" - Mensaje de validación
+
+**Textos para el Proceso de Reserva:**
+- "Desglose de huéspedes" - Título de sección
+- "Especifica quién se hospedará" - Descripción
+- "El número total de adultos, jóvenes y niños debe ser entre 1 y 6" - Mensaje de validación
+- "Los bebés no cuentan para la capacidad total" - Nota informativa
+
+**Textos para Capacidad de Habitaciones:**
+- "Capacidad: X adultos, Y jóvenes, Z niños, W bebés" - Formato de visualización
+- "Esta habitación puede acomodar hasta X personas" - Texto descriptivo
+- "No cumple con la capacidad para los huéspedes seleccionados" - Mensaje de error
+
+### 8.2 Mensajes del Sistema Actualizados
+
+**Validaciones de Huéspedes:**
+```
+Debe haber al menos 1 adulto:
+"Debe haber al menos 1 adulto"
+
+Total de huéspedes excedido:
+"El número total de adultos, jóvenes y niños debe ser entre 1 y 6."
+
+Capacidad de habitación:
+"La habitación no está disponible en esas fechas o no cumple con la capacidad para los huéspedes seleccionados."
+```
+
+**Confirmación de Reserva:**
+```
+Resumen con desglose:
+"2 adultos, 1 joven, 1 niño, 0 bebés"
+"Total: 4 huéspedes"
+```
+
+### 8.3 Contenido del Dashboard del Cliente
+
+**Bienvenida:**
+```
+"Bienvenido, [Nombre]"
+"Gestiona tus reservas y perfil desde aquí"
+```
+
+**Cards de Acceso Rápido:**
+```
+Mis Reservas:
+"Ver todas tus reservas y su estado"
+
+Mi Perfil:
+"Actualiza tu información personal"
+```
+
+**Acciones Rápidas:**
+```
+Nueva Reserva:
+"Reservar una habitación"
+
+Ver Habitaciones:
+"Explorar nuestras habitaciones"
+```
+
+### 8.4 Contenido de Páginas Legales
+
+**Términos y Condiciones:**
+- Contenido completo implementado en `/terminos`
+- Sección sobre políticas de reserva
+- Información sobre cancelaciones
+- Términos de uso del sitio web
+
+**Política de Cancelación:**
+- Contenido completo implementado en `/politica-cancelacion`
+- Plazos de cancelación
+- Políticas de reembolso
+- Procedimientos de cancelación
+
+### 8.5 Footer Actualizado
+
+**Sección Legal:**
+```
+Términos y Condiciones
+Política de Cancelación
+```
+
+**Créditos:**
+```
+Desarrollado por Edwin W. Mendez Echevarria
+```
+
+### 8.6 Contenido del Hero Mejorado
+
+**Elementos de Confianza:**
+```
+Calificación: "4.8/5 (127 reseñas)"
+Badges: "WiFi Gratis", "Estacionamiento", "Reserva Segura"
+```
+
+**Widget de Búsqueda:**
+```
+Labels: "Check-in", "Check-out", "Huéspedes"
+Placeholders: "Desde 14:00", "Hasta 12:00", "Máx. 6 personas"
+Botón: "Buscar"
+```
+
+---
+
+*Guía de contenido para Hotel Sauna Belén - Versión 1.1*

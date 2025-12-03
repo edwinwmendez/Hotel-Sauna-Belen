@@ -1,8 +1,9 @@
 # Guía de Diseño UI/UX
 ## Hotel Sauna Belén - Sistema de Diseño
 
-**Versión:** 1.0  
+**Versión:** 1.1  
 **Fecha:** Diciembre 2025  
+**Última actualización:** Diciembre 2025  
 **Estilo:** Elegante, Relajante, Moderno  
 
 ---
@@ -809,4 +810,106 @@ PASO 4: Confirmación
 
 ---
 
-*Guía de diseño para Hotel Sauna Belén - Versión 1.0*
+## 10. Mejoras de Diseño Implementadas (Diciembre 2025)
+
+### 10.1 Hero Section Rediseñado
+
+**Cambios Implementados:**
+- Widget de búsqueda integrado directamente en el Hero
+- Imagen de fondo impactante con fallback a gradiente elegante
+- Elementos de confianza: calificación 4.8/5, badges (WiFi Gratis, Estacionamiento, Reserva Segura)
+- Texto más conciso y directo
+- Diseño responsive optimizado para móviles (widget compacto, textos adaptativos)
+
+**Principios Aplicados:**
+- **Jerarquía visual clara:** Título → Widget → Elementos de confianza
+- **Contraste adecuado:** Overlay oscuro para legibilidad del texto
+- **Call-to-action prominente:** Widget de búsqueda como elemento principal
+
+### 10.2 Widget de Búsqueda
+
+**Características:**
+- Diseño compacto y no invasivo en móviles
+- Grid responsive: 2 columnas en móvil, 4 en desktop
+- Selector de huéspedes con desglose detallado (adultos, jóvenes, niños, bebés)
+- Validación en tiempo real
+- Feedback visual claro (errores, confirmaciones)
+
+**Componente:** `components/home/booking-widget.tsx`
+
+### 10.3 Portal del Cliente Rediseñado
+
+**Dashboard del Cliente:**
+- Página de inicio (`/mi-cuenta`) con cards interactivos
+- Acceso rápido a funcionalidades principales
+- Bienvenida personalizada
+
+**Navegación:**
+- Barra de navegación horizontal con pestañas claras
+- Estado activo visual (fondo azul)
+- Responsive: labels completos en desktop, abreviados en móvil
+- Scroll horizontal en móvil
+
+**Principios Aplicados:**
+- **Consistencia:** Mismo estilo visual en todas las páginas del portal
+- **Claridad:** Un solo punto de logout, navegación intuitiva
+- **Feedback:** Estados activos claramente visibles
+
+### 10.4 Panel de Administración Mejorado
+
+**Dashboards:**
+- Botones de "Accesos Rápidos" rediseñados para diferenciarse de cards informativos
+- Diseño de botones con variant="outline", flechas indicadoras, efectos hover marcados
+- Iconos en contenedores con colores que cambian al hover
+- Título de sección para mejor organización visual
+
+**Calendario:**
+- Vista semanal implementada
+- Navegación mejorada (anterior/siguiente, botón "Hoy")
+- Columna sticky para mejor navegación horizontal
+- Vista responsive: cards en móvil, tabla en desktop
+
+**Principios Aplicados:**
+- **Diferenciación visual:** Botones claramente distintos de cards informativos
+- **Feedback:** Efectos hover y transiciones suaves
+- **Organización:** Jerarquía visual clara
+
+### 10.5 Responsividad Completa
+
+**Implementación:**
+- Todas las páginas públicas y administrativas son completamente responsive
+- Tablas convertidas a cards en móvil
+- Grids adaptativos (1 columna móvil, 2-3 columnas desktop)
+- Textos y espaciados adaptativos
+- Navegación móvil optimizada
+
+**Breakpoints Utilizados:**
+- `sm:` 640px (móvil grande)
+- `md:` 768px (tablet)
+- `lg:` 1024px (desktop)
+- `xl:` 1280px (desktop grande)
+
+**Principios Aplicados:**
+- **Mobile-first:** Diseño pensado primero para móviles
+- **Progressive enhancement:** Mejoras para pantallas más grandes
+- **Touch-friendly:** Elementos interactivos con tamaño adecuado para toque
+
+### 10.6 Páginas Legales
+
+**Implementación:**
+- Página de "Términos y Condiciones" (`/terminos`)
+- Página de "Política de Cancelación" (`/politica-cancelacion`)
+- Enlaces en el footer bajo sección "Legal"
+- Diseño consistente con el resto del sitio
+- Contenido completo y bien estructurado
+
+### 10.7 Footer Mejorado
+
+**Nuevas Secciones:**
+- Sección "Legal" con enlaces a términos y políticas
+- Crédito de desarrollo: "Desarrollado por Edwin W. Mendez Echevarria"
+- Diseño responsive con grid adaptativo
+
+---
+
+*Guía de diseño para Hotel Sauna Belén - Versión 1.1*

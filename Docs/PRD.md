@@ -1,8 +1,9 @@
 # Product Requirements Document (PRD)
 ## Hotel Sauna Belén - Plataforma Web de Reservas e Inventarios
 
-**Versión:** 2.0  
+**Versión:** 2.1  
 **Fecha:** Diciembre 2025  
+**Última actualización:** Diciembre 2025  
 **Autor:** Edwin Mendez - CTO  
 **Cliente:** Hotel Sauna Belén  
 **Representante:** Alessandra Jimena Vera Salazar (Administradora)
@@ -66,11 +67,13 @@ Plataforma web integral que incluye:
 
 ### 2.6 Habitaciones y Precios
 
-| Tipo | Precio/Noche | Capacidad |
-|------|--------------|-----------|
-| Suite King con Sauna | S/ 250 | 2 personas |
-| Habitación Matrimonial | S/ 180 | 2 personas |
-| Habitación Simple | S/ 120 | 1 persona |
+| Tipo | Precio/Noche | Capacidad Total | Adultos | Jóvenes | Niños | Bebés |
+|------|--------------|-----------------|---------|---------|-------|-------|
+| Suite King con Sauna | S/ 250 | 4 personas | 4 | 2 | 2 | 2 |
+| Habitación Matrimonial | S/ 180 | 3 personas | 2 | 1 | 1 | 1 |
+| Habitación Simple | S/ 120 | 1 persona | 1 | 0 | 0 | 0 |
+
+**Nota:** La capacidad se refiere a adultos + jóvenes + niños. Los bebés no cuentan para la capacidad total pero tienen límites máximos por habitación.
 
 ### 2.7 Servicios Incluidos
 - Sauna privado en cada habitación
@@ -246,23 +249,41 @@ US13: Como administrador, quiero ver reportes de consumo mensual
 **Postcondiciones:** Reserva creada y confirmación enviada  
 
 **Flujo Principal:**
-1. Cliente accede a la página de reservas
-2. Sistema muestra buscador de disponibilidad
-3. Cliente selecciona fechas de check-in y check-out
-4. Sistema muestra habitaciones disponibles con precios
-5. Cliente selecciona tipo de habitación
-6. Sistema muestra formulario de datos personales
-7. Cliente completa: nombre, email, teléfono, documento
-8. Sistema muestra resumen con precio total
-9. Cliente confirma la reserva
-10. Sistema crea la reserva con estado "Pendiente"
-11. Sistema envía confirmación por email
-12. Sistema muestra página de confirmación con código de reserva
+1. Cliente accede a la página de inicio o página de reservas
+2. **Opción A (desde Hero):** Cliente usa widget de búsqueda en Hero, selecciona fechas y desglose de huéspedes, hace clic en "Buscar"
+   - Sistema redirige a `/reservar` con parámetros prellenados
+   - Sistema salta automáticamente al Paso 2 (selección de habitación)
+3. **Opción B (desde página de reservas):** Cliente accede directamente a `/reservar`
+   - Sistema muestra Paso 1: Selección de fechas y desglose de huéspedes
+4. Cliente selecciona fechas de check-in y check-out
+5. Cliente especifica desglose de huéspedes:
+   - Adultos (13+ años, mínimo 1 requerido)
+   - Jóvenes (8-12 años, opcional)
+   - Niños (3-7 años, opcional)
+   - Bebés (0-2 años, opcional)
+6. Sistema valida que haya al menos 1 adulto y que el total (adultos + jóvenes + niños) sea entre 1 y 6
+7. Sistema muestra habitaciones disponibles que cumplan con:
+   - Disponibilidad en las fechas seleccionadas
+   - Capacidad suficiente para el desglose de huéspedes especificado
+8. Cliente selecciona tipo de habitación
+9. Sistema muestra formulario de datos personales del huésped principal
+10. Cliente completa: nombre, email, teléfono, tipo y número de documento
+11. Sistema muestra resumen completo con:
+    - Fechas de estadía
+    - Habitación seleccionada
+    - Desglose detallado de huéspedes
+    - Precio total (precio/noche × número de noches)
+12. Cliente revisa y acepta términos y condiciones
+13. Cliente confirma la reserva
+14. Sistema crea la reserva con estado "Pendiente" incluyendo el desglose de huéspedes
+15. Sistema envía confirmación por email
+16. Sistema muestra página de confirmación con código de reserva
 
 **Flujos Alternativos:**
-- 4a. No hay disponibilidad: Sistema sugiere fechas alternativas
-- 7a. Cliente ya tiene cuenta: Sistema permite login para autocompletar datos
-- 9a. Cliente cancela: Sistema descarta la reserva temporal
+- 6a. No hay habitaciones disponibles: Sistema muestra mensaje y sugiere fechas alternativas
+- 6b. Habitaciones no cumplen capacidad: Sistema muestra solo habitaciones que pueden acomodar el desglose de huéspedes
+- 10a. Cliente ya tiene cuenta: Sistema permite login para autocompletar datos
+- 12a. Cliente cancela: Sistema descarta la reserva temporal
 
 ### CU02: Gestionar Reserva (Admin)
 
@@ -289,13 +310,22 @@ US13: Como administrador, quiero ver reportes de consumo mensual
 - [ ] Calcula correctamente el número de noches
 
 ### CA02: Proceso de Reserva
-- [ ] Formulario valida campos obligatorios (nombre, email, teléfono, DNI)
-- [ ] Email tiene formato válido
-- [ ] Teléfono acepta formato peruano (9 dígitos)
-- [ ] DNI acepta 8 dígitos
-- [ ] Muestra resumen antes de confirmar
-- [ ] Precio total = precio/noche × número de noches
-- [ ] Genera código único de reserva (formato: HSB-YYYYMMDD-XXXX)
+- [x] Formulario valida campos obligatorios (nombre, email, teléfono, DNI)
+- [x] Email tiene formato válido
+- [x] Teléfono acepta formato peruano (9 dígitos, empieza con 9)
+- [x] DNI acepta 8-20 caracteres
+- [x] **Desglose de huéspedes validado:**
+  - [x] Mínimo 1 adulto requerido
+  - [x] Total de adultos + jóvenes + niños entre 1 y 6
+  - [x] Bebés no cuentan para capacidad total pero tienen límite máximo
+- [x] **Validación de capacidad de habitación:**
+  - [x] Sistema verifica que la habitación pueda acomodar el desglose de huéspedes
+  - [x] Muestra solo habitaciones disponibles que cumplan capacidad
+- [x] Muestra resumen completo antes de confirmar (incluyendo desglose de huéspedes)
+- [x] Precio total = precio/noche × número de noches
+- [x] Genera código único de reserva (formato: HSB-YYYYMMDD-XXXX)
+- [x] Widget de búsqueda en Hero redirige correctamente con parámetros
+- [x] Salto automático al Paso 2 cuando se viene desde Hero
 
 ### CA03: Control de Inventarios
 - [ ] Dashboard muestra productos con stock bajo destacados
