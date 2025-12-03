@@ -18,6 +18,10 @@ export interface Database {
           description: string | null
           price_per_night: number
           capacity: number
+          max_adults: number | null
+          max_youths: number | null
+          max_children: number | null
+          max_infants: number | null
           amenities: Json
           images: string[]
           is_active: boolean

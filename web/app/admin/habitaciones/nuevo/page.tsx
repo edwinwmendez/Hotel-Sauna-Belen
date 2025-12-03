@@ -14,12 +14,28 @@ import { toast } from 'sonner'
 export default function NuevaHabitacionPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [room, setRoom] = useState({
+  const [room, setRoom] = useState<{
+    name: string
+    type: 'king' | 'matrimonial' | 'simple'
+    description: string
+    price_per_night: number
+    capacity: number
+    max_adults: number | null
+    max_youths: number | null
+    max_children: number | null
+    max_infants: number | null
+    amenities: string
+    is_active: boolean
+  }>({
     name: '',
-    type: 'simple' as const,
+    type: 'simple',
     description: '',
     price_per_night: 0,
     capacity: 1,
+    max_adults: null,
+    max_youths: null,
+    max_children: null,
+    max_infants: null,
     amenities: '',
     is_active: true,
   })
@@ -102,7 +118,7 @@ export default function NuevaHabitacionPage() {
               </div>
               <div>
                 <label className="text-xs sm:text-sm font-medium text-gray-700 mb-1 block">
-                  Capacidad *
+                  Capacidad Total *
                 </label>
                 <Input
                   type="number"
@@ -111,6 +127,63 @@ export default function NuevaHabitacionPage() {
                   onChange={(e) => setRoom({ ...room, capacity: parseInt(e.target.value) || 1 })}
                   required
                 />
+                <p className="text-xs text-gray-500 mt-1">Capacidad máxima total (adultos + jóvenes + niños)</p>
+              </div>
+
+              <div className="border-t pt-4">
+                <p className="text-xs sm:text-sm font-semibold text-gray-700 mb-3">Capacidad por Tipo (Opcional)</p>
+                <p className="text-xs text-gray-500 mb-3">Si dejas estos campos vacíos, se usará la capacidad total. Si los defines, se validará contra estos límites específicos.</p>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Adultos
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_adults ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_adults: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Jóvenes
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_youths ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_youths: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Niños
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_children ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_children: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Bebés
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_infants ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_infants: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                </div>
               </div>
               <div>
                 <label className="text-xs sm:text-sm font-medium text-gray-700 mb-1 block">

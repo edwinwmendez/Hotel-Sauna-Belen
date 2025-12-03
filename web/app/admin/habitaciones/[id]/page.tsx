@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatCurrency } from '@/lib/utils'
+import { getRoomCapacityDisplay } from '@/lib/utils/room-capacity'
 import { MOCK_ROOMS } from '@/lib/supabase/mock'
 import { ArrowLeft, Edit, CheckCircle, XCircle, Bed, Users, DollarSign, Wifi } from 'lucide-react'
 import Link from 'next/link'
@@ -94,8 +95,13 @@ export default function HabitacionDetailPage() {
               <div>
                 <p className="text-xs sm:text-sm text-gray-600">Capacidad</p>
                 <p className="text-sm sm:text-base font-semibold">
-                  {room.capacity} {room.capacity === 1 ? 'persona' : 'personas'}
+                  {getRoomCapacityDisplay(room)}
                 </p>
+                {(room.max_adults !== null || room.max_youths !== null || room.max_children !== null || room.max_infants !== null) && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    Total: {room.capacity} {room.capacity === 1 ? 'persona' : 'personas'}
+                  </p>
+                )}
               </div>
             </div>
             <div className="flex items-center gap-2">

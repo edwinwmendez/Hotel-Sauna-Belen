@@ -78,13 +78,20 @@ export async function getRoomById(id: string): Promise<Room | null> {
 
 export async function getAvailableRooms(
   checkIn: string,
-  checkOut: string
+  checkOut: string,
+  guests?: { adults: number; youths: number; children: number; infants: number }
 ): Promise<Room[]> {
   const supabase = await createClient()
   
   // Si no hay Supabase configurado, retornar todas las habitaciones mock
   if (!supabase) {
-    return MOCK_ROOMS as Room[]
+    const mockRooms = MOCK_ROOMS as Room[]
+    // Si hay información de huéspedes, filtrar por capacidad
+    if (guests) {
+      const { canRoomAccommodateGuests } = await import('@/lib/utils/room-capacity')
+      return mockRooms.filter(room => canRoomAccommodateGuests(room, guests))
+    }
+    return mockRooms
   }
   
   // Obtener todas las habitaciones activas
@@ -102,6 +109,7 @@ export async function getAvailableRooms(
   const availableRooms: Room[] = []
   
   for (const room of rooms) {
+    // Verificar disponibilidad de fechas
     const { data: isAvailable } = await supabase.rpc('check_room_availability', {
       p_room_id: room.id,
       p_check_in: checkIn,
@@ -109,9 +117,17 @@ export async function getAvailableRooms(
     })
     
     if (isAvailable) {
-      availableRooms.push(room)
+      // Si hay información de huéspedes, verificar capacidad
+      if (guests) {
+        const { canRoomAccommodateGuests } = await import('@/lib/utils/room-capacity')
+        if (canRoomAccommodateGuests(room, guests)) {
+          availableRooms.push(room)
+        }
+      } else {
+        availableRooms.push(room)
+      }
     }
   }
   
-  return availableRooms.length > 0 ? availableRooms : MOCK_ROOMS as Room[]
+  return availableRooms.length > 0 ? availableRooms : []
 }

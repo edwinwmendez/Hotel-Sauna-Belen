@@ -4,6 +4,7 @@ import { RoomGallery } from '@/components/rooms/room-gallery'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatCurrency } from '@/lib/utils'
+import { getRoomCapacityDisplay } from '@/lib/utils/room-capacity'
 import Link from 'next/link'
 import { ArrowLeft, Users, Check } from 'lucide-react'
 
@@ -67,7 +68,7 @@ export default async function RoomDetailPage({ params }: PageProps) {
             <div className="flex items-center gap-4 text-sm sm:text-base text-gray-600">
               <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span>{room.capacity} {room.capacity === 1 ? 'persona' : 'personas'}</span>
+                <span><strong>Capacidad:</strong> {getRoomCapacityDisplay(room)}</span>
               </div>
             </div>
 

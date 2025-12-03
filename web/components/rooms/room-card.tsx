@@ -3,8 +3,10 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatCurrency } from '@/lib/utils'
+import { getRoomCapacityDisplay } from '@/lib/utils/room-capacity'
 import { ROOM_TYPES } from '@/lib/constants'
 import { Database } from '@/lib/supabase/types'
+import { Users } from 'lucide-react'
 
 type Room = Database['public']['Tables']['rooms']['Row']
 
@@ -37,6 +39,11 @@ export function RoomCard({ room }: RoomCardProps) {
           <div className="flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-bold text-gold">{formatCurrency(room.price_per_night)}</span>
             <span className="text-sm sm:text-base text-gray-600">/ noche</span>
+          </div>
+          
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <Users className="h-4 w-4 text-gray-400" />
+            <span><strong>Capacidad:</strong> {getRoomCapacityDisplay(room)}</span>
           </div>
           
           {amenities.length > 0 && (

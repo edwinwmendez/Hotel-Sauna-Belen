@@ -4,23 +4,25 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatCurrency, calculateNights } from '@/lib/utils'
+import { getRoomCapacityDisplay } from '@/lib/utils/room-capacity'
 import { checkAvailability } from '@/lib/actions/availability'
 import { Database } from '@/lib/supabase/types'
 import Image from 'next/image'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Users } from 'lucide-react'
 
 type Room = Database['public']['Tables']['rooms']['Row']
 
 interface StepRoomProps {
   checkIn: string
   checkOut: string
+  guests?: { adults: number; youths: number; children: number; infants: number }
   selectedRoomId: string | null
   onRoomSelect: (roomId: string) => void
   onNext: () => void
   onBack: () => void
 }
 
-export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNext, onBack }: StepRoomProps) {
+export function StepRoom({ checkIn, checkOut, guests, selectedRoomId, onRoomSelect, onNext, onBack }: StepRoomProps) {
   const [rooms, setRooms] = useState<Room[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -29,13 +31,18 @@ export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNe
     async function fetchRooms() {
       try {
         setLoading(true)
-        const result = await checkAvailability(checkIn, checkOut)
+        const result = await checkAvailability(checkIn, checkOut, guests)
         
         if (result.success && result.rooms) {
           setRooms(result.rooms)
           
           if (result.rooms.length === 0) {
-            setError('No hay habitaciones disponibles para las fechas seleccionadas')
+            const totalGuests = guests ? guests.adults + guests.youths + guests.children + guests.infants : 0
+            if (guests && totalGuests > 0) {
+              setError('No hay habitaciones disponibles para las fechas y número de huéspedes seleccionados')
+            } else {
+              setError('No hay habitaciones disponibles para las fechas seleccionadas')
+            }
           }
         } else {
           setError(result.error || 'Error al cargar habitaciones disponibles')
@@ -49,7 +56,7 @@ export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNe
     }
 
     fetchRooms()
-  }, [checkIn, checkOut])
+  }, [checkIn, checkOut, guests])
 
   const nights = calculateNights(checkIn, checkOut)
 
@@ -119,7 +126,11 @@ export function StepRoom({ checkIn, checkOut, selectedRoomId, onRoomSelect, onNe
                       </span>
                       <span className="text-sm sm:text-base text-gray-600">/ noche</span>
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-600">
+                    <div className="text-xs sm:text-sm text-gray-600 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4 text-gray-400" />
+                        <span><strong>Capacidad:</strong> {getRoomCapacityDisplay(room)}</span>
+                      </div>
                       <p>
                         <strong>Total ({nights} {nights === 1 ? 'noche' : 'noches'}):</strong>{' '}
                         <span className="text-base sm:text-lg font-semibold text-navy">

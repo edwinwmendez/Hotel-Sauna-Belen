@@ -18,8 +18,27 @@ export default function EditarHabitacionPage() {
   const id = params.id as string
   const originalRoom = MOCK_ROOMS.find(r => r.id === id)
   
-  const [room, setRoom] = useState(originalRoom ? {
+  const [room, setRoom] = useState<{
+    id: string
+    name: string
+    slug: string
+    type: 'king' | 'matrimonial' | 'simple'
+    description: string
+    price_per_night: number
+    capacity: number
+    max_adults: number | null
+    max_youths: number | null
+    max_children: number | null
+    max_infants: number | null
+    amenities: string
+    images: string[]
+    is_active: boolean
+  } | null>(originalRoom ? {
     ...originalRoom,
+    max_adults: originalRoom.max_adults ?? null,
+    max_youths: originalRoom.max_youths ?? null,
+    max_children: originalRoom.max_children ?? null,
+    max_infants: originalRoom.max_infants ?? null,
     amenities: originalRoom.amenities.join(', '),
   } : null)
   const [loading, setLoading] = useState(false)
@@ -113,7 +132,7 @@ export default function EditarHabitacionPage() {
               </div>
               <div>
                 <label className="text-xs sm:text-sm font-medium text-gray-700 mb-1 block">
-                  Capacidad
+                  Capacidad Total
                 </label>
                 <Input
                   type="number"
@@ -122,6 +141,63 @@ export default function EditarHabitacionPage() {
                   onChange={(e) => setRoom({ ...room, capacity: parseInt(e.target.value) })}
                   required
                 />
+                <p className="text-xs text-gray-500 mt-1">Capacidad máxima total (adultos + jóvenes + niños)</p>
+              </div>
+
+              <div className="border-t pt-4">
+                <p className="text-xs sm:text-sm font-semibold text-gray-700 mb-3">Capacidad por Tipo (Opcional)</p>
+                <p className="text-xs text-gray-500 mb-3">Si dejas estos campos vacíos, se usará la capacidad total. Si los defines, se validará contra estos límites específicos.</p>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Adultos
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_adults ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_adults: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Jóvenes
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_youths ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_youths: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Niños
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_children ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_children: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">
+                      Máx. Bebés
+                    </label>
+                    <Input
+                      type="number"
+                      min="0"
+                      value={room.max_infants ?? ''}
+                      onChange={(e) => setRoom({ ...room, max_infants: e.target.value ? parseInt(e.target.value) : null })}
+                      placeholder="Sin límite"
+                    />
+                  </div>
+                </div>
               </div>
               <div>
                 <label className="text-xs sm:text-sm font-medium text-gray-700 mb-1 block">

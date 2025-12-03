@@ -112,6 +112,7 @@ function ReservarPageContent() {
             <StepRoom
               checkIn={checkIn}
               checkOut={checkOut}
+              guests={guests}
               selectedRoomId={selectedRoomId}
               onRoomSelect={handleRoomSelect}
               onNext={handleNext}
