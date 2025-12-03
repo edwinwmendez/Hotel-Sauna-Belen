@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowLeft, Save } from 'lucide-react'
+import { Save } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 import { toast } from 'sonner'
 
@@ -41,18 +42,11 @@ export default function NuevoMovimientoPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-        <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto">
-          <Link href="/admin/inventario/movimientos">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver
-          </Link>
-        </Button>
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Registrar Movimiento</h1>
-          <p className="text-sm sm:text-base text-gray-600">Registra una entrada, salida o ajuste de inventario</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Registrar Movimiento"
+        description="Registra una entrada, salida o ajuste de inventario"
+        backHref="/admin/inventario/movimientos"
+      />
 
       <Card>
         <CardHeader className="p-4 sm:p-6">

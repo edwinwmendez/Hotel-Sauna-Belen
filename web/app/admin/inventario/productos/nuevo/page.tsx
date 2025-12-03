@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
-import { ArrowLeft, Save } from 'lucide-react'
+import { Save } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 import { toast } from 'sonner'
 
@@ -50,21 +51,11 @@ export default function NuevoProductoPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/admin/inventario/productos">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Volver
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-navy">Nuevo Producto</h1>
-            <p className="text-sm sm:text-base text-gray-600 mt-1">Crear un nuevo producto en el inventario</p>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="Nuevo Producto"
+        description="Crear un nuevo producto en el inventario"
+        backHref="/admin/inventario/productos"
+      />
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">

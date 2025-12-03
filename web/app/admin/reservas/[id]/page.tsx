@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { RESERVATION_STATUS } from '@/lib/constants'
-import { ArrowLeft, Edit, CheckCircle, XCircle, Calendar, Users, CreditCard, Mail, Phone, FileText } from 'lucide-react'
+import { Edit, CheckCircle, XCircle, Calendar, Users, CreditCard, Mail, Phone, FileText } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 
 // Mock de reserva detallada
@@ -63,22 +64,11 @@ export default function ReservaDetailPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/admin/reservas">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Volver
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-navy">Detalle de Reserva</h1>
-            <p className="text-sm sm:text-base text-gray-600 mt-1">
-              Código: <span className="font-mono">{reservation.booking_code}</span>
-            </p>
-          </div>
-        </div>
+      <PageHeader
+        title="Detalle de Reserva"
+        description={`Código: ${reservation.booking_code}`}
+        backHref="/admin/reservas"
+      >
         <div className="flex gap-2">
           {reservation.status === 'pending' && (
             <>
@@ -99,7 +89,7 @@ export default function ReservaDetailPage() {
             </Link>
           </Button>
         </div>
-      </div>
+      </PageHeader>
 
       {/* Estado */}
       <Card>

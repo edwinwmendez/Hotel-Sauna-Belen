@@ -22,7 +22,7 @@ export default function ReceptionCheckOutsList({ checkOuts }: ReceptionCheckOuts
               Reservas que deben hacer check-out hoy ({checkOuts.length})
             </CardDescription>
           </div>
-          <Link href="/admin/recepcion/check-out">
+          <Link href="/admin/recepcion/check-outs/list">
             <Button variant="outline" size="sm" className="text-xs sm:text-sm">
               Ver todos
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -80,7 +80,7 @@ export default function ReceptionCheckOutsList({ checkOuts }: ReceptionCheckOuts
             ))}
             {checkOuts.length > 5 && (
               <div className="text-center pt-2">
-                <Link href="/admin/recepcion/check-out">
+                <Link href="/admin/recepcion/check-outs/list">
                   <Button variant="link" size="sm" className="text-xs sm:text-sm">
                     Ver {checkOuts.length - 5} más
                     <ArrowRight className="ml-1 h-3 w-3" />

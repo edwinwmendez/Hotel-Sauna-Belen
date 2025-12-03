@@ -8,7 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { MOCK_ROOMS } from '@/lib/supabase/mock'
 import { ROOM_TYPES } from '@/lib/constants'
-import { ArrowLeft, Save } from 'lucide-react'
+import { Save } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 import { toast } from 'sonner'
 
@@ -70,21 +71,11 @@ export default function EditarHabitacionPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href={`/admin/habitaciones/${id}`}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Volver
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-navy">Editar Habitación</h1>
-            <p className="text-sm sm:text-base text-gray-600 mt-1">{room.name}</p>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="Editar Habitación"
+        description={room.name}
+        backHref={`/admin/habitaciones/${id}`}
+      />
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">

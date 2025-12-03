@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Plus, Search, Edit, Package, AlertTriangle } from 'lucide-react'
+import { Plus, Search, Edit, Package, AlertTriangle, ShoppingCart } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 import { formatCurrency } from '@/lib/utils'
 
@@ -69,18 +70,19 @@ export default function ProductosPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Gestión de Productos</h1>
-          <p className="text-sm sm:text-base text-gray-600">Administra el catálogo de productos del inventario</p>
-        </div>
+      <PageHeader
+        title="Gestión de Productos"
+        description="Administra el catálogo de productos del inventario"
+        icon={ShoppingCart}
+        backHref="/admin/inventario"
+      >
         <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/inventario/productos/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Nuevo Producto
           </Link>
         </Button>
-      </div>
+      </PageHeader>
 
       {/* Búsqueda */}
       <Card>

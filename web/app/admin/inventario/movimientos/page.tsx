@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Plus, Search, ArrowDown, ArrowUp, RotateCcw } from 'lucide-react'
+import { Plus, Search, ArrowDown, ArrowUp, RotateCcw, TrendingUp } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 
@@ -93,18 +94,19 @@ export default function MovimientosPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Historial de Movimientos</h1>
-          <p className="text-sm sm:text-base text-gray-600">Registro completo de entradas, salidas y ajustes</p>
-        </div>
+      <PageHeader
+        title="Historial de Movimientos"
+        description="Registro completo de entradas, salidas y ajustes"
+        icon={TrendingUp}
+        backHref="/admin/inventario"
+      >
         <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/inventario/movimientos/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Registrar Movimiento
           </Link>
         </Button>
-      </div>
+      </PageHeader>
 
       {/* Búsqueda */}
       <Card>

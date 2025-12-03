@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Package, AlertTriangle, TrendingUp, DollarSign, Plus, ArrowRight, FileText, BarChart3 } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 
 // Mock data
@@ -58,18 +59,19 @@ export default function InventarioDashboard() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Dashboard de Inventario</h1>
-          <p className="text-sm sm:text-base text-gray-600">Control y gestión de productos y suministros</p>
-        </div>
+      <PageHeader
+        title="Dashboard de Inventario"
+        description="Control y gestión de productos y suministros"
+        icon={Package}
+        backHref="/admin"
+      >
         <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/inventario/movimientos/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Registrar Movimiento
           </Link>
         </Button>
-      </div>
+      </PageHeader>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">

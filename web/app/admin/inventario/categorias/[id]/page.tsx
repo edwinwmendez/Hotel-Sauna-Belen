@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Edit, Package, ShoppingCart } from 'lucide-react'
+import { Edit, Package, ShoppingCart } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 
 // Mock de categoría
@@ -24,27 +25,18 @@ export default function CategoriaDetailPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/admin/inventario/categorias">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Volver
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-navy">{category.name}</h1>
-            <p className="text-sm sm:text-base text-gray-600 mt-1">Categoría de inventario</p>
-          </div>
-        </div>
+      <PageHeader
+        title={category.name}
+        description="Categoría de inventario"
+        backHref="/admin/inventario/categorias"
+      >
         <Button asChild size="sm">
           <Link href={`/admin/inventario/categorias/${id}/editar`}>
             <Edit className="h-4 w-4 mr-2" />
             Editar
           </Link>
         </Button>
-      </div>
+      </PageHeader>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Información Principal */}

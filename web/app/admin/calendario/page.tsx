@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isToday, addMonths, subMonths, startOfWeek, endOfWeek, addWeeks, subWeeks } from 'date-fns'
 import { es } from 'date-fns/locale'
 
@@ -67,11 +68,12 @@ export default function CalendarioPage() {
 
   return (
     <div className="space-y-4 md:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-navy mb-1 md:mb-2">Calendario de Ocupación</h1>
-          <p className="text-sm md:text-base text-gray-600">Vista {viewMode === 'week' ? 'semanal' : 'mensual'} de ocupación por habitación</p>
-        </div>
+      <PageHeader
+        title="Calendario de Ocupación"
+        description={`Vista ${viewMode === 'week' ? 'semanal' : 'mensual'} de ocupación por habitación`}
+        icon={CalendarIcon}
+        backHref="/admin"
+      >
         <div className="flex items-center gap-2">
           <Button
             variant={viewMode === 'week' ? 'default' : 'outline'}
@@ -90,7 +92,7 @@ export default function CalendarioPage() {
             Mes
           </Button>
         </div>
-      </div>
+      </PageHeader>
 
       <Card>
         <CardHeader className="p-4 md:p-6">

@@ -1,7 +1,8 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { TrendingUp, TrendingDown, DollarSign, Package } from 'lucide-react'
+import { TrendingUp, TrendingDown, DollarSign, Package, BarChart3 } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 
 // Mock de reportes
 const MOCK_REPORTS = {
@@ -23,10 +24,12 @@ const MOCK_REPORTS = {
 export default function ReportesPage() {
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Reportes de Inventario</h1>
-        <p className="text-sm sm:text-base text-gray-600">Análisis y estadísticas de consumo</p>
-      </div>
+      <PageHeader
+        title="Reportes de Inventario"
+        description="Análisis y estadísticas de consumo"
+        icon={BarChart3}
+        backHref="/admin/inventario"
+      />
 
       {/* Resumen */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">

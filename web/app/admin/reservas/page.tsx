@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { RESERVATION_STATUS } from '@/lib/constants'
-import { Search, Filter, Eye, CheckCircle, XCircle } from 'lucide-react'
+import { Search, Filter, Eye, CheckCircle, XCircle, Calendar } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 
 // Mock de reservas
@@ -85,10 +86,12 @@ export default function ReservasPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Gestión de Reservas</h1>
-        <p className="text-sm sm:text-base text-gray-600">Administra todas las reservas del hotel</p>
-      </div>
+      <PageHeader
+        title="Gestión de Reservas"
+        description="Administra todas las reservas del hotel"
+        icon={Calendar}
+        backHref="/admin"
+      />
 
       {/* Filtros y Búsqueda */}
       <Card>

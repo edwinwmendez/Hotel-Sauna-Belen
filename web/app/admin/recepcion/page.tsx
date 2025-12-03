@@ -89,7 +89,7 @@ export default async function RecepcionDashboardPage() {
                 Clientes hospedados actualmente en el hotel ({activeReservations.length})
               </CardDescription>
             </div>
-            <Link href="/admin/reservas">
+            <Link href="/admin/recepcion/huespedes-actuales">
               <Button variant="outline" size="sm" className="text-xs sm:text-sm">
                 Ver todas
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -140,7 +140,7 @@ export default async function RecepcionDashboardPage() {
               ))}
               {activeReservations.length > 5 && (
                 <div className="text-center pt-2">
-                  <Link href="/admin/reservas">
+                  <Link href="/admin/recepcion/huespedes-actuales">
                     <Button variant="link" size="sm" className="text-xs sm:text-sm">
                       Ver {activeReservations.length - 5} más
                       <ArrowRight className="ml-1 h-3 w-3" />

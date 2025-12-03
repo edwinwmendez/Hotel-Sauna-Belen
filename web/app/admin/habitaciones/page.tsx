@@ -2,7 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Plus, Edit } from 'lucide-react'
+import { Plus, Edit, Bed } from 'lucide-react'
+import { PageHeader } from '@/components/admin/page-header'
 import Link from 'next/link'
 import { formatCurrency } from '@/lib/utils'
 import { MOCK_ROOMS } from '@/lib/supabase/mock'
@@ -10,18 +11,19 @@ import { MOCK_ROOMS } from '@/lib/supabase/mock'
 export default function HabitacionesPage() {
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-navy mb-2">Gestión de Habitaciones</h1>
-          <p className="text-sm sm:text-base text-gray-600">Administra las habitaciones del hotel</p>
-        </div>
+      <PageHeader
+        title="Gestión de Habitaciones"
+        description="Administra las habitaciones del hotel"
+        icon={Bed}
+        backHref="/admin"
+      >
         <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/habitaciones/nuevo">
             <Plus className="h-4 w-4 mr-2" />
             Nueva Habitación
           </Link>
         </Button>
-      </div>
+      </PageHeader>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {MOCK_ROOMS.map((room) => (
