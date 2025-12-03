@@ -1,23 +1,33 @@
+'use client'
+
+import { useState } from 'react'
 import { Star, Shield, Wifi, Car } from 'lucide-react'
 import { HOTEL_INFO } from '@/lib/constants'
 import { BookingWidget } from './booking-widget'
-import Image from 'next/image'
 
 export function Hero() {
+  const [imageError, setImageError] = useState(false)
   return (
     <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Imagen de fondo - Habitación con sauna */}
+      {/* Fondo con gradiente base y opción de imagen */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80"
-          alt="Habitación con sauna privado - Hotel Sauna Belén"
-          fill
-          className="object-cover"
-          priority
-          quality={90}
-        />
-        {/* Overlay oscuro para mejor legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/80 via-navy/70 to-navy-dark/80" />
+        {/* Gradiente base - siempre visible */}
+        <div className="absolute inset-0 bg-gradient-to-br from-navy-dark via-navy to-navy-light" />
+        
+        {/* Imagen de fondo opcional - habitación con sauna */}
+        {!imageError && (
+          <div className="absolute inset-0 opacity-40">
+            <img
+              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80&auto=format&fit=crop"
+              alt="Habitación con sauna privado - Hotel Sauna Belén"
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+            />
+          </div>
+        )}
+        
+        {/* Overlay oscuro para mejor legibilidad del texto */}
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/85 via-navy/75 to-navy-dark/85" />
       </div>
 
       {/* Contenido */}
