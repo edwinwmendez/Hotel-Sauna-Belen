@@ -41,7 +41,9 @@ function LoginForm() {
       if (isAdmin) {
         router.push('/admin')
       } else {
-        router.push(redirect)
+        // Si no hay redirect específico, ir al dashboard del cliente
+        const finalRedirect = redirect === '/' ? '/mi-cuenta' : redirect
+        router.push(finalRedirect)
       }
     } catch (error) {
       toast.error('Error al iniciar sesión')

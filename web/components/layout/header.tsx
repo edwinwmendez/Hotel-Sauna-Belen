@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useAuth } from '@/components/providers/client-provider'
 import { Button } from '@/components/ui/button'
 import { Menu, User, LogOut, X } from 'lucide-react'
@@ -11,7 +11,13 @@ import { Menu, User, LogOut, X } from 'lucide-react'
 export function Header() {
   const { user, signOut } = useAuth()
   const router = useRouter()
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  
+  // Determinar si estamos en el portal del cliente
+  const isInClientPortal = pathname?.startsWith('/mi-cuenta') || 
+                           pathname?.startsWith('/mis-reservas') || 
+                           pathname?.startsWith('/perfil')
 
   const handleSignOut = async () => {
     await signOut()
@@ -72,15 +78,18 @@ export function Header() {
                 </Button>
               ) : (
                 <Button asChild variant="outline" size="sm" className="hidden md:flex">
-                  <Link href="/mis-reservas">
+                  <Link href="/mi-cuenta">
                     <User className="h-4 w-4 mr-2" />
                     Mi Cuenta
                   </Link>
                 </Button>
               )}
-              <Button variant="ghost" size="sm" onClick={handleSignOut} className="hidden md:flex">
-                <LogOut className="h-4 w-4" />
-              </Button>
+              {/* Solo mostrar logout si NO está en el portal del cliente (el layout del cliente ya tiene su propio logout) */}
+              {!isInClientPortal && (
+                <Button variant="ghost" size="sm" onClick={handleSignOut} className="hidden md:flex">
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              )}
             </>
           ) : (
             <>
@@ -145,16 +154,19 @@ export function Header() {
                     </Button>
                   ) : (
                     <Button asChild variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                      <Link href="/mis-reservas">
+                      <Link href="/mi-cuenta">
                         <User className="h-4 w-4 mr-2" />
                         Mi Cuenta
                       </Link>
                     </Button>
                   )}
-                  <Button variant="ghost" className="w-full" onClick={handleSignOut}>
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Cerrar Sesión
-                  </Button>
+                  {/* Solo mostrar logout en mobile si NO está en el portal del cliente */}
+                  {!isInClientPortal && (
+                    <Button variant="ghost" className="w-full" onClick={handleSignOut}>
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Cerrar Sesión
+                    </Button>
+                  )}
                 </>
               ) : (
                 <>
