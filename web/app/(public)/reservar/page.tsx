@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { ProgressBar } from '@/components/booking/progress-bar'
 import { StepDates } from '@/components/booking/step-dates'
 import { StepRoom } from '@/components/booking/step-room'
@@ -14,13 +15,17 @@ type Room = Database['public']['Tables']['rooms']['Row']
 
 const STEPS = ['Fechas', 'Habitación', 'Datos', 'Confirmación']
 
-export default function ReservarPage() {
-  // const searchParams = useSearchParams()
-  // const roomSlug = searchParams.get('room') // Para uso futuro
+function ReservarPageContent() {
+  const searchParams = useSearchParams()
+  
+  // Leer parámetros de URL del widget de búsqueda
+  const urlCheckIn = searchParams.get('checkIn')
+  const urlCheckOut = searchParams.get('checkOut')
+  const urlGuests = searchParams.get('guests')
 
   const [currentStep, setCurrentStep] = useState(1)
-  const [checkIn, setCheckIn] = useState<string | null>(null)
-  const [checkOut, setCheckOut] = useState<string | null>(null)
+  const [checkIn, setCheckIn] = useState<string | null>(urlCheckIn)
+  const [checkOut, setCheckOut] = useState<string | null>(urlCheckOut)
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null)
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null)
   const [guestData, setGuestData] = useState<Partial<BookingFormData['guest']> | null>(null)
@@ -121,6 +126,22 @@ export default function ReservarPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ReservarPage() {
+  return (
+    <Suspense fallback={
+      <div className="py-6 sm:py-8 md:py-12 bg-gray-50 min-h-screen">
+        <div className="container max-w-4xl px-4">
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+            <p className="text-gray-600">Cargando...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <ReservarPageContent />
+    </Suspense>
   )
 }
 
