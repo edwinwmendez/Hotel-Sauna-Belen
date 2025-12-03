@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/providers/client-provider'
 import { Button } from '@/components/ui/button'
@@ -21,8 +22,20 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 md:h-16 items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
-          <span className="text-lg md:text-xl font-bold text-navy">Hotel Sauna Belén</span>
+        <Link href="/" className="flex items-center space-x-2 md:space-x-3" onClick={() => setMobileMenuOpen(false)}>
+          {/* Logo - Coloca tu logo en /public/logo.png o /public/logo.svg */}
+          {/* Si prefieres usar SVG directamente, puedes usar: <img src="/logo.svg" alt="Hotel Sauna Belén" className="h-8 md:h-10 w-auto" /> */}
+          <div className="relative h-8 w-auto md:h-10 flex-shrink-0">
+            <Image
+              src="/logo.png"
+              alt="Hotel Sauna Belén"
+              width={120}
+              height={40}
+              className="h-8 md:h-10 w-auto object-contain"
+              priority
+            />
+          </div>
+          <span className="text-lg md:text-xl font-bold text-navy hidden sm:inline">Hotel Sauna Belén</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">

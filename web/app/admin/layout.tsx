@@ -139,7 +139,8 @@ export default function AdminLayout({
             >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
-            <Link href="/admin" className="text-lg sm:text-xl font-bold text-navy">
+            <Link href="/admin" className="flex items-center gap-2 text-lg sm:text-xl font-bold text-navy">
+              {/* Logo Admin - Opcional: puedes agregar un logo aquí también */}
               <span className="hidden sm:inline">Hotel Sauna Belén - Admin</span>
               <span className="sm:hidden">Admin</span>
             </Link>
