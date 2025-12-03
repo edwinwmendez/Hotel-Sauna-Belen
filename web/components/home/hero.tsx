@@ -31,10 +31,10 @@ export function Hero() {
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 container px-4 py-12 sm:py-16 md:py-20">
+      <div className="relative z-10 container px-4 py-8 sm:py-12 md:py-16 lg:py-20">
         <div className="max-w-6xl mx-auto">
           {/* Título y slogan - Más breve */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 font-serif drop-shadow-lg">
               {HOTEL_INFO.name}
             </h1>
@@ -44,7 +44,7 @@ export function Hero() {
           </div>
 
           {/* Widget de búsqueda */}
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-6 sm:mb-8 md:mb-10">
             <BookingWidget />
           </div>
 
