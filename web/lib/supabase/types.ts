@@ -56,13 +56,35 @@ export interface Database {
           check_out: string
           nights: number
           total_price: number
+          adults: number
+          youths: number
+          children: number
+          infants: number
           status: 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'no_show'
           notes: string | null
+          checked_in_at: string | null
+          checked_out_at: string | null
           created_at: string
           updated_at: string
         }
         Insert: Omit<Database['public']['Tables']['reservations']['Row'], 'id' | 'booking_code' | 'nights' | 'created_at' | 'updated_at'>
         Update: Partial<Database['public']['Tables']['reservations']['Insert']>
+      }
+      check_ins: {
+        Row: {
+          id: string
+          reservation_id: string
+          checked_in_at: string
+          checked_out_at: string | null
+          checked_in_by: string | null
+          checked_out_by: string | null
+          additional_charges: number
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['check_ins']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['check_ins']['Insert']>
       }
       inventory_categories: {
         Row: {

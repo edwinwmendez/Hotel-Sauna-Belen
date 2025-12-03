@@ -19,7 +19,12 @@ import {
   ShoppingCart,
   TrendingUp,
   FolderTree,
-  BarChart
+  BarChart,
+  Users,
+  LogIn,
+  UserPlus,
+  LogOut as LogOutIcon,
+  CalendarPlus
 } from 'lucide-react'
 import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -65,6 +70,18 @@ const navItems: NavItem[] = [
       { href: '/admin/inventario/movimientos', label: 'Movimientos', icon: TrendingUp },
       { href: '/admin/inventario/categorias', label: 'Categorías', icon: FolderTree },
       { href: '/admin/inventario/reportes', label: 'Reportes', icon: BarChart },
+    ]
+  },
+  { 
+    href: '/admin/recepcion', 
+    label: 'Recepción', 
+    icon: Users,
+    subItems: [
+      { href: '/admin/recepcion', label: 'Dashboard', icon: LayoutDashboard },
+      { href: '/admin/recepcion/check-in', label: 'Check-in', icon: LogIn },
+      { href: '/admin/recepcion/walk-in', label: 'Walk-in', icon: UserPlus },
+      { href: '/admin/recepcion/extender-estancia', label: 'Extender Estancia', icon: CalendarPlus },
+      { href: '/admin/recepcion/check-out', label: 'Check-out', icon: LogOutIcon },
     ]
   },
 ]

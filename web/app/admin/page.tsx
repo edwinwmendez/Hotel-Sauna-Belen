@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Calendar, Users, AlertCircle, TrendingUp, Package, ArrowRight } from 'lucide-react'
+import { Calendar, Users, AlertCircle, TrendingUp, Package, ArrowRight, Receipt } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
@@ -168,7 +168,7 @@ export default function AdminDashboard() {
       {/* Accesos Rápidos */}
       <div>
         <h2 className="text-lg sm:text-xl font-semibold text-navy mb-4 sm:mb-6">Accesos Rápidos</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <Button
             asChild
             variant="outline"
@@ -203,6 +203,25 @@ export default function AdminDashboard() {
               <h3 className="text-base sm:text-lg font-semibold text-navy mb-2">Calendario de Ocupación</h3>
               <p className="text-xs sm:text-sm text-gray-600">
                 Vista mensual de ocupación por habitación
+              </p>
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            className="h-auto p-0 flex-col items-stretch hover:border-gold hover:bg-gold/5 transition-all group"
+          >
+            <Link href="/admin/recepcion" className="p-4 sm:p-6 text-left">
+              <div className="flex items-start justify-between mb-3">
+                <div className="p-2 sm:p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                  <Receipt className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+                </div>
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-gold group-hover:translate-x-1 transition-all" />
+              </div>
+              <h3 className="text-base sm:text-lg font-semibold text-navy mb-2">Recepción</h3>
+              <p className="text-xs sm:text-sm text-gray-600">
+                Check-in, walk-in y check-out de huéspedes
               </p>
             </Link>
           </Button>
