@@ -3,16 +3,17 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { format, addDays } from 'date-fns'
-import { Calendar, Users, Search } from 'lucide-react'
+import { Calendar, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { calculateNights } from '@/lib/utils'
+import { GuestsSelector } from './guests-selector'
 
 export function BookingWidget() {
   const router = useRouter()
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
-  const [guests, setGuests] = useState('1')
+  const [guests, setGuests] = useState({ adults: 1, youths: 0, children: 0, infants: 0 })
   const [error, setError] = useState('')
 
   const today = format(new Date(), 'yyyy-MM-dd')
@@ -60,12 +61,16 @@ export function BookingWidget() {
     const params = new URLSearchParams({
       checkIn,
       checkOut,
-      guests,
+      adults: guests.adults.toString(),
+      youths: guests.youths.toString(),
+      children: guests.children.toString(),
+      infants: guests.infants.toString(),
     })
     router.push(`/reservar?${params.toString()}`)
   }
 
   const nights = checkIn && checkOut ? calculateNights(checkIn, checkOut) : 0
+  const totalGuests = guests.adults + guests.youths + guests.children + guests.infants
 
   return (
     <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto">
@@ -110,21 +115,17 @@ export function BookingWidget() {
         </div>
 
         {/* Huéspedes */}
-        <div className="space-y-1 sm:space-y-2">
-          <label htmlFor="hero-guests" className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center gap-1 sm:gap-2">
-            <Users className="h-3 w-3 sm:h-4 sm:w-4 text-gold flex-shrink-0" />
+        <div className="space-y-1 sm:space-y-2 col-span-2 md:col-span-1">
+          <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center gap-1 sm:gap-2">
             <span className="hidden sm:inline">Huéspedes</span>
             <span className="sm:hidden">Personas</span>
           </label>
-          <Input
-            id="hero-guests"
-            type="number"
-            min="1"
-            max="6"
-            value={guests}
-            onChange={(e) => setGuests(e.target.value)}
-            className="h-10 sm:h-12 text-sm sm:text-base"
-            required
+          <GuestsSelector
+            adults={guests.adults}
+            youths={guests.youths}
+            children={guests.children}
+            infants={guests.infants}
+            onChange={setGuests}
           />
           <p className="text-[10px] sm:text-xs text-gray-500 hidden sm:block">Máx. 6 personas</p>
         </div>
@@ -136,7 +137,7 @@ export function BookingWidget() {
           </label>
           <Button
             onClick={handleSearch}
-            disabled={!checkIn || !checkOut || !!error}
+            disabled={!checkIn || !checkOut || !!error || totalGuests < 1}
             size="lg"
             variant="gold"
             className="h-10 sm:h-12 w-full text-sm sm:text-base md:text-lg font-semibold"
@@ -147,11 +148,21 @@ export function BookingWidget() {
         </div>
       </div>
 
-      {nights > 0 && (
+      {(nights > 0 || totalGuests > 1) && (
         <div className="mt-2 sm:mt-4 pt-2 sm:pt-4 border-t border-gray-200">
-          <p className="text-xs sm:text-sm text-center text-gray-600">
-            <span className="font-semibold text-navy">{nights}</span> {nights === 1 ? 'noche' : 'noches'} seleccionada{nights > 1 ? 's' : ''}
-          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs sm:text-sm text-gray-600">
+            {nights > 0 && (
+              <p>
+                <span className="font-semibold text-navy">{nights}</span> {nights === 1 ? 'noche' : 'noches'} seleccionada{nights > 1 ? 's' : ''}
+              </p>
+            )}
+            {nights > 0 && totalGuests > 1 && <span className="hidden sm:inline">•</span>}
+            {totalGuests > 1 && (
+              <p>
+                <span className="font-semibold text-navy">{totalGuests}</span> {totalGuests === 1 ? 'persona' : 'personas'}
+              </p>
+            )}
+          </div>
         </div>
       )}
 

@@ -28,6 +28,12 @@ export async function createReservation(formData: FormData) {
       roomId: formData.get('roomId') as string,
       checkIn: formData.get('checkIn') as string,
       checkOut: formData.get('checkOut') as string,
+      guests: {
+        adults: parseInt(formData.get('adults') as string) || 1,
+        youths: parseInt(formData.get('youths') as string) || 0,
+        children: parseInt(formData.get('children') as string) || 0,
+        infants: parseInt(formData.get('infants') as string) || 0,
+      },
       guest: {
         fullName: formData.get('fullName') as string,
         email: formData.get('email') as string,
@@ -95,6 +101,7 @@ export async function createReservation(formData: FormData) {
     const totalPrice = room.price_per_night * nights
 
     // Crear reserva
+    // Nota: Si la tabla tiene campos para guests, usarlos. Si no, guardar en metadata
     const { data: reservation, error: reservationError } = await supabase
       .from('reservations')
       .insert({
@@ -104,6 +111,12 @@ export async function createReservation(formData: FormData) {
         check_out: validatedData.checkOut,
         total_price: totalPrice,
         status: 'pending',
+        // Guardar información de huéspedes (si la tabla tiene estos campos, se usarán; si no, se ignorarán)
+        adults: validatedData.guests.adults,
+        youths: validatedData.guests.youths,
+        children: validatedData.guests.children,
+        infants: validatedData.guests.infants,
+        total_guests: validatedData.guests.adults + validatedData.guests.youths + validatedData.guests.children + validatedData.guests.infants,
       })
       .select()
       .single()

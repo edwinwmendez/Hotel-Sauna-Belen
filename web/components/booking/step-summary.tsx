@@ -17,11 +17,12 @@ interface StepSummaryProps {
   room: Room
   checkIn: string
   checkOut: string
+  guests: BookingFormData['guests']
   guest: BookingFormData['guest']
   onBack: () => void
 }
 
-export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSummaryProps) {
+export function StepSummary({ room, checkIn, checkOut, guests, guest, onBack }: StepSummaryProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -44,6 +45,10 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
     formData.append('roomId', room.id)
     formData.append('checkIn', checkIn)
     formData.append('checkOut', checkOut)
+    formData.append('adults', guests.adults.toString())
+    formData.append('youths', guests.youths.toString())
+    formData.append('children', guests.children.toString())
+    formData.append('infants', guests.infants.toString())
     formData.append('fullName', guest.fullName)
     formData.append('email', guest.email)
     formData.append('phone', guest.phone)
@@ -96,7 +101,20 @@ export function StepSummary({ room, checkIn, checkOut, guest, onBack }: StepSumm
         </CardHeader>
         <CardContent className="p-4 sm:p-6 pt-0 space-y-3 sm:space-y-4">
           <div>
-            <h3 className="font-semibold text-sm sm:text-base text-gray-700 mb-2">Datos del huésped</h3>
+            <h3 className="font-semibold text-sm sm:text-base text-gray-700 mb-2">Huéspedes</h3>
+            <div className="text-xs sm:text-sm text-gray-600 space-y-1">
+              {guests.adults > 0 && <p><strong>Adultos:</strong> {guests.adults} (13+ años)</p>}
+              {guests.youths > 0 && <p><strong>Jóvenes:</strong> {guests.youths} (8-12 años)</p>}
+              {guests.children > 0 && <p><strong>Niños:</strong> {guests.children} (3-7 años)</p>}
+              {guests.infants > 0 && <p><strong>Bebés:</strong> {guests.infants} (0-2 años)</p>}
+              <p className="pt-1 border-t mt-1">
+                <strong>Total:</strong> {guests.adults + guests.youths + guests.children + guests.infants} {guests.adults + guests.youths + guests.children + guests.infants === 1 ? 'persona' : 'personas'}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-sm sm:text-base text-gray-700 mb-2">Datos del huésped principal</h3>
             <div className="text-xs sm:text-sm text-gray-600 space-y-1">
               <p><strong>Nombre:</strong> {guest.fullName}</p>
               <p><strong>Email:</strong> {guest.email}</p>

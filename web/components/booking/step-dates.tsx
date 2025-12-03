@@ -6,17 +6,21 @@ import { Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { calculateNights } from '@/lib/utils'
+import { GuestsSelector } from '@/components/home/guests-selector'
 
 interface StepDatesProps {
   checkIn: string | null
   checkOut: string | null
+  guests?: { adults: number; youths: number; children: number; infants: number } | null
   onDatesChange: (checkIn: string, checkOut: string) => void
+  onGuestsChange?: (guests: { adults: number; youths: number; children: number; infants: number }) => void
   onNext: () => void
 }
 
-export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDatesProps) {
+export function StepDates({ checkIn, checkOut, guests, onDatesChange, onGuestsChange, onNext }: StepDatesProps) {
   const [localCheckIn, setLocalCheckIn] = useState(checkIn || '')
   const [localCheckOut, setLocalCheckOut] = useState(checkOut || '')
+  const [localGuests, setLocalGuests] = useState(guests || { adults: 1, youths: 0, children: 0, infants: 0 })
   const [error, setError] = useState('')
 
   const today = format(new Date(), 'yyyy-MM-dd')
@@ -64,10 +68,14 @@ export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDate
     }
 
     onDatesChange(localCheckIn, localCheckOut)
+    if (onGuestsChange) {
+      onGuestsChange(localGuests)
+    }
     onNext()
   }
 
   const nights = localCheckIn && localCheckOut ? calculateNights(localCheckIn, localCheckOut) : 0
+  const totalGuests = localGuests.adults + localGuests.youths + localGuests.children + localGuests.infants
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -117,11 +125,35 @@ export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDate
         </div>
       </div>
 
-      {nights > 0 && (
-        <div className="bg-cream p-3 sm:p-4 rounded-lg">
-          <p className="text-base sm:text-lg font-semibold text-navy">
-            {nights} {nights === 1 ? 'noche' : 'noches'} seleccionada{nights > 1 ? 's' : ''}
-          </p>
+      {/* Selector de huéspedes */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700">
+          Huéspedes *
+        </label>
+        <GuestsSelector
+          adults={localGuests.adults}
+          youths={localGuests.youths}
+          children={localGuests.children}
+          infants={localGuests.infants}
+          onChange={setLocalGuests}
+        />
+      </div>
+
+      {(nights > 0 || totalGuests > 1) && (
+        <div className="bg-cream p-3 sm:p-4 rounded-lg space-y-1">
+          {nights > 0 && (
+            <p className="text-base sm:text-lg font-semibold text-navy">
+              {nights} {nights === 1 ? 'noche' : 'noches'} seleccionada{nights > 1 ? 's' : ''}
+            </p>
+          )}
+          {totalGuests > 1 && (
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold">{totalGuests}</span> {totalGuests === 1 ? 'persona' : 'personas'} ({localGuests.adults} adulto{localGuests.adults > 1 ? 's' : ''}
+              {localGuests.youths > 0 && `, ${localGuests.youths} joven${localGuests.youths > 1 ? 'es' : ''}`}
+              {localGuests.children > 0 && `, ${localGuests.children} niño${localGuests.children > 1 ? 's' : ''}`}
+              {localGuests.infants > 0 && `, ${localGuests.infants} bebé${localGuests.infants > 1 ? 's' : ''}`})
+            </p>
+          )}
         </div>
       )}
 
@@ -132,7 +164,7 @@ export function StepDates({ checkIn, checkOut, onDatesChange, onNext }: StepDate
       )}
 
       <div className="flex justify-end">
-        <Button onClick={handleContinue} disabled={!localCheckIn || !localCheckOut || !!error} className="w-full sm:w-auto">
+        <Button onClick={handleContinue} disabled={!localCheckIn || !localCheckOut || !!error || totalGuests < 1} className="w-full sm:w-auto">
           Continuar →
         </Button>
       </div>

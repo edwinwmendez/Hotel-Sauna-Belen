@@ -21,11 +21,20 @@ function ReservarPageContent() {
   // Leer parámetros de URL del widget de búsqueda
   const urlCheckIn = searchParams.get('checkIn')
   const urlCheckOut = searchParams.get('checkOut')
-  const urlGuests = searchParams.get('guests')
+  const urlAdults = searchParams.get('adults')
+  const urlYouths = searchParams.get('youths')
+  const urlChildren = searchParams.get('children')
+  const urlInfants = searchParams.get('infants')
 
   const [currentStep, setCurrentStep] = useState(1)
   const [checkIn, setCheckIn] = useState<string | null>(urlCheckIn)
   const [checkOut, setCheckOut] = useState<string | null>(urlCheckOut)
+  const [guests, setGuests] = useState<BookingFormData['guests']>({
+    adults: urlAdults ? parseInt(urlAdults) : 1,
+    youths: urlYouths ? parseInt(urlYouths) : 0,
+    children: urlChildren ? parseInt(urlChildren) : 0,
+    infants: urlInfants ? parseInt(urlInfants) : 0,
+  })
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null)
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null)
   const [guestData, setGuestData] = useState<Partial<BookingFormData['guest']> | null>(null)
@@ -45,6 +54,10 @@ function ReservarPageContent() {
   const handleDatesChange = (newCheckIn: string, newCheckOut: string) => {
     setCheckIn(newCheckIn)
     setCheckOut(newCheckOut)
+  }
+
+  const handleGuestsChange = (newGuests: BookingFormData['guests']) => {
+    setGuests(newGuests)
   }
 
   const handleRoomSelect = (roomId: string) => {
@@ -88,7 +101,9 @@ function ReservarPageContent() {
             <StepDates
               checkIn={checkIn}
               checkOut={checkOut}
+              guests={guests}
               onDatesChange={handleDatesChange}
+              onGuestsChange={handleGuestsChange}
               onNext={handleNext}
             />
           )}
@@ -119,6 +134,7 @@ function ReservarPageContent() {
               room={selectedRoom}
               checkIn={checkIn}
               checkOut={checkOut}
+              guests={guests}
               guest={guestData as BookingFormData['guest']}
               onBack={handleBack}
             />
