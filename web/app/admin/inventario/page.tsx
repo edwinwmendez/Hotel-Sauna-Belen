@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Package, AlertTriangle, TrendingUp, DollarSign, Plus } from 'lucide-react'
+import { Package, AlertTriangle, TrendingUp, DollarSign, Plus, ArrowRight, FileText, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 
 // Mock data
@@ -166,54 +166,66 @@ export default function InventarioDashboard() {
       </Card>
 
       {/* Accesos Rápidos */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <Link href="/admin/inventario/productos">
-            <CardHeader className="p-4 sm:p-6">
-              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
-                Gestión de Productos
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
+      <div>
+        <h2 className="text-lg sm:text-xl font-semibold text-navy mb-4 sm:mb-6">Accesos Rápidos</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <Button
+            asChild
+            variant="outline"
+            className="h-auto p-0 flex-col items-stretch hover:border-gold hover:bg-gold/5 transition-all group"
+          >
+            <Link href="/admin/inventario/productos" className="p-4 sm:p-6 text-left">
+              <div className="flex items-start justify-between mb-3">
+                <div className="p-2 sm:p-3 bg-gold/10 rounded-lg group-hover:bg-gold/20 transition-colors">
+                  <Package className="h-5 w-5 sm:h-6 sm:w-6 text-gold" />
+                </div>
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-gold group-hover:translate-x-1 transition-all" />
+              </div>
+              <h3 className="text-base sm:text-lg font-semibold text-navy mb-2">Gestión de Productos</h3>
               <p className="text-xs sm:text-sm text-gray-600">
                 Ver, crear y editar productos del inventario
               </p>
-            </CardContent>
-          </Link>
-        </Card>
+            </Link>
+          </Button>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <Link href="/admin/inventario/movimientos">
-            <CardHeader className="p-4 sm:p-6">
-              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
-                Historial de Movimientos
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
+          <Button
+            asChild
+            variant="outline"
+            className="h-auto p-0 flex-col items-stretch hover:border-gold hover:bg-gold/5 transition-all group"
+          >
+            <Link href="/admin/inventario/movimientos" className="p-4 sm:p-6 text-left">
+              <div className="flex items-start justify-between mb-3">
+                <div className="p-2 sm:p-3 bg-navy/10 rounded-lg group-hover:bg-navy/20 transition-colors">
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-navy" />
+                </div>
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-gold group-hover:translate-x-1 transition-all" />
+              </div>
+              <h3 className="text-base sm:text-lg font-semibold text-navy mb-2">Historial de Movimientos</h3>
               <p className="text-xs sm:text-sm text-gray-600">
                 Registro completo de entradas y salidas
               </p>
-            </CardContent>
-          </Link>
-        </Card>
+            </Link>
+          </Button>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-          <Link href="/admin/inventario/reportes">
-            <CardHeader className="p-4 sm:p-6">
-              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
-                Reportes
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
+          <Button
+            asChild
+            variant="outline"
+            className="h-auto p-0 flex-col items-stretch hover:border-gold hover:bg-gold/5 transition-all group"
+          >
+            <Link href="/admin/inventario/reportes" className="p-4 sm:p-6 text-left">
+              <div className="flex items-start justify-between mb-3">
+                <div className="p-2 sm:p-3 bg-green-500/10 rounded-lg group-hover:bg-green-500/20 transition-colors">
+                  <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
+                </div>
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-gold group-hover:translate-x-1 transition-all" />
+              </div>
+              <h3 className="text-base sm:text-lg font-semibold text-navy mb-2">Reportes</h3>
               <p className="text-xs sm:text-sm text-gray-600">
                 Análisis y reportes de consumo
               </p>
-            </CardContent>
-          </Link>
-        </Card>
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   )
