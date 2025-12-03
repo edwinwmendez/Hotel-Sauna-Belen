@@ -34,10 +34,10 @@ pnpm install
 
 3. **Configurar variables de entorno**
 
-Copia `.env.example` a `.env.local` y configura tus credenciales de Supabase:
+Copia `env.example.txt` a `.env.local` y configura tus credenciales de Supabase:
 
 ```bash
-cp .env.example .env.local
+cp env.example.txt .env.local
 ```
 
 Edita `.env.local` con tus credenciales:
@@ -159,13 +159,112 @@ web/
 - Las reservas mock generan códigos únicos
 - El inventario usa datos estáticos de ejemplo
 
-## 🚀 Deploy
+## 🚀 Deploy en Vercel
 
-El proyecto está listo para deploy en Vercel:
+### Prerrequisitos
 
-1. Conectar repositorio a Vercel
-2. Configurar variables de entorno
-3. Deploy automático en cada push
+1. **Cuenta de GitHub**: Asegúrate de que tu código esté en un repositorio de GitHub
+2. **Cuenta de Vercel**: Crea una cuenta en [vercel.com](https://vercel.com) (puedes usar tu cuenta de GitHub)
+
+### Pasos para Desplegar
+
+#### 1. Preparar el Repositorio
+
+```bash
+# Asegúrate de estar en la rama main
+git checkout main
+
+# Verifica que todos los cambios estén commiteados
+git status
+
+# Si hay cambios, commitea y push
+git add .
+git commit -m "Preparar proyecto para despliegue"
+git push origin main
+```
+
+#### 2. Conectar con Vercel
+
+1. Ve a [vercel.com/new](https://vercel.com/new)
+2. Haz clic en **"Import Git Repository"**
+3. Selecciona tu repositorio de GitHub
+4. Vercel detectará automáticamente que es un proyecto Next.js
+
+#### 3. Configurar el Proyecto en Vercel
+
+**Configuración del Framework:**
+- **Framework Preset**: Next.js (se detecta automáticamente)
+- **Root Directory**: `web` (si el proyecto está en una subcarpeta)
+- **Build Command**: `pnpm build` (o `npm run build`)
+- **Output Directory**: `.next` (por defecto)
+- **Install Command**: `pnpm install` (o `npm install`)
+
+**Variables de Entorno (OPCIONAL para prototipo):**
+
+⚠️ **Para el prototipo con mocks, NO necesitas configurar variables de entorno.** El sistema funcionará automáticamente con datos de ejemplo.
+
+Si más adelante quieres conectar Supabase, agrega estas variables en **"Environment Variables"**:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=tu-publishable-key-here
+SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key-here
+NEXT_PUBLIC_APP_URL=https://tu-proyecto.vercel.app
+```
+
+**Nota:** 
+- El sistema detecta automáticamente si hay configuración de Supabase
+- Si no hay variables, funciona en modo mock con datos de ejemplo
+- Las variables con `NEXT_PUBLIC_` son accesibles en el cliente
+- `SUPABASE_SERVICE_ROLE_KEY` es solo para el servidor (nunca se expone al cliente)
+
+#### 4. Desplegar
+
+1. Haz clic en **"Deploy"** (¡sin necesidad de configurar variables de entorno!)
+2. Vercel construirá y desplegará tu aplicación
+3. Una vez completado, recibirás una URL como: `https://tu-proyecto.vercel.app`
+4. La aplicación funcionará inmediatamente con datos mock
+
+#### 5. Configurar Dominio Personalizado (Opcional)
+
+1. Ve a **Settings** → **Domains**
+2. Agrega tu dominio personalizado
+3. Sigue las instrucciones para configurar los registros DNS
+
+**Nota:** Para el prototipo, no necesitas configurar nada más. El sistema funcionará con mocks automáticamente.
+
+### Deploy Automático
+
+Vercel configurará automáticamente:
+- ✅ Deploy en cada push a `main`
+- ✅ Preview deployments para Pull Requests
+- ✅ Rollback automático si el build falla
+
+### Verificar el Deploy
+
+1. Visita la URL proporcionada por Vercel
+2. Verifica que la aplicación carga correctamente
+3. Prueba las funcionalidades principales:
+   - Navegación pública
+   - Autenticación (si está configurada)
+   - Funcionalidades del admin
+
+### Troubleshooting
+
+**Error de Build:**
+- Verifica que todas las dependencias estén en `package.json`
+- Revisa los logs de build en Vercel
+- Asegúrate de que `pnpm-lock.yaml` esté commiteado
+
+**Variables de Entorno:**
+- Verifica que todas las variables estén configuradas
+- Asegúrate de que no haya espacios extra en los valores
+- Las variables deben estar en mayúsculas
+
+**Errores de Runtime:**
+- Revisa los logs de función en Vercel Dashboard
+- Verifica que Supabase esté configurado correctamente
+- Asegúrate de que las URLs de Supabase sean correctas
 
 ## 📚 Documentación
 
