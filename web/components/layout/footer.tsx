@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="bg-navy text-white">
       <div className="container py-8 sm:py-10 md:py-12 px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           <div>
             <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Hotel Sauna Belén</h3>
             <p className="text-xs sm:text-sm text-gray-300 mb-3 sm:mb-4">{HOTEL_INFO.slogan}</p>
@@ -62,6 +62,22 @@ export function Footer() {
           </div>
 
           <div>
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Legal</h3>
+            <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
+              <li>
+                <Link href="/terminos" className="text-gray-300 hover:text-gold transition-colors">
+                  Términos y Condiciones
+                </Link>
+              </li>
+              <li>
+                <Link href="/politica-cancelacion" className="text-gray-300 hover:text-gold transition-colors">
+                  Política de Cancelación
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
             <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Contacto</h3>
             <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <li className="flex items-start gap-2">
@@ -90,8 +106,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-700 text-center text-xs sm:text-sm text-gray-300">
-          <p>© {new Date().getFullYear()} Hotel Sauna Belén. Todos los derechos reservados.</p>
+        <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-700">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-gray-300">
+            <p>© {new Date().getFullYear()} Hotel Sauna Belén. Todos los derechos reservados.</p>
+            <p className="text-center sm:text-right">
+              Desarrollado por{' '}
+              <span className="text-gold font-semibold">Edwin W. Mendez Echevarria</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
