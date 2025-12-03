@@ -23,19 +23,17 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 md:h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2 md:space-x-3" onClick={() => setMobileMenuOpen(false)}>
-          {/* Logo - Coloca tu logo en /public/logo.png o /public/logo.svg */}
-          {/* Si prefieres usar SVG directamente, puedes usar: <img src="/logo.svg" alt="Hotel Sauna Belén" className="h-8 md:h-10 w-auto" /> */}
-          <div className="relative h-8 w-auto md:h-10 flex-shrink-0">
+          {/* Logo con corona dorada y estrellas */}
+          <div className="relative h-10 w-auto md:h-12 flex-shrink-0">
             <Image
-              src="/logo.png"
+              src="/Logo.png"
               alt="Hotel Sauna Belén"
-              width={120}
-              height={40}
-              className="h-8 md:h-10 w-auto object-contain"
+              width={180}
+              height={48}
+              className="h-10 md:h-12 w-auto object-contain"
               priority
             />
           </div>
-          <span className="text-lg md:text-xl font-bold text-navy hidden sm:inline">Hotel Sauna Belén</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">
